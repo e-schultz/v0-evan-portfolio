@@ -1,29 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Disable type checking during build to avoid TypeScript errors
-  typescript: {
-    ignoreBuildErrors: true,
-  },
-  // Disable ESLint during build to avoid linting errors
+  // Add any necessary configuration here
   eslint: {
     ignoreDuringBuilds: true,
   },
-  // Configure image domains
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   images: {
     domains: ['hebbkx1anhila5yf.public.blob.vercel-storage.com', 'sjc.microlink.io'],
     unoptimized: true,
   },
-  // Use standalone output
+  // Explicitly set the output to be standalone to avoid issues with sharp
   output: 'standalone',
-  // Disable source maps in production to reduce build size
-  productionBrowserSourceMaps: false,
-  // Increase memory limit for webpack
-  experimental: {
-    // Increase memory limit for webpack
-    memoryLimit: 4096, // 4GB
-  },
-  // Disable React strict mode to avoid double rendering in development
-  reactStrictMode: false,
 }
 
 export default nextConfig

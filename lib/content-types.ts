@@ -1,58 +1,52 @@
-// Content block types
-export type ContentBlockType = "paragraph" | "heading" | "list" | "code" | "image" | "blockquote" | "divider"
+// Shared type definitions for content structures
+// This file can be imported by both client and server components
 
-export type ContentBlock = {
-  type: ContentBlockType
-  content?: string
-  level?: number
-  language?: string
-  items?: Array<{
-    type: "listItem"
-    title?: string
-    content: string
-  }>
-  src?: string
-  alt?: string
-  caption?: string
-}
-
-// Blog post type
-export type BlogPost = {
+export interface BlogPost {
   title: string
   slug: string
   date: string
   author: string
   excerpt: string
   content: ContentBlock[]
+  image: string
   tags: string[]
   category: string
-  image?: string
-  readingTime?: number
 }
 
-// Project type - make all fields optional except title and slug
-export type Project = {
+export interface Project {
   title: string
   slug: string
-  description?: string
-  image?: string
-  tags?: string[]
+  description: string
+  tags: string[]
   github?: string
   link?: string
-  featured?: boolean
-  status?: "active" | "completed" | "archived"
-  date?: string
+  v0Link?: string
+  image?: string
+  featured: boolean
   fullDescription?: ContentBlock[]
-  screenshots?: Array<{
-    image: string
-    alt: string
-    caption?: string
-  }>
-  technologies?: string[]
+  screenshots?: { image: string; alt: string }[]
 }
 
-// Hero content type
-export type HeroContent = {
+// Update the ContentBlock type to include language and filename for code blocks
+export type ContentBlock = {
+  type: "heading" | "paragraph" | "list" | "code" | "blockquote" | "image"
+  level?: number
+  content?: string
+  items?: string[] | ListItem[]
+  language?: string // Add this for code blocks
+  filename?: string // Add this for code blocks
+  alt?: string
+  src?: string
+  caption?: string
+}
+
+export type ListItem = {
+  type: "listItem"
+  title?: string
+  content?: string
+}
+
+export interface HeroContent {
   title: string
   subtitle: string
   description: string
@@ -64,105 +58,46 @@ export type HeroContent = {
     text: string
     url: string
   }
-  socialLinks: Array<{
+  socialLinks: {
     platform: string
     url: string
     label: string
-  }>
-  image?: string
+  }[]
+  image: string
 }
 
-// About content type
-export type AboutContent = {
+export interface AboutContent {
   title: string
   description: string
-  sections: Array<{
+  sections: {
     title: string
     content?: string[]
     items?: string[]
-  }>
+  }[]
   resumeButton: {
     text: string
     url: string
   }
-  experience: Array<{
+  experience: {
     title: string
     company: string
     period: string
-  }>
+  }[]
 }
 
-// Contact content type
-export type ContactContent = {
+export interface ContactFormContent {
   title: string
   description: string
-  email: {
-    title: string
-    address: string
-  }
-  social: {
-    title: string
-    platforms: Array<{
-      name: string
-      url: string
-      icon: string
-    }>
-  }
-  image: {
-    src: string
-    alt: string
-    caption: string
-    description: string
-  }
-  form: ContactFormContent
-}
-
-export type ContactFormContent = {
-  title: string
-  description: string
-  fields: Array<{
+  fields: {
     name: string
     label: string
     type: string
     placeholder: string
     required: boolean
     rows?: number
-  }>
+  }[]
   submitButton: {
     text: string
     icon: string
   }
-}
-
-// Resume content type
-export type ResumeContent = {
-  title: string
-  subtitle?: string
-  description?: string
-  experience: Array<{
-    company: string
-    position: string
-    startDate: string
-    endDate?: string
-    description: string
-    highlights?: string[]
-  }>
-  education: Array<{
-    institution: string
-    degree: string
-    field?: string
-    startDate: string
-    endDate?: string
-    description?: string
-  }>
-  skills: Array<{
-    category: string
-    items: string[]
-  }>
-  certifications?: Array<{
-    name: string
-    issuer: string
-    date: string
-    url?: string
-  }>
 }
