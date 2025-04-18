@@ -6,7 +6,7 @@
   "excerpt": "Learn how to think about React's useEffect hook in a more intuitive way by focusing on dependencies rather than lifecycle methods.",
   "tags": ["React", "Hooks", "useEffect", "JavaScript"],
   "category": "React",
-  "image": "/react-useeffect-lifecycle.png",
+  "image": "/images/react-useeffect-lifecycle.png",
   "content": [
     {
       "type": "paragraph",

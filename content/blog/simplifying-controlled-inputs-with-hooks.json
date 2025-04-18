@@ -6,7 +6,7 @@
   "excerpt": "A guide to creating simpler, more maintainable form handling in React using hooks.",
   "tags": ["React", "Forms", "Hooks"],
   "category": "React",
-  "image": "/react-form-components-concept.png",
+  "image": "/images/blog/react-form-components-concept.png",
   "content": [
     {
       "type": "heading",
