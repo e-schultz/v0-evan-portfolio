@@ -1,0 +1,58 @@
+{
+  "title": "ngCourse2",
+  "slug": "ngcourse2",
+  "description": "A comprehensive Angular training course and reference guide covering fundamentals, advanced concepts, and best practices for modern Angular development.",
+  "tags": ["Angular", "TypeScript", "Training", "Education", "Open Source"],
+  "github": "https://github.com/e-schultz/ngCourse2",
+  "link": "https://ngcourse2.rangle.io/",
+  "image": "/ngcourse2.png",
+  "featured": true,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "ngCourse2 is a comprehensive Angular training course and reference guide that I contributed to while at Rangle.io. It covers everything from Angular fundamentals to advanced concepts and best practices for modern Angular development."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Course Content"
+    },
+    {
+      "type": "paragraph",
+      "content": "The course is structured to provide a complete learning path for developers new to Angular, as well as those looking to deepen their understanding of specific concepts. Topics covered include:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "TypeScript fundamentals and advanced features",
+        "Angular components and directives",
+        "Dependency injection and services",
+        "Reactive programming with RxJS",
+        "State management with Redux and ngrx",
+        "Testing strategies and tools",
+        "Performance optimization",
+        "Server-side rendering",
+        "Progressive Web Apps with Angular"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Teaching Approach"
+    },
+    {
+      "type": "paragraph",
+      "content": "The course uses a hands-on approach with practical examples and exercises that build on each other. Each concept is explained with clear code examples and diagrams to illustrate how different parts of the Angular ecosystem work together."
+    },
+    {
+      "type": "paragraph",
+      "content": "As a contributor to this project, I helped develop course materials, create exercises, and refine explanations based on feedback from training sessions. The course has been used to train hundreds of developers and continues to be a valuable resource for the Angular community."
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "/ngcourse2.png",
+      "alt": "ngCourse2 website showing the course content and navigation"
+    }
+  ]
+}

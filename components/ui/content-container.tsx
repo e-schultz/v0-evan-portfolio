@@ -23,5 +23,5 @@ export function ContentContainer({ children, className, maxWidth = "full" }: Con
     prose: "max-w-prose",
   }
 
-  return <div className={cn("container", maxWidthClasses[maxWidth], className)}>{children}</div>
+  return <div className={cn("container px-4 md:px-6 mx-auto", maxWidthClasses[maxWidth], className)}>{children}</div>
 }

@@ -36,12 +36,12 @@ export default function ResumePage() {
         </div>
       </PageHeader>
 
-      <section className="py-12">
-        <ContentContainer maxWidth="4xl">
+      <section className="py-8 md:py-12">
+        <ContentContainer maxWidth="4xl" className="px-4 md:px-6">
           {/* Header */}
-          <div className="mb-12 pb-8 border-b">
-            <h1 className="text-3xl font-bold mb-4">Evan Schultz</h1>
-            <p className="text-xl text-muted-foreground mb-6">
+          <div className="mb-8 md:mb-12 pb-6 md:pb-8 border-b">
+            <h1 className="text-2xl md:text-3xl font-bold mb-4">Evan Schultz</h1>
+            <p className="text-lg md:text-xl text-muted-foreground mb-6">
               Building high performing teams and the environment that enables them.
             </p>
 
@@ -57,8 +57,8 @@ export default function ResumePage() {
           </div>
 
           {/* Work Experience */}
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold mb-6">Work Experience</h2>
+          <div className="mb-8 md:mb-12">
+            <h2 className="text-xl md:text-2xl font-bold mb-6">Work Experience</h2>
 
             <div className="space-y-8">
               <div className="grid md:grid-cols-[200px_1fr] gap-4">
@@ -67,7 +67,7 @@ export default function ResumePage() {
                   <p className="text-muted-foreground">Rangle.io</p>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">Technical Director, Coach</h3>
+                  <h3 className="text-lg md:text-xl font-bold">Technical Director, Coach</h3>
                   <ul className="mt-2 space-y-2 text-muted-foreground list-disc pl-5">
                     <li>Led technical direction and coaching for development teams</li>
                     <li>Mentored engineers and tech leads on career growth</li>
@@ -82,7 +82,7 @@ export default function ResumePage() {
                   <p className="text-muted-foreground">PartnerStack</p>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">Software Engineering Manager</h3>
+                  <h3 className="text-lg md:text-xl font-bold">Software Engineering Manager</h3>
                   <ul className="mt-2 space-y-2 text-muted-foreground list-disc pl-5">
                     <li>Managed engineering teams and technical projects</li>
                     <li>Implemented development processes and best practices</li>
@@ -97,7 +97,7 @@ export default function ResumePage() {
                   <p className="text-muted-foreground">Bridge School</p>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">Director of Frontend Education</h3>
+                  <h3 className="text-lg md:text-xl font-bold">Director of Frontend Education</h3>
                   <ul className="mt-2 space-y-2 text-muted-foreground list-disc pl-5">
                     <li>Ran operations of the front-end program</li>
                     <li>Created and updated curriculum for future cohorts</li>
@@ -114,7 +114,7 @@ export default function ResumePage() {
                   <p className="text-muted-foreground">Rangle</p>
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">Technical Director</h3>
+                  <h3 className="text-lg md:text-xl font-bold">Technical Director</h3>
                   <p className="mt-2 mb-4">
                     Served in multiple roles including manager, full-stack developer, consultant, and educator.
                   </p>
@@ -147,12 +147,12 @@ export default function ResumePage() {
           </div>
 
           {/* Articles & Presentations */}
-          <div className="mb-12">
-            <h2 className="text-2xl font-bold mb-6">Articles & Presentations</h2>
+          <div className="mb-8 md:mb-12">
+            <h2 className="text-xl md:text-2xl font-bold mb-6">Articles & Presentations</h2>
 
             <div className="space-y-6">
               <div>
-                <h3 className="text-xl font-bold mb-4">Public Speaking / Presentations</h3>
+                <h3 className="text-lg md:text-xl font-bold mb-4">Public Speaking / Presentations</h3>
                 <ul className="space-y-3 text-muted-foreground">
                   <li>
                     <strong>How to create "Vuetiful" Data-Driven User Interface @ JSCamp 2018</strong>
@@ -215,7 +215,7 @@ export default function ResumePage() {
               </div>
 
               <div>
-                <h3 className="text-xl font-bold mb-4">Blog Posts</h3>
+                <h3 className="text-lg md:text-xl font-bold mb-4">Blog Posts</h3>
                 <ul className="space-y-3 text-muted-foreground">
                   <li>
                     <a
@@ -274,13 +274,15 @@ export default function ResumePage() {
 
           {/* Education */}
           <div>
-            <h2 className="text-2xl font-bold mb-6">Education</h2>
+            <h2 className="text-xl md:text-2xl font-bold mb-6">Education</h2>
             <div className="grid md:grid-cols-[200px_1fr] gap-4">
               <div>
                 <p className="font-medium">Ryerson University</p>
               </div>
               <div>
-                <h3 className="text-xl font-bold">Bachelor of Commerce, Information Technology Management</h3>
+                <h3 className="text-lg md:text-xl font-bold">
+                  Bachelor of Commerce, Information Technology Management
+                </h3>
               </div>
             </div>
           </div>

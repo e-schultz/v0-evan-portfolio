@@ -1,0 +1,56 @@
+{
+  "title": "Pulsating Dreamscape",
+  "slug": "pulsating-dreamscape",
+  "description": "An immersive audio-visual experience that generates dynamic, evolving landscapes based on sound input and mathematical algorithms.",
+  "tags": ["Three.js", "Web Audio API", "Generative Art", "Interactive"],
+  "github": "https://github.com/e-schultz/pulsating-dreamscape",
+  "link": "https://pulsating-dreamscape.vercel.app/",
+  "image": "/pulsating-dreamscape.png",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "Pulsating Dreamscape is an immersive audio-visual experience that generates dynamic, evolving landscapes based on sound input and mathematical algorithms. The project creates a synesthetic experience where sound and visuals are intrinsically linked, each influencing and responding to the other."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Technical Implementation"
+    },
+    {
+      "type": "paragraph",
+      "content": "Built with Three.js and Web Audio API, Pulsating Dreamscape analyzes audio input in real-time, extracting frequency data and amplitude information. This data drives the generation and manipulation of 3D geometries, creating a constantly evolving visual landscape that pulses and transforms in response to sound."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Experience Modes"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Microphone Input",
+          "content": "Use your voice or ambient sounds to shape the dreamscape"
+        },
+        {
+          "type": "listItem",
+          "title": "Audio File Playback",
+          "content": "Upload music to create unique visual interpretations"
+        },
+        {
+          "type": "listItem",
+          "title": "Algorithmic Generation",
+          "content": "Let the system generate both audio and visuals based on mathematical patterns"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "/pulsating-dreamscape.png",
+      "alt": "Pulsating Dreamscape showing a vibrant, colorful 3D landscape that responds to audio input"
+    }
+  ]
+}

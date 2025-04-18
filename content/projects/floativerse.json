@@ -1,0 +1,103 @@
+{
+  "title": "Floativerse",
+  "slug": "floativerse",
+  "description": "A conceptual digital universe built around the FLOAT methodology, creating an interconnected ecosystem of tools, spaces, and practices for knowledge management and creative thinking.",
+  "tags": ["Conceptual Framework", "Knowledge Management", "Digital Ecosystem", "Next.js", "React"],
+  "github": "https://github.com/e-schultz/floativerse",
+  "link": "https://floativerse.vercel.app/",
+  "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+  "featured": true,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "Floativerse is a conceptual digital universe built around the FLOAT methodology, creating an interconnected ecosystem of tools, spaces, and practices for knowledge management and creative thinking. It serves as a meta-project that connects and contextualizes various FLOAT-related projects within a coherent philosophical and practical framework."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "The FLOAT Ecosystem"
+    },
+    {
+      "type": "paragraph",
+      "content": "Floativerse integrates multiple projects and concepts into a unified ecosystem:"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Floating Epistemic Nexus",
+          "content": "The knowledge graph visualization component"
+        },
+        {
+          "type": "listItem",
+          "title": "Floating Digital Grimoire",
+          "content": "The repository for collected knowledge and practices"
+        },
+        {
+          "type": "listItem",
+          "title": "FLOAT PKM Setup",
+          "content": "The practical implementation of FLOAT for personal knowledge management"
+        },
+        {
+          "type": "listItem",
+          "title": "Floatline Garden",
+          "content": "The space for growing and nurturing ideas"
+        },
+        {
+          "type": "listItem",
+          "title": "FLOAT Concept Explorer",
+          "content": "The tool for understanding FLOAT's philosophical foundations"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Conceptual Architecture"
+    },
+    {
+      "type": "paragraph",
+      "content": "Floativerse is structured around several key conceptual dimensions:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Ontological Layer - Defining the nature of knowledge and thought",
+        "Epistemological Layer - Exploring how we know what we know",
+        "Methodological Layer - Providing practical approaches to knowledge work",
+        "Technological Layer - Implementing digital tools that embody FLOAT principles",
+        "Social Layer - Creating spaces for collaborative knowledge building"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Navigation and Exploration"
+    },
+    {
+      "type": "paragraph",
+      "content": "Floativerse provides multiple ways to navigate and explore the FLOAT ecosystem:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Conceptual Map - A visual representation of the FLOAT universe",
+        "Project Directory - A catalog of all FLOAT-related projects",
+        "Philosophical Guide - An introduction to FLOAT's core concepts",
+        "Practical Handbook - Step-by-step guides for implementing FLOAT",
+        "Exploration Paths - Curated journeys through the Floativerse based on interests and goals"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "Floativerse serves as both a meta-project that contextualizes individual FLOAT projects and a practical entry point for those interested in exploring and implementing FLOAT methodologies in their own knowledge work and creative practice."
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+      "alt": "Floativerse interface showing the conceptual map of the FLOAT ecosystem with interconnected projects and concepts"
+    }
+  ]
+}

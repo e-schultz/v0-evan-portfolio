@@ -1,0 +1,27 @@
+{
+  "id": "zettr-net",
+  "title": "ZETTR_NET - Personal Knowledge Network",
+  "slug": "zettr-net",
+  "description": "A personal knowledge network application that helps users organize and connect their thoughts and ideas.",
+  "image": "/placeholder.svg?height=600&width=800&query=Personal Knowledge Network visualization",
+  "featured": true,
+  "status": "completed",
+  "date": "2023-09-01",
+  "links": [
+    {
+      "title": "Project Page",
+      "url": "https://lovable.dev/projects/f1878ac0-3908-4cd6-b59e-0eb0ff34b4d8"
+    },
+    {
+      "title": "Live Demo",
+      "url": "https://retro-zoetrope-tweeter.lovable.app/"
+    },
+    {
+      "title": "GitHub",
+      "url": "https://github.com/e-schultz/retro-zoetrope-tweeter"
+    }
+  ],
+  "tags": ["knowledge management", "personal network", "web application"],
+  "content": "A personal knowledge network application that helps users organize and connect their thoughts and ideas. More detailed content to be added later.",
+  "technologies": ["React", "Next.js", "TypeScript"]
+}

@@ -1,0 +1,66 @@
+{
+  "title": "Floatline Garden",
+  "slug": "floatline-garden",
+  "description": "A digital garden interface for cultivating and connecting thoughts, ideas, and knowledge fragments in a non-linear, organic way.",
+  "tags": ["Next.js", "Digital Garden", "Knowledge Management", "v0", "React"],
+  "github": "https://github.com/e-schultz/v0-untitled-floatline-garden",
+  "link": "https://v0-untitled-floatline-garden.vercel.app/",
+  "v0Link": "https://v0.dev/chat/projects/IEUcXXXXXXX",
+  "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "Floatline Garden is a digital garden interface for cultivating and connecting thoughts, ideas, and knowledge fragments in a non-linear, organic way. It provides a space where ideas can grow, connect, and evolve naturally, mimicking the organic growth patterns of a real garden."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Digital Gardening Concept"
+    },
+    {
+      "type": "paragraph",
+      "content": "Unlike traditional note-taking or knowledge management systems that emphasize hierarchy and organization, digital gardens embrace messiness, evolution, and interconnection. Floatline Garden implements this philosophy with a focus on:"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Seedlings",
+          "content": "Capture raw thoughts and ideas without worrying about structure"
+        },
+        {
+          "type": "listItem",
+          "title": "Growth",
+          "content": "Revisit and expand ideas over time as your understanding develops"
+        },
+        {
+          "type": "listItem",
+          "title": "Cross-Pollination",
+          "content": "Create connections between seemingly unrelated concepts"
+        },
+        {
+          "type": "listItem",
+          "title": "Seasons",
+          "content": "Track how your thinking evolves over time with temporal markers"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "FLOAT Integration"
+    },
+    {
+      "type": "paragraph",
+      "content": "Floatline Garden incorporates principles from the FLOAT (Floating Linked Ontological Associative Thinking) methodology, creating a hybrid system that balances structure and chaos, organization and exploration."
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+      "alt": "Floatline Garden interface showing the digital garden with interconnected notes and ideas"
+    }
+  ]
+}

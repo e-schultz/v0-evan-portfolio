@@ -1,0 +1,74 @@
+{
+  "title": "Memory Mosaic Weaver",
+  "slug": "memory-mosaic-weaver",
+  "description": "An interactive tool for creating visual mosaics from personal memories, allowing users to weave together images, text, and audio into cohesive memory landscapes.",
+  "tags": ["React", "Canvas API", "Memory Visualization", "Interactive Art"],
+  "github": "https://github.com/e-schultz/memory-mosaic-weaver",
+  "link": "https://memory-mosaic-weaver.vercel.app/",
+  "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "Memory Mosaic Weaver is an interactive tool for creating visual mosaics from personal memories, allowing users to weave together images, text, and audio into cohesive memory landscapes. The project explores how we construct and visualize our memories, and how different media types can combine to create richer representations of our experiences."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Memory as Mosaic"
+    },
+    {
+      "type": "paragraph",
+      "content": "The project is built around the concept that memories are not singular, linear narratives but rather complex mosaics of sensory impressions, emotions, and associations. Memory Mosaic Weaver provides tools to externalize this internal complexity, creating visual representations that more accurately reflect how we experience and recall memories."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Creation Process"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Memory Collection",
+          "content": "Upload images, record audio snippets, and write text fragments related to a memory"
+        },
+        {
+          "type": "listItem",
+          "title": "Spatial Arrangement",
+          "content": "Position elements on a canvas to reflect their relationships and importance"
+        },
+        {
+          "type": "listItem",
+          "title": "Connection Weaving",
+          "content": "Create visual connections between elements to show associations"
+        },
+        {
+          "type": "listItem",
+          "title": "Emotional Mapping",
+          "content": "Add color, texture, and other visual elements to represent emotional aspects"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Technical Implementation"
+    },
+    {
+      "type": "paragraph",
+      "content": "The application uses React for the interface and the Canvas API for rendering the memory mosaics. It incorporates drag-and-drop functionality for intuitive arrangement, WebAudio for sound processing, and custom algorithms for generating visual connections between elements."
+    },
+    {
+      "type": "paragraph",
+      "content": "Memory Mosaic Weaver sits at the intersection of personal archiving, digital art, and memory studies, offering a new way to externalize and share our internal experiences."
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+      "alt": "Memory Mosaic Weaver interface showing a visual memory mosaic with connected images, text, and audio elements"
+    }
+  ]
+}

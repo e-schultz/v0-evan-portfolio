@@ -1,0 +1,87 @@
+{
+  "title": "ZettleTweet Connector",
+  "slug": "zettletweet-connector",
+  "description": "A bridge application that connects your Zettelkasten note system with Twitter, allowing for seamless publishing of atomic notes as tweets and thread creation from connected notes.",
+  "tags": ["Integration", "Knowledge Management", "Social Media", "API", "Automation"],
+  "github": "https://github.com/e-schultz/zettletweet-connector",
+  "link": "https://zettletweet-connector.vercel.app/",
+  "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "ZettleTweet Connector is a bridge application that connects your Zettelkasten note system with Twitter, allowing for seamless publishing of atomic notes as tweets and thread creation from connected notes. It creates a two-way flow between your personal knowledge management system and your public social media presence."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Integration Capabilities"
+    },
+    {
+      "type": "paragraph",
+      "content": "The connector supports multiple Zettelkasten systems and provides flexible options for Twitter integration:"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Note to Tweet",
+          "content": "Publish individual notes as standalone tweets"
+        },
+        {
+          "type": "listItem",
+          "title": "Connected Notes to Thread",
+          "content": "Transform a series of connected notes into a Twitter thread"
+        },
+        {
+          "type": "listItem",
+          "title": "Tweet to Note",
+          "content": "Import your tweets or saved tweets from others into your Zettelkasten"
+        },
+        {
+          "type": "listItem",
+          "title": "Thread to Connected Notes",
+          "content": "Import Twitter threads as a series of connected notes"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Workflow Automation"
+    },
+    {
+      "type": "paragraph",
+      "content": "ZettleTweet Connector includes automation features to streamline your workflow:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Scheduled publishing of notes as tweets",
+        "Automatic thread creation from notes with specific tags",
+        "Notification when tweets relevant to your notes are posted",
+        "Periodic import of your Twitter activity into your Zettelkasten"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Privacy and Control"
+    },
+    {
+      "type": "paragraph",
+      "content": "The connector is designed with privacy in mind, giving you complete control over what gets shared and how. Notes are never automatically published without explicit approval, and you can set up rules for what types of notes should never be considered for public sharing."
+    },
+    {
+      "type": "paragraph",
+      "content": "ZettleTweet Connector bridges the gap between private knowledge work and public discourse, allowing your ideas to flow seamlessly between these contexts while maintaining appropriate boundaries."
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+      "alt": "ZettleTweet Connector interface showing the connection between Zettelkasten notes and Twitter publishing options"
+    }
+  ]
+}

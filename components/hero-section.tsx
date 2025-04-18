@@ -1,13 +1,14 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, Github, Linkedin, Twitter } from "lucide-react"
-import { getGenericContent } from "@/lib/content-api"
 import type { HeroContent } from "@/lib/content-types"
 import Image from "next/image"
 
-export async function HeroSection() {
-  const heroContent = (await getGenericContent("home/hero")) as HeroContent
+interface HeroSectionProps {
+  heroContent: HeroContent
+}
 
+export function HeroSection({ heroContent }: HeroSectionProps) {
   if (!heroContent) {
     return <div>Loading hero content...</div>
   }
@@ -27,20 +28,22 @@ export async function HeroSection() {
   }
 
   return (
-    <section className="relative overflow-hidden py-20 md:py-32 bg-gradient-to-b from-background to-muted/50">
-      <div className="container relative z-10">
+    <section className="relative overflow-hidden py-16 md:py-24 lg:py-32 bg-gradient-to-b from-background to-muted/50">
+      <div className="container px-4 md:px-6 relative z-10">
         <div className="grid gap-8 md:grid-cols-2 items-center">
           <div className="space-y-6">
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter">{heroContent.title}</h1>
-            <p className="text-xl md:text-2xl text-muted-foreground">{heroContent.subtitle}</p>
-            <p className="text-lg text-muted-foreground max-w-md">{heroContent.description}</p>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter">
+              {heroContent.title}
+            </h1>
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground">{heroContent.subtitle}</p>
+            <p className="text-base md:text-lg text-muted-foreground max-w-md">{heroContent.description}</p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg">
+              <Button asChild size="lg" className="w-full sm:w-auto">
                 <Link href={heroContent.primaryButton.url}>
                   {heroContent.primaryButton.text} <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg">
+              <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
                 <Link href={heroContent.secondaryButton.url}>{heroContent.secondaryButton.text}</Link>
               </Button>
             </div>
@@ -59,7 +62,7 @@ export async function HeroSection() {
               ))}
             </div>
           </div>
-          <div className="relative h-[350px] md:h-[450px] rounded-lg overflow-hidden">
+          <div className="relative h-[250px] sm:h-[300px] md:h-[350px] lg:h-[450px] rounded-lg overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-background/50 mix-blend-multiply z-10"></div>
             {heroContent.image ? (
               <Image

@@ -1,0 +1,66 @@
+{
+  "title": "Ghostline Viewer",
+  "slug": "ghostline-viewer",
+  "description": "A specialized interface for viewing and interacting with 'ghost lines'—digital traces of handwritten notes and thoughts that persist in the digital realm.",
+  "tags": ["Next.js", "Digital Humanities", "Note Visualization", "v0", "React"],
+  "github": "https://github.com/e-schultz/v0-ghostline-viewer",
+  "link": "https://v0-ghostline-viewer.vercel.app/",
+  "v0Link": "https://v0.dev/chat/projects/IEUcXXXXXXX",
+  "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "Ghostline Viewer is a specialized interface for viewing and interacting with 'ghost lines'—digital traces of handwritten notes and thoughts that persist in the digital realm. The project creates a bridge between analog note-taking practices and digital knowledge management."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Concept"
+    },
+    {
+      "type": "paragraph",
+      "content": "Ghost lines represent the ephemeral nature of thoughts and ideas—how they can fade but still leave impressions. This viewer allows users to explore these digital remnants in a terminal-like interface that preserves their raw, unfiltered quality while making them searchable and interconnectable."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Key Features"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Terminal Interface",
+          "content": "A retro-futuristic command line experience for navigating ghost lines"
+        },
+        {
+          "type": "listItem",
+          "title": "Split View",
+          "content": "See both the original handwritten notes and their digital transcriptions"
+        },
+        {
+          "type": "listItem",
+          "title": "Temporal Navigation",
+          "content": "Browse ghost lines chronologically or thematically"
+        },
+        {
+          "type": "listItem",
+          "title": "Connection Mapping",
+          "content": "Visualize relationships between different ghost lines and concepts"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "Ghostline Viewer is part of a larger exploration into how we capture, preserve, and interact with our thoughts across analog and digital mediums. It questions the boundaries between these realms and suggests new ways of thinking about persistence and impermanence in our digital age."
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+      "alt": "Ghostline Viewer interface showing the terminal-like experience with ghost lines and their connections"
+    }
+  ]
+}

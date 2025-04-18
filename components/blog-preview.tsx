@@ -3,23 +3,25 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ArrowRight, Calendar } from "lucide-react"
-import { getLatestBlogPosts } from "@/lib/content-api"
+import type { BlogPost } from "@/lib/content-types"
 
-export async function BlogPreview() {
-  const posts = await getLatestBlogPosts(3)
+interface BlogPreviewProps {
+  posts: BlogPost[]
+}
 
+export function BlogPreview({ posts }: BlogPreviewProps) {
   return (
     <section className="py-16 md:py-24 bg-background" id="blog">
-      <div className="container">
+      <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Latest Articles</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-4">Latest Articles</h2>
           <div className="w-20 h-1 bg-primary mb-8"></div>
-          <p className="text-lg text-muted-foreground max-w-3xl">
+          <p className="text-base md:text-lg text-muted-foreground max-w-3xl">
             Thoughts, tutorials, and insights on web development, team leadership, and technology.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {posts.map((post, index) => (
             <Card key={index} className="flex flex-col h-full">
               <div className="h-48 overflow-hidden">
@@ -39,11 +41,12 @@ export async function BlogPreview() {
               </CardHeader>
               <CardContent className="flex-grow">
                 <div className="flex flex-wrap gap-2">
-                  {post.tags.map((tag, tagIndex) => (
+                  {post.tags.slice(0, 3).map((tag, tagIndex) => (
                     <Badge key={tagIndex} variant="secondary">
                       {tag}
                     </Badge>
                   ))}
+                  {post.tags.length > 3 && <Badge variant="outline">+{post.tags.length - 3}</Badge>}
                 </div>
               </CardContent>
               <CardFooter>

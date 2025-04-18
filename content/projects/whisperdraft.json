@@ -1,0 +1,57 @@
+{
+  "title": "WhisperDraft",
+  "slug": "whisperdraft",
+  "description": "A minimalist writing environment that combines voice-to-text capabilities with a distraction-free interface for capturing and refining ideas.",
+  "tags": ["Next.js", "Voice Recognition", "Writing Tool", "v0", "AI"],
+  "github": "https://github.com/e-schultz/v0-whisperdraft",
+  "link": "https://v0-whisperdraft.vercel.app/",
+  "v0Link": "https://v0.dev/chat/projects/IEUcXXXXXXX",
+  "image": "/v0-whisperdraft.png",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "WhisperDraft is a minimalist writing environment designed to capture your thoughts through voice or text. It combines the power of voice-to-text technology with a distraction-free interface to help you focus on your ideas rather than the mechanics of writing."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Key Features"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Voice-to-Text",
+          "content": "Capture your thoughts naturally by speaking, with real-time transcription"
+        },
+        {
+          "type": "listItem",
+          "title": "Distraction-Free Interface",
+          "content": "Clean, minimal design that keeps you focused on your writing"
+        },
+        {
+          "type": "listItem",
+          "title": "Markdown Support",
+          "content": "Format your text with simple markdown syntax"
+        },
+        {
+          "type": "listItem",
+          "title": "Dark Mode",
+          "content": "Easy on the eyes for extended writing sessions"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "WhisperDraft is perfect for writers, researchers, and anyone who needs to quickly capture and refine ideas. The combination of voice input and text editing creates a seamless workflow that adapts to your thinking process."
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "/v0-whisperdraft.png",
+      "alt": "WhisperDraft interface showing the minimal writing environment with voice-to-text capabilities"
+    }
+  ]
+}

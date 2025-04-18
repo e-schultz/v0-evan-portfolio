@@ -1,0 +1,27 @@
+{
+  "id": "float-concept-explorer",
+  "title": "FLOAT Concept Explorer",
+  "slug": "float-concept-explorer",
+  "description": "An interactive tool for exploring and visualizing concepts and their relationships.",
+  "image": "/placeholder.svg?height=600&width=800&query=Concept mapping visualization tool",
+  "featured": true,
+  "status": "active",
+  "date": "2024-01-15",
+  "links": [
+    {
+      "title": "Live Demo",
+      "url": "https://v0-concept-explorer-flows.vercel.app/"
+    },
+    {
+      "title": "GitHub",
+      "url": "https://github.com/e-schultz/v0-float-concept-explorer"
+    },
+    {
+      "title": "v0 Chat",
+      "url": "https://v0.dev/chat/concept-explorer-flows-l7GoMGt4ZZb"
+    }
+  ],
+  "tags": ["concept mapping", "visualization", "knowledge management"],
+  "content": "An interactive tool for exploring and visualizing concepts and their relationships. More detailed content to be added later.",
+  "technologies": ["React", "Next.js", "TypeScript", "v0"]
+}

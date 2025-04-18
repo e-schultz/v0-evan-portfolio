@@ -1,0 +1,74 @@
+{
+  "title": "Sigil Synthesis Magic",
+  "slug": "sigil-synthesis-magic",
+  "description": "A digital tool for creating and exploring sigils—symbolic representations of intent—through algorithmic generation and interactive design.",
+  "tags": ["Canvas API", "Generative Art", "Symbolism", "Interactive Design"],
+  "github": "https://github.com/e-schultz/sigil-synthesis-magic",
+  "link": "https://sigil-synthesis-magic.vercel.app/",
+  "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "Sigil Synthesis Magic is a digital tool for creating and exploring sigils—symbolic representations of intent—through algorithmic generation and interactive design. It combines traditional sigil-making practices with modern computational techniques to create a unique creative experience."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Sigil Creation Process"
+    },
+    {
+      "type": "paragraph",
+      "content": "The application guides users through a multi-step process of sigil creation:"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Intent Formulation",
+          "content": "Define your desire or intention in clear, positive language"
+        },
+        {
+          "type": "listItem",
+          "title": "Character Reduction",
+          "content": "Algorithmic reduction of the intent to its essential characters"
+        },
+        {
+          "type": "listItem",
+          "title": "Geometric Synthesis",
+          "content": "Transformation of characters into connected geometric forms"
+        },
+        {
+          "type": "listItem",
+          "title": "Aesthetic Refinement",
+          "content": "Customization of the sigil's appearance and energy"
+        },
+        {
+          "type": "listItem",
+          "title": "Charging",
+          "content": "Interactive methods for imbuing the sigil with focused intent"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Technical Implementation"
+    },
+    {
+      "type": "paragraph",
+      "content": "The project uses the Canvas API for rendering sigils, with custom algorithms that translate text into geometric patterns while maintaining mathematical harmony. The interface is designed to be intuitive yet powerful, allowing both beginners and experienced practitioners to create meaningful sigils."
+    },
+    {
+      "type": "paragraph",
+      "content": "Sigil Synthesis Magic explores the intersection of ancient symbolic practices and modern digital tools, creating a space where technology becomes a medium for personal transformation and creative expression."
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+      "alt": "Sigil Synthesis Magic interface showing a generated sigil with geometric patterns"
+    }
+  ]
+}

@@ -21,11 +21,11 @@ export default async function AboutPage() {
       <PageHeader title={aboutContent.title} description={aboutContent.subtitle} />
 
       {/* Hero Section with Image */}
-      <section className="py-16 bg-gradient-to-b from-muted/50 to-background">
-        <ContentContainer>
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+      <section className="py-12 md:py-16 bg-gradient-to-b from-muted/50 to-background">
+        <ContentContainer className="px-4 md:px-6">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             <div className="space-y-6">
-              <h2 className="text-3xl font-bold">{aboutContent.description}</h2>
+              <h2 className="text-2xl md:text-3xl font-bold">{aboutContent.description}</h2>
               {aboutContent.introduction.map((paragraph, index) => (
                 <p key={index} className="text-muted-foreground">
                   {paragraph}
@@ -47,10 +47,10 @@ export default async function AboutPage() {
       </section>
 
       {/* Philosophy Section */}
-      <section className="py-16 bg-muted/30">
-        <ContentContainer maxWidth="3xl">
+      <section className="py-12 md:py-16 bg-muted/30">
+        <ContentContainer maxWidth="3xl" className="px-4 md:px-6">
           <div className="text-center space-y-6">
-            <h2 className="text-3xl font-bold">{aboutContent.philosophy.title}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold">{aboutContent.philosophy.title}</h2>
             {aboutContent.philosophy.content.map((paragraph, index) => (
               <p key={index} className="text-muted-foreground">
                 {paragraph}
@@ -61,21 +61,21 @@ export default async function AboutPage() {
       </section>
 
       {/* Professional Journey */}
-      <section className="py-16">
-        <ContentContainer maxWidth="4xl">
+      <section className="py-12 md:py-16">
+        <ContentContainer maxWidth="4xl" className="px-4 md:px-6">
           <SectionHeader title={aboutContent.journey.title} centered />
-          <div className="space-y-12">
+          <div className="space-y-8 md:space-y-12">
             {aboutContent.journey.milestones.map((milestone, index) => (
-              <div key={index} className="relative pl-10 border-l border-primary/20">
+              <div key={index} className="relative pl-8 md:pl-10 border-l border-primary/20">
                 <div className="absolute left-0 top-0 -translate-x-1/2 bg-primary/10 p-2 rounded-full">
-                  <Briefcase className="h-5 w-5 text-primary" />
+                  <Briefcase className="h-4 w-4 md:h-5 md:w-5 text-primary" />
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center text-sm text-muted-foreground">
                     <Calendar className="mr-2 h-4 w-4" />
                     {milestone.period}
                   </div>
-                  <h3 className="text-xl font-bold">{milestone.role}</h3>
+                  <h3 className="text-lg md:text-xl font-bold">{milestone.role}</h3>
                   <p className="font-medium text-primary">{milestone.company}</p>
                   <p className="text-muted-foreground">{milestone.description}</p>
                 </div>
@@ -86,14 +86,14 @@ export default async function AboutPage() {
       </section>
 
       {/* Skills Section */}
-      <section className="py-16 bg-muted/30">
-        <ContentContainer>
+      <section className="py-12 md:py-16 bg-muted/30">
+        <ContentContainer className="px-4 md:px-6">
           <SectionHeader title={aboutContent.skills.title} centered />
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {aboutContent.skills.categories.map((category, index) => (
               <Card key={index} className="overflow-hidden border-primary/10">
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold mb-4">{category.name}</h3>
+                <CardContent className="p-4 md:p-6">
+                  <h3 className="text-lg md:text-xl font-bold mb-4">{category.name}</h3>
                   <div className="flex flex-wrap gap-2">
                     {category.items.map((skill, skillIndex) => (
                       <Badge key={skillIndex} variant="secondary">
@@ -109,17 +109,17 @@ export default async function AboutPage() {
       </section>
 
       {/* Education Section */}
-      <section className="py-16">
-        <ContentContainer maxWidth="3xl">
+      <section className="py-12 md:py-16">
+        <ContentContainer maxWidth="3xl" className="px-4 md:px-6">
           <SectionHeader title={aboutContent.education.title} centered />
-          <div className="space-y-8">
+          <div className="space-y-6 md:space-y-8">
             {aboutContent.education.degrees.map((degree, index) => (
               <div key={index} className="flex items-start space-x-4">
                 <div className="bg-primary/10 p-2 rounded-full">
                   <GraduationCap className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">
+                  <h3 className="text-lg md:text-xl font-bold">
                     {degree.degree} in {degree.field}
                   </h3>
                   <p className="text-muted-foreground">
@@ -134,7 +134,7 @@ export default async function AboutPage() {
                   <User className="h-5 w-5 text-primary" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold">{cert.name}</h3>
+                  <h3 className="text-lg md:text-xl font-bold">{cert.name}</h3>
                   <p className="text-muted-foreground">
                     {cert.issuer}, {cert.year}
                   </p>
@@ -146,11 +146,11 @@ export default async function AboutPage() {
       </section>
 
       {/* Speaking & Writing */}
-      <section className="py-16 bg-muted/30">
-        <ContentContainer maxWidth="3xl">
+      <section className="py-12 md:py-16 bg-muted/30">
+        <ContentContainer maxWidth="3xl" className="px-4 md:px-6">
           <SectionHeader title={aboutContent.speaking.title} centered />
-          <p className="text-muted-foreground text-center mb-10">{aboutContent.speaking.content}</p>
-          <div className="space-y-6">
+          <p className="text-muted-foreground text-center mb-8 md:mb-10">{aboutContent.speaking.content}</p>
+          <div className="space-y-4 md:space-y-6">
             {aboutContent.speaking.highlights.map((highlight, index) => (
               <div key={index} className="flex items-start space-x-4 p-4 rounded-lg bg-background border">
                 <div className="bg-primary/10 p-2 rounded-full">
@@ -159,7 +159,7 @@ export default async function AboutPage() {
                 <div>
                   <h3 className="font-bold">{highlight.title}</h3>
                   <p className="text-sm text-muted-foreground mb-2">{highlight.event}</p>
-                  <div className="flex space-x-3">
+                  <div className="flex flex-wrap gap-3">
                     {highlight.links.map((link, linkIndex) => (
                       <a
                         key={linkIndex}
@@ -180,24 +180,24 @@ export default async function AboutPage() {
       </section>
 
       {/* Personal Section */}
-      <section className="py-16">
-        <ContentContainer maxWidth="3xl">
+      <section className="py-12 md:py-16">
+        <ContentContainer maxWidth="3xl" className="px-4 md:px-6">
           <div className="text-center space-y-6">
-            <h2 className="text-3xl font-bold">{aboutContent.personal.title}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold">{aboutContent.personal.title}</h2>
             <p className="text-muted-foreground">{aboutContent.personal.content}</p>
           </div>
         </ContentContainer>
       </section>
 
       {/* CTA Section */}
-      <section className="py-16 bg-muted">
-        <ContentContainer maxWidth="3xl">
+      <section className="py-12 md:py-16 bg-muted">
+        <ContentContainer maxWidth="3xl" className="px-4 md:px-6">
           <div className="text-center space-y-6">
-            <h2 className="text-3xl font-bold">{aboutContent.cta.title}</h2>
+            <h2 className="text-2xl md:text-3xl font-bold">{aboutContent.cta.title}</h2>
             <p className="text-muted-foreground">{aboutContent.cta.content}</p>
-            <div className="flex flex-wrap justify-center gap-4 pt-4">
+            <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
               {aboutContent.cta.buttons.map((button, index) => (
-                <Button key={index} variant={button.variant as any} asChild>
+                <Button key={index} variant={button.variant as any} asChild className="w-full sm:w-auto">
                   <Link href={button.url}>
                     {button.text} <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>

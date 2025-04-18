@@ -48,29 +48,6 @@ export function ContactForm({ formContent }: ContactFormProps) {
     setFormState((prev) => ({ ...prev, [name]: value }))
   }
 
-  async function handleSubmit(formData: FormData) {
-    setSubmitSuccess(false)
-    setSubmitError("")
-
-    try {
-      const result = await submitContactFormAction(formData)
-
-      if (result.success) {
-        setSubmitSuccess(true)
-        setFormState({
-          name: "",
-          email: "",
-          subject: "",
-          message: "",
-        })
-      } else {
-        setSubmitError(result.message || "There was an error submitting your message. Please try again.")
-      }
-    } catch (error) {
-      setSubmitError("There was an error submitting your message. Please try again.")
-    }
-  }
-
   // Default content if none is provided
   const content = formContent || {
     title: "Send Me a Message",
@@ -115,7 +92,7 @@ export function ContactForm({ formContent }: ContactFormProps) {
   return (
     <Card className="border-primary/10">
       <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl">{content.title}</CardTitle>
+        <CardTitle className="text-xl md:text-2xl">{content.title}</CardTitle>
         <CardDescription>{content.description}</CardDescription>
       </CardHeader>
       <CardContent>
@@ -131,8 +108,31 @@ export function ContactForm({ formContent }: ContactFormProps) {
           </div>
         ) : null}
 
-        <form action={handleSubmit} className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <form
+          action={async (formData) => {
+            try {
+              const result = await submitContactFormAction(formData)
+              if (result.success) {
+                setSubmitSuccess(true)
+                setSubmitError("")
+                setFormState({
+                  name: "",
+                  email: "",
+                  subject: "",
+                  message: "",
+                })
+              } else {
+                setSubmitSuccess(false)
+                setSubmitError(result.message || "There was an error submitting your message. Please try again.")
+              }
+            } catch (error) {
+              setSubmitSuccess(false)
+              setSubmitError("There was an error submitting your message. Please try again.")
+            }
+          }}
+          className="space-y-4 md:space-y-6"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {content.fields.slice(0, 2).map((field) => (
               <div key={field.name} className="space-y-2">
                 <Label htmlFor={field.name}>{field.label}</Label>

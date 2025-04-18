@@ -1,11 +1,13 @@
+"use client"
+
 import Link from "next/link"
 import { Github, Linkedin, Twitter } from "lucide-react"
 
 export function SiteFooter() {
   return (
     <footer className="border-t bg-background">
-      <div className="container py-8 md:py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      <div className="container py-8 md:py-12 px-4 md:px-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           <div>
             <h3 className="text-lg font-semibold mb-4">Evan Schultz</h3>
             <p className="text-muted-foreground">

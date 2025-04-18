@@ -34,21 +34,3 @@ export async function submitContactFormAction(formData: FormData) {
     message: "Thank you for your message! I'll get back to you as soon as possible.",
   }
 }
-
-// Search posts action for client-side search
-export async function searchPostsAction(query: string) {
-  "use server"
-
-  if (!query.trim()) {
-    return []
-  }
-
-  try {
-    // Import directly from content-api to avoid circular dependencies
-    const { searchPosts } = await import("./content-api")
-    return await searchPosts(query)
-  } catch (error) {
-    console.error("Error searching posts:", error)
-    return []
-  }
-}

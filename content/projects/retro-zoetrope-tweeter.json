@@ -1,0 +1,79 @@
+{
+  "title": "Retro Zoetrope Tweeter",
+  "slug": "retro-zoetrope-tweeter",
+  "description": "A digital reimagining of the zoetrope animation device for creating and sharing tweet-sized animated stories with a nostalgic, retro aesthetic.",
+  "tags": ["Animation", "Social Media", "Retro Design", "JavaScript", "Canvas API"],
+  "github": "https://github.com/e-schultz/retro-zoetrope-tweeter",
+  "link": "https://retro-zoetrope-tweeter.vercel.app/",
+  "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "Retro Zoetrope Tweeter is a digital reimagining of the zoetrope animation device for creating and sharing tweet-sized animated stories with a nostalgic, retro aesthetic. It combines the charm of pre-cinema animation techniques with modern social sharing capabilities."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "The Zoetrope Concept"
+    },
+    {
+      "type": "paragraph",
+      "content": "The original zoetrope was a 19th-century animation device that created the illusion of motion by displaying a sequence of images inside a spinning cylinder with slits. This digital version preserves the aesthetic and conceptual elements of the zoetrope while adapting it for the digital age and social media context."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Creation Process"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Frame Creation",
+          "content": "Draw or upload a sequence of images to form the animation frames"
+        },
+        {
+          "type": "listItem",
+          "title": "Zoetrope Simulation",
+          "content": "View your animation in a virtual zoetrope with adjustable speed"
+        },
+        {
+          "type": "listItem",
+          "title": "Text Integration",
+          "content": "Add tweet-sized text that complements or narrates the animation"
+        },
+        {
+          "type": "listItem",
+          "title": "Retro Filtering",
+          "content": "Apply vintage effects like film grain, color shifts, or vignetting"
+        },
+        {
+          "type": "listItem",
+          "title": "Social Sharing",
+          "content": "Export and share your creation on social media platforms"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Technical Implementation"
+    },
+    {
+      "type": "paragraph",
+      "content": "The application uses the Canvas API for rendering animations, with custom algorithms to simulate the zoetrope effect. It incorporates image processing for retro filters and optimized GIF generation for social sharing."
+    },
+    {
+      "type": "paragraph",
+      "content": "Retro Zoetrope Tweeter explores how historical media forms can be reimagined for contemporary digital contexts, creating a unique intersection of animation history, social media, and digital creativity."
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+      "alt": "Retro Zoetrope Tweeter interface showing the virtual zoetrope with animation frames and text input"
+    }
+  ]
+}

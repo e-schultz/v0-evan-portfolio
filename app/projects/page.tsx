@@ -22,31 +22,38 @@ export default async function ProjectsPage() {
       />
 
       {/* Featured Projects */}
-      <section className="py-16">
+      <section className="py-12 md:py-16">
         <ContentContainer>
           <SectionHeader title="Featured Projects" />
-          <ProjectGrid projects={featuredProjects} columns={3} featured={true} />
+          <ProjectGrid projects={featuredProjects} columns={1} featured={true} className="sm:hidden" />
+          <ProjectGrid
+            projects={featuredProjects}
+            columns={2}
+            featured={true}
+            className="hidden sm:grid md:grid-cols-2 lg:grid-cols-3"
+          />
         </ContentContainer>
       </section>
 
       {/* Other Projects */}
-      <section className="py-16 bg-muted/30">
+      <section className="py-12 md:py-16 bg-muted/30">
         <ContentContainer>
           <SectionHeader title="More Projects" />
-          <ProjectGrid projects={otherProjects} columns={3} />
+          <ProjectGrid projects={otherProjects} columns={1} className="sm:hidden" />
+          <ProjectGrid projects={otherProjects} columns={2} className="hidden sm:grid md:grid-cols-2 lg:grid-cols-3" />
         </ContentContainer>
       </section>
 
       {/* Open Source Contributions */}
-      <section className="py-16">
+      <section className="py-12 md:py-16">
         <ContentContainer>
-          <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-6">Open Source Contributions</h2>
-            <p className="text-lg text-muted-foreground mb-8">
+          <div className="max-w-3xl mx-auto text-center px-4">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4 md:mb-6">Open Source Contributions</h2>
+            <p className="text-base md:text-lg text-muted-foreground mb-6 md:mb-8">
               I'm passionate about contributing to open source projects and giving back to the developer community.
               Check out my GitHub profile to see more of my work.
             </p>
-            <Button asChild size="lg">
+            <Button asChild size="lg" className="w-full sm:w-auto">
               <Link href="https://github.com/e-schultz" target="_blank" rel="noopener noreferrer">
                 View GitHub Profile <ArrowRight className="ml-2 h-4 w-4" />
               </Link>

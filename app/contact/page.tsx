@@ -67,10 +67,10 @@ export default async function ContactPage() {
       <MainLayout>
         <PageHeader title={title} description={description} />
 
-        <section className="py-16">
-          <ContentContainer>
-            <div className="grid md:grid-cols-2 gap-12 items-start">
-              <div className="space-y-8">
+        <section className="py-12 md:py-16">
+          <ContentContainer className="px-4 md:px-6">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
+              <div className="space-y-8 order-2 md:order-1">
                 <div className="flex items-start space-x-4">
                   <div className="bg-primary/10 p-3 rounded-full">
                     <Mail className="h-6 w-6 text-primary" />
@@ -116,7 +116,7 @@ export default async function ContactPage() {
                 </div>
               </div>
 
-              <div>
+              <div className="order-1 md:order-2">
                 <ContactForm formContent={contactContent.form} />
               </div>
             </div>

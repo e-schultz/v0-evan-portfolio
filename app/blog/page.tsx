@@ -22,15 +22,23 @@ export default async function BlogPage() {
 
       <section className="py-12">
         <ContentContainer>
-          <div className="grid md:grid-cols-4 gap-8">
-            {/* Sidebar */}
-            <div className="md:col-span-1">
-              <BlogSidebar tags={allTags} recentPosts={uniquePosts.slice(0, 3)} />
+          <div className="grid lg:grid-cols-4 gap-8">
+            {/* Sidebar - hidden on mobile, shown at bottom on tablet, normal position on desktop */}
+            <div className="order-2 lg:order-1 lg:col-span-1">
+              <div className="lg:sticky lg:top-20">
+                <BlogSidebar tags={allTags} recentPosts={uniquePosts.slice(0, 3)} />
+              </div>
             </div>
 
             {/* Blog Posts */}
-            <div className="md:col-span-3 space-y-8">
-              <BlogPostGrid posts={uniquePosts} columns={2} />
+            <div className="order-1 lg:order-2 lg:col-span-3 space-y-8">
+              <BlogPostGrid posts={uniquePosts} columns={1} showCategory={true} className="sm:hidden" />
+              <BlogPostGrid
+                posts={uniquePosts}
+                columns={2}
+                showCategory={true}
+                className="hidden sm:grid lg:grid-cols-2 xl:grid-cols-3"
+              />
             </div>
           </div>
         </ContentContainer>

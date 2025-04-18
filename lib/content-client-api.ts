@@ -1,24 +1,4 @@
 "use client"
 
-import { searchPostsAction } from "./server-actions"
-import type { BlogPost } from "./content-types"
-
-/**
- * Client-side content API
- *
- * Simplified to only handle client-triggered operations
- */
-
-// Client-side search function
-export async function searchClientPosts(query: string): Promise<BlogPost[]> {
-  if (!query.trim()) {
-    return []
-  }
-
-  try {
-    return await searchPostsAction(query)
-  } catch (error) {
-    console.error("Error searching posts:", error)
-    return []
-  }
-}
+// This file is intentionally left empty as we're moving all data fetching to server components
+// We'll keep the file to avoid breaking imports, but we won't use it for data fetching anymore

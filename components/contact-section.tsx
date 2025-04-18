@@ -1,7 +1,6 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -26,42 +25,43 @@ export function ContactSection() {
     setFormState((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  // Replace async/await with a non-async approach using callbacks
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
     setSubmitSuccess(false)
     setSubmitError("")
 
-    // Simulate form submission
-    try {
-      // In a real application, you would send the form data to your backend
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-      setSubmitSuccess(true)
-      setFormState({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      })
-    } catch (error) {
-      setSubmitError("There was an error submitting your message. Please try again.")
-    } finally {
-      setIsSubmitting(false)
-    }
+    // Use setTimeout with callbacks instead of async/await
+    setTimeout(() => {
+      try {
+        setSubmitSuccess(true)
+        setFormState({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        })
+      } catch (error) {
+        setSubmitError("There was an error submitting your message. Please try again.")
+      } finally {
+        setIsSubmitting(false)
+      }
+    }, 1500)
   }
 
   return (
     <section className="py-16 md:py-24 bg-muted/50" id="contact">
-      <div className="container">
+      <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold tracking-tight mb-4">Get In Touch</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-4">Get In Touch</h2>
           <div className="w-20 h-1 bg-primary mb-8"></div>
-          <p className="text-lg text-muted-foreground max-w-3xl">
+          <p className="text-base md:text-lg text-muted-foreground max-w-3xl">
             Have a question or want to work together? Feel free to reach out!
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-start">
+        <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-start">
           <div className="space-y-8">
             <div className="flex items-start space-x-4">
               <div className="bg-primary/10 p-3 rounded-full">
@@ -99,8 +99,6 @@ export function ContactSection() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-primary hover:underline"
-                    rel="noopener noreferrer"
-                    className="text-primary hover:underline"
                   >
                     Twitter
                   </a>
@@ -124,7 +122,7 @@ export function ContactSection() {
             </div>
           </div>
 
-          <div className="bg-card p-8 rounded-lg border">
+          <div className="bg-card p-6 md:p-8 rounded-lg border">
             <h3 className="text-xl font-bold mb-6">Send Me a Message</h3>
 
             {submitSuccess ? (
@@ -140,29 +138,31 @@ export function ContactSection() {
             ) : null}
 
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="space-y-2">
-                <Label htmlFor="name">Name</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  placeholder="Your name"
-                  value={formState.name}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-2">
+                  <Label htmlFor="name">Name</Label>
+                  <Input
+                    id="name"
+                    name="name"
+                    placeholder="Your name"
+                    value={formState.name}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  name="email"
-                  type="email"
-                  placeholder="Your email address"
-                  value={formState.email}
-                  onChange={handleChange}
-                  required
-                />
+                <div className="space-y-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="Your email address"
+                    value={formState.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
               </div>
 
               <div className="space-y-2">
