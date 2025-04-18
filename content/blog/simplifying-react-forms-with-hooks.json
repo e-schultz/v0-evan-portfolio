@@ -1,0 +1,137 @@
+{
+  "title": "Simplifying React Forms with Hooks",
+  "slug": "simplifying-react-forms-with-hooks",
+  "date": "2019-01-25",
+  "author": "Evan Schultz",
+  "excerpt": "Learn how to use React Hooks to simplify form handling in your applications, with custom hooks that make managing input state a breeze.",
+  "tags": ["React", "Hooks", "Forms", "JavaScript"],
+  "category": "React",
+  "image": "/images/blog/react-forms-hooks.png",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": "Forms, like death and taxes, are one of the unavoidable aspects of web development. From Login Forms, Contact Pages, to heavy form-centric applications - at some point, you will need to wire up an input field to your application state. Working with forms in React can require a bit of boilerplate, and while there are libraries like Formik, Redux Form or React Redux Form can help make things easier, they can be overkill for many situations."
+    },
+    {
+      "type": "paragraph",
+      "content": "React Hooks were announced at React Conf 2018, and are on the roadmap for release in early 2019. Hooks provide a way to handle stateful logic in functional components, while also providing a way to share non-UI logic and behaviour across your application. To better understand this, and see it in action, I will be walking you through how to leverage the useState hook for simplifying a controlled component, and then creating a custom hook to simplify input handling even more."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Controlling Inputs The Old Way"
+    },
+    {
+      "type": "paragraph",
+      "content": "First, let's start with an example from the React Docs on Forms, and create a controlled component:"
+    },
+    {
+      "type": "code",
+      "language": "jsx",
+      "content": "class NameForm extends React.Component {\n  constructor(props) {\n    super(props);\n    this.state = {value: ''};\n\n    this.handleChange = this.handleChange.bind(this);\n    this.handleSubmit = this.handleSubmit.bind(this);\n  }\n\n  handleChange(event) {\n    this.setState({value: event.target.value});\n  }\n\n  handleSubmit(event) {\n    alert('A name was submitted: ' + this.state.value);\n    event.preventDefault();\n  }\n\n  render() {\n    return (\n      <form onSubmit={this.handleSubmit}>\n        <label>\n          Name:\n          <input type=\"text\" value={this.state.value} onChange={this.handleChange} />\n        </label>\n        <input type=\"submit\" value=\"Submit\" />\n      </form>\n    );\n  }\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "While this code is not very complex, it does feel a little heavy handed for handling a single input field."
+    },
+    {
+      "type": "paragraph",
+      "content": "Breaking down what is going on here, we want to:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Keep track of state for an input field",
+        "Update the value on change",
+        "Make the field value available to the submit handler"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "Can we rewrite this NameForm as a functional component using hooks?"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Getting Functional"
+    },
+    {
+      "type": "paragraph",
+      "content": "Let's start by creating a functional component for the NameForm:"
+    },
+    {
+      "type": "code",
+      "language": "jsx",
+      "content": "import React, { useState } from \"react\";\nexport function NameForm(props) {\n  return (\n    <>\n      <label>\n        Name:\n        <input type=\"text\" />\n      </label>\n      <input type=\"submit\" value=\"Submit\" />\n    </>\n  );\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "The input field has state we need to manage, this can be done using the useState hook."
+    },
+    {
+      "type": "paragraph",
+      "content": "useState will return an array, with the first item in it being the current value of the state, and the second item being a setter to update that value."
+    },
+    {
+      "type": "paragraph",
+      "content": "Wiring up the form submit handler is now trivial also:"
+    },
+    {
+      "type": "code",
+      "language": "jsx",
+      "content": "import React, { useState } from \"react\";\n\nexport function NameForm(props) {\n  const [name, setName] = useState(\"\");\n  \n  const handleSubmit = (evt) => {\n      evt.preventDefault();\n      alert(`Submitting Name ${name}`)\n  }\n  return (\n    <form onSubmit={handleSubmit}>\n      <label>\n        First Name:\n        <input\n          type=\"text\"\n          value={name}\n          onChange={e => setName(e.target.value)}\n        />\n      </label>\n      <input type=\"submit\" value=\"Submit\" />\n    </form>\n  );\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "This is a good start and has already cleaned up handling an input. We don't need to create an instance of the React component class, worry about the context of this and we can start to get the benefits of functional components while still being able to do stateful logic."
+    },
+    {
+      "type": "paragraph",
+      "content": "We are not limited to the hooks that React provides, but can also build your own hooks, and this is where the value of hooks starts to shine for me:"
+    },
+    {
+      "type": "paragraph",
+      "content": "The ability to have reusable logic shared across components, without having to introduce extra components into our hierarchy."
+    },
+    {
+      "type": "paragraph",
+      "content": "There are many patterns out there that can accomplish this such as Higher Order Components, Render Props, etc. These patterns are still useful, however, if you have a HoC, or component using render-props that has no UI to it and is only rendering a single child - a hook might be a better way of handling this."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Creating Custom Hooks"
+    },
+    {
+      "type": "paragraph",
+      "content": "To see what this looks like, I will create a useInput hook to simplify handling inputs even further."
+    },
+    {
+      "type": "code",
+      "language": "jsx",
+      "content": "import { useState } from \"react\";\n\nexport const useInput = initialValue => {\n  const [value, setValue] = useState(initialValue);\n\n  return {\n    value,\n    setValue,\n    reset: () => setValue(\"\"),\n    bind: {\n      value,\n      onChange: event => {\n        setValue(event.target.value);\n      }\n    }\n  };\n};"
+    },
+    {
+      "type": "paragraph",
+      "content": "We can then update our NameForm to:"
+    },
+    {
+      "type": "code",
+      "language": "jsx",
+      "content": "import React from \"react\";\nimport { useInput } from './hooks/input-hook';\n\nexport function NameForm(props) {\n  const { value, bind, reset } = useInput('');\n  \n  const handleSubmit = (evt) => {\n      evt.preventDefault();\n      alert(`Submitting Name ${value}`);\n      reset();\n  }\n  return (\n    <form onSubmit={handleSubmit}>\n      <label>\n        Name:\n        <input type=\"text\" {...bind} />\n      </label>\n      <input type=\"submit\" value=\"Submit\" />\n    </form>\n  );\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "If we wanted to add more fields, we could rename the values in our destructuring like so:"
+    },
+    {
+      "type": "code",
+      "language": "jsx",
+      "content": "export function NameForm(props) {\n  const { value:firstName, bind:bindFirstName, reset:resetFirstName } = useInput('');\n  const { value:lastName, bind:bindLastName, reset:resetLastName } = useInput('');\n  \n  const handleSubmit = (evt) => {\n      evt.preventDefault();\n      alert(`Submitting Name ${firstName} ${lastName}`);\n      resetFirstName();\n      resetLastName();\n  }\n  return (\n    <form onSubmit={handleSubmit}>\n      <label>\n        First Name:\n        <input type=\"text\" {...bindFirstName} />\n      </label>\n      <label>\n        Last Name:\n        <input type=\"text\" {...bindLastName} />\n      </label>\n      <input type=\"submit\" value=\"Submit\" />\n    </form>\n  );\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "With hooks on the React Roadmap to land in Q1 of 2019, I'm excited to see how the leveraging them can start cleaning up and simplifying the code I am working on today. If you're interested in learning more about how to start applying it in your own code, stayed tuned for my upcoming post on how to refactor your existing components to leverage the power of hooks."
+    }
+  ]
+}

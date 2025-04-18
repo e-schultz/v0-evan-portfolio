@@ -1,0 +1,134 @@
+{
+  "title": "Configurable Services in Angular 2",
+  "slug": "configurable-services-in-angular-2",
+  "date": "2016-07-28",
+  "author": "Evan Schultz",
+  "excerpt": "Learn how to create configurable services in Angular 2 that can be customized at bootstrap time.",
+  "tags": ["Angular", "JavaScript", "Services", "Dependency Injection"],
+  "category": "Angular",
+  "image": "/images/blog/angular-services.png",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": "Angular 2 has greatly simplified services since Angular 1. In Angular 1, there was a service, factory, provider, delegate, value, constant, etc. and it wasn't always clear when to use which."
+    },
+    {
+      "type": "paragraph",
+      "content": "For most use cases in Angular 2, services have been greatly simplified. All you need to do is:"
+    },
+    {
+      "type": "list",
+      "items": ["Create a class with an @Injectable decorator", "Register it as a provider"]
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "import { Injectable } from '@angular/core';\nimport { bootstrap } from '@angular/platform-browser-dynamic';\nimport { MyApp } from './my-app.component';\n\n@Injectable()\nexport class MyService {\n\n  greeting:string='Hello';\n\n  greet(name: string) {\n    return `${this.greeting} ${name}`;\n  }\n}\n\nbootstrap(MyApp,[MyService])"
+    },
+    {
+      "type": "paragraph",
+      "content": "Making use of this service in your component is pretty straight forward. Taking a quick look at our MyApp,"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "import { Component, OnInit } from '@angular/core';\nimport { MyService } from './my-service';\n\n@Component({\n  selector: 'my-app',\n  template: `<div>{{greeting}}</div>`\n})\nexport class MyApp implements OnInit {\n  value: number;\n  constructor(private _myService:MyService) { }\n\n  ngOnInit() {\n    this.greeting = this._myService.greet('Evan Schultz');\n  }\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "However, what if you wanted to be able to change the greeting from \"Hello\" to something else and wanted to be able to configure this when registering the provider with your application or component? With the new router in Angular 2, you may have seen something like:"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "import { provideRouter } from '@angular/router';\nimport { APP_ROUTES } from './my.routes';\n\nbootstrap(MyApp,[provideRouter(APP_ROUTES)]);"
+    },
+    {
+      "type": "paragraph",
+      "content": "This is a way of providing some router configuration to the router services in Angular 2. So, let's take a look at how we can create a service that takes some configuration."
+    },
+    {
+      "type": "paragraph",
+      "content": "Let's modify our service so we provide a greeting to it at the bootstrap time of the application."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "import { Injectable } from '@angular/core';\n\n@Injectable()\nexport class MyService {\n\n  constructor(private greeting:string='Hello') { }\n\n  greet(name: string) {\n    return `${this.greeting} ${name}`;\n  }\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "If we were to leave our code as is, any component that tries to use MyService would complain that there is no provider registered for String. If you view the example and look at the error logs, you will see this issue."
+    },
+    {
+      "type": "paragraph",
+      "content": "How do we work around this? We need to create a way for users to register the service with this configuration provided."
+    },
+    {
+      "type": "paragraph",
+      "content": "To do that, we will create a function called provideMyService, that will use return a provider object that Angular 2 will use to create a provider during the bootstrap phase of the application. This object can let you specify a token or class that you want to create a provider for, and instruct Angular 2 on how to form this object. There are a few options - useClass, useValue, useExisting, useFactory, etc. The use case we are interested in here is useFactory."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "export function provideMyService(greeting:string) {\n  return { provide: MyService, useFactory: () => new MyService(greeting) }\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "Then, to use this in our application we change the bootstrap code slightly:"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "import { bootstrap } from '@angular/platform-browser-dynamic';\nimport { MyApp } from './my-app.component.ts';\nimport { provideMyService } from './my-service.ts';\n\nbootstrap(MyApp, [provideMyService('Good Day')]);"
+    },
+    {
+      "type": "paragraph",
+      "content": "What we are telling Angular 2 now, is whenever we are injecting MyService, is to use a factory function that will return an instance of MyService with the provided configuration."
+    },
+    {
+      "type": "paragraph",
+      "content": "Now, what happens if MyService depends on another service that we want to inject? That is where the deps property in our provide comes in. Let's make a Greeter service that will turn our greeting into caps."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "import { Injectable } from '@angular/core';\n\n@Injectable()\nexport class Greeter {\n   greet(greeting:string) {\n     return greeting;\n   }\n}\n@Injectable()\nexport class LoudGreeter extends Greeter {\n  greet(greeting:string) {\n    return greeting.toUpperCase()\n  }\n}\n\n@Injectable()\nexport class QuietGreeter {\n  greet(greeting:string) {\n    return greeting.toLowerCase()\n  }\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "Then a quick adjustment to our MyService class:"
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "import { Injectable, provide } from '@angular/core';\nimport { Greeter } from './greeter';\n@Injectable()\nexport class MyService {\n\n  constructor(private greeting:string='Hello', private greeter: Greeter) {\n\n  }\n\n  greet(name:string) {\n    return this.greeter.greet(`${this.greeting} ${name}`);\n  }\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "As it stands now, without modifying our provideMyService, we would get an error that greeter is undefined, this is because we are manually creating a new instance of MyService, passing in our greeting - but none of our other dependencies."
+    },
+    {
+      "type": "paragraph",
+      "content": "To fix that, we can make a quick fix to our provideMyService to indicate that Greeter is a dependency."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "export function provideMyService(greeting:string) {\n  return { provide:MyService,\n           useFactory: (greeter:Greeter) => new MyService(greeting, greeter),\n           deps: [Greeter]\n         }\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "And, in the bootstrapping of our application - we can now register the default greeter, or replace it with a quiet or loud greeter."
+    },
+    {
+      "type": "code",
+      "language": "typescript",
+      "content": "// default greeter\nbootstrap(App, [provideMyService('Good Day'), Greeter]);\n\n// loud greeter\nbootstrap(MyApp, [\n  provideMyService('Good Day'),\n  { provide: Greeter, useClass: LoudGreeter }\n  ]);\n\n// quiet greeter\nbootstrap(MyApp, [\n  provideMyService('Good Day'),\n  { provide: Greeter, useClass: QuietGreeter }\n  ]);"
+    },
+    {
+      "type": "paragraph",
+      "content": "While the creation of services in Angular 2 has been simplified, it is still very flexible in how you are able to use it for more advanced use cases."
+    }
+  ]
+}

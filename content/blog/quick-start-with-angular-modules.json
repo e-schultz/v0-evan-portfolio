@@ -1,0 +1,268 @@
+{
+  "title": "Quick Start with Angular Modules",
+  "slug": "quick-start-with-angular-modules",
+  "date": "2016-08-26",
+  "author": "Evan Schultz",
+  "excerpt": "Learn how to use Angular Modules to organize your code and make your applications more maintainable with this practical guide.",
+  "tags": ["Angular", "JavaScript", "Modules", "Architecture"],
+  "category": "Angular",
+  "image": "/images/blog/angular-modules-guide.png",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": "Angular 2 RC5 was released was released last week. Looking through the change log of bug fixes and new features shows a lot of progress has been made. However, I experienced a sinking feeling after reading several pages of Breaking Changes about the introduction of @NgModule and changing how we need to bootstrap our applications."
+    },
+    {
+      "type": "paragraph",
+      "content": "To be fair, the Angular team did a good job of providing examples of before and after code as part of those changes but it was still a lot to process. I started to dig through their Developer Guide for NgModule to get my head around the changes and while packed with useful information, it felt dense and intimidating."
+    },
+    {
+      "type": "paragraph",
+      "content": "Once the initial shock subsided, I decided the best way to see the impact of these changes and the amount of effort required to prepare for RC5 was to try upgrading an application."
+    },
+    {
+      "type": "paragraph",
+      "content": "I picked a demo application I had built for a presentation that I gave at Angular Camp earlier this year. The process ended up being easier than expected. Take a look at this pull request where each step is its own commit."
+    },
+    {
+      "type": "paragraph",
+      "content": "This post is meant to be a quick guide on the minimal amount of steps you will need to take to get your applications working with @NgModule."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Updating Dependencies"
+    },
+    {
+      "type": "paragraph",
+      "content": "Firstly, you must update your package.json dependencies to point to RC5 and run npm install (see commit)."
+    },
+    {
+      "type": "paragraph",
+      "content": "Before doing any other changes to my application, I ran the application and fully expected it to crash. To my surprise, the application booted up with only a few deprecation warnings in the console."
+    },
+    {
+      "type": "paragraph",
+      "content": "In RC5, the Angular 2 team has left many of the deprecated features in place - providing you with warnings instead. Under the hood, they are hoisting things into NgModule for you. This allows developers to benefit from the numerous bug fixes and new features in RC5 while giving them time to refactor their code in preparation for RC6. This removes all of the deprecated API's."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Changing your Bootstrap"
+    },
+    {
+      "type": "paragraph",
+      "content": "Next up, I changed how the application was bootstrapped. The old way of bootstrap(Module,[providers]) is going away and we now need to create an Angular Module."
+    },
+    {
+      "type": "paragraph",
+      "content": "The old bootstrap code looked like this:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "bootstrap(HomePage, [\n    provideForms(),\n    NgRedux,\n    DevToolsExtension,\n    ACTION_PROVIDERS,\n    PartyService,\n    provide(APP_BASE_HREF, { useValue: '/' })\n  ]);"
+    },
+    {
+      "type": "paragraph",
+      "content": "I then needed to create an Angular Module that will be used to bootstrap the application."
+    },
+    {
+      "type": "paragraph",
+      "content": "An Angular Module is simply a class decorated with the @NgModule decorator - similar to angular.module from Angular 1.x."
+    },
+    {
+      "type": "paragraph",
+      "content": "The key things we need to do with the Angular Module are:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Import other modules that will be available within this module;",
+        "Declare the components what we want available within the module;",
+        "Inform which component is the one to be bootstrapped;",
+        "Specify the providers that are to be used."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "This ends up being a pretty easy process and the resulting module definition ends up looking like: (see commit)"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "import { FormsModule} from '@angular/forms';\nimport { BrowserModule }  from '@angular/platform-browser';\nimport { NgModule } '@angular/core';\n\n@NgModule({\n  imports: [BrowserModule, FormsModule],\n  declarations: [HomePage],\n  bootstrap: [HomePage],\n  providers: [NgRedux,\n    DevToolsExtension,\n    ACTION_PROVIDERS,\n    PartyService,\n    { provide: APP_BASE_HREF,  useValue: '/' } ]\n})\nclass MyAppModule { }"
+    },
+    {
+      "type": "paragraph",
+      "content": "We are letting Angular know that for MyAppModule, we want BrowserModule and FormsModule which will be available across the MyAppModule. This gives us access to built-in directives and components like ngFor from BrowserModule, and also the form directives like ngModel, form, etc from the FormsModule."
+    },
+    {
+      "type": "paragraph",
+      "content": "It is important to note the Modules and Components are scoped within Angular Module you are defining. If you were to create another feature module that required FormsModule, you would need to import FormsModule on that Angular Module definition."
+    },
+    {
+      "type": "paragraph",
+      "content": "For the final step, bring in platformBrowserDynamic and replace the old bootstrap code."
+    },
+    {
+      "type": "paragraph",
+      "content": "Before:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "bootstrap(HomePage, [\n   provideForms(),\n   NgRedux,\n   DevToolsExtension,\n   ACTION_PROVIDERS,\n   PartyService,\n   provide(APP_BASE_HREF, { useValue: '/' })\n ]);"
+    },
+    {
+      "type": "paragraph",
+      "content": "After:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "platformBrowserDynamic().bootstrapModule(MyAppModule)"
+    },
+    {
+      "type": "paragraph",
+      "content": "At this point the application will still run as expected. But there is still some house cleaning to finish."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Cleaning up Component Imports"
+    },
+    {
+      "type": "paragraph",
+      "content": "One of the complaints I've seen about Angular 2 is the amount of ceremony that can go into telling a component to use another component. You need to import it at the top of your file, then modify your @Component to declare it with the directives property."
+    },
+    {
+      "type": "paragraph",
+      "content": "Now, with the Angular Module we have told our MyAppModule that forms are available for it. So, to complete the house cleaning we can:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Find our components that are importing REACTIVE_FORM_DIRECTIVES;",
+        "Remove the import;",
+        "Remove it from the directives declaration for that component."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "As you can see in this commit I didn't need to touch many files since this is a small application."
+    },
+    {
+      "type": "paragraph",
+      "content": "Before:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "/* .... */\nimport { Panel } from '../';\nimport { REACTIVE_FORM_DIRECTIVES } from '@angular/forms';\n\n@Component({\n  selector: 'tb-table',\n  template: TEMPLATE,\n  directives: [Panel, REACTIVE_FORM_DIRECTIVES ]\n})\nexport class Table {\n  /* .... */\n};"
+    },
+    {
+      "type": "paragraph",
+      "content": "After:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "/* .... */\nimport { Panel } from '../';\n\n@Component({\n  selector: 'tb-table',\n  template: TEMPLATE,\n  directives: [Panel]\n})\nexport class Table {\n  /* ..... */\n};"
+    },
+    {
+      "type": "paragraph",
+      "content": "We're not saving much code but importing and declare them for use quickly gets annoying."
+    },
+    {
+      "type": "paragraph",
+      "content": "If you were to stop here, you would almost up and running with RC5 and the @NgModule. But let's take things a little bit further and create our own module to group up some of our reusable presentation components."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Modularizing Your Code"
+    },
+    {
+      "type": "paragraph",
+      "content": "So far, we have bootstrapped our application with the new Angular Module and cleaned up some of our component and imports."
+    },
+    {
+      "type": "paragraph",
+      "content": "Next, let's now look at creating our first Angular Module to encompass a few components."
+    },
+    {
+      "type": "paragraph",
+      "content": "An obvious starting point is the src/components folder. Currently, we are bundling up and exporting our components like this:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "export * from './lineup';\nexport * from './panel';\nexport * from './table';\nexport * from './menu';\nexport * from './orders';"
+    },
+    {
+      "type": "paragraph",
+      "content": "In our application, it would be nice if we could use components like Lineup, Panel, etc without needing to explicitly import them into every other component that uses them. Creating a module for this is pretty straight forward."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "import { NgModule } from '@angular/core';\nimport { Lineup } from './lineup';\nimport { Panel } from './panel';\nimport { Table } from './table';\nimport { Menu } from './menu';\nimport { Orders } from './orders';\nimport { CommonModule }  from '@angular/common';\nimport { FormsModule } from '@angular/forms';\n\n@NgModule({\n  imports: [CommonModule, FormsModule],\n  declarations: [Lineup, Panel, Table, Menu, Orders],\n  exports: [Lineup, Panel, Table, Menu, Orders]\n})\nexport class ComponentsModule {\n\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "Since we have components that require forms and core browser directives, we need to import here so that our other components can use them."
+    },
+    {
+      "type": "paragraph",
+      "content": "Then we must declare which components are a part of this package and can be used freely by other components within this module."
+    },
+    {
+      "type": "paragraph",
+      "content": "Next, we decide which components are publicly available to other parts of the application outside of this component. There could be cases where we have created components that are implementation details of other components but are not intended to be used directly by other parts of the application."
+    },
+    {
+      "type": "paragraph",
+      "content": "Then, in our main MyAppModule, we want to import our ComponentsModule."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "/* .... */\nimport { ComponentModule } from './components';\n@NgModule({\n  imports: [BrowserModule,\n    FormsModule,\n    ComponentsModule],\n  declarations: [HomePage],\n  bootstrap: [HomePage],\n  providers: [\n    PartyService,\n    { provide: APP_BASE_HREF, useValue: '/' }]\n})\nclass MyAppModule { }"
+    },
+    {
+      "type": "paragraph",
+      "content": "Finally, we can go to our container components that were making use of things like Lineup, Panel, etc and remove the imports and directive declarations. Take a look at the full commit"
+    },
+    {
+      "type": "paragraph",
+      "content": "Before:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "/* .... */\n\nimport { Lineup, Panel, Table, Menu, Orders } from '../components';\n\n@Component({\n  selector: 'tb-home',\n  template: TEMPLATE,\n  directives: [ Lineup, Panel, Table, Menu, Orders ],\n  encapsulation: ViewEncapsulation.None,\n  styles: [ require('../styles/index.css') ],\n})\nexport class HomePage {\n/* ... */\n};"
+    },
+    {
+      "type": "paragraph",
+      "content": "After:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "@Component({\n  selector: 'tb-home',\n  template: TEMPLATE,\n  encapsulation: ViewEncapsulation.None,\n  styles: [ require('../styles/index.css') ],\n})\nexport class HomePage {\n  /* .... */\n};"
+    },
+    {
+      "type": "paragraph",
+      "content": "Now for every Component that is part of our MyAppModule, we can make use of our reusable presentation components like Panel, Table, Lineup, etc without needing to import them and define them in the @Component definition."
+    },
+    {
+      "type": "paragraph",
+      "content": "I was initially concerned when trying to figure out @NgModule. I thought it was going to take a great deal of effort to upgrade things to at least an 'up and running state'. Fortunately, after spending a few hours with it, I've determined that it's not that bad. I'm already considering the best ways of modularizing my larger applications."
+    },
+    {
+      "type": "paragraph",
+      "content": "Hopefully this has helped you understand the basics of Angular Modules and @NgModule. For more details, check out the NgModule Developer Guide and the RC4 to RC5 migration guide."
+    }
+  ]
+}

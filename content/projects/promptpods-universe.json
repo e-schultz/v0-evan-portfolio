@@ -1,0 +1,94 @@
+{
+  "title": "Promptpods Universe",
+  "slug": "promptpods-universe",
+  "description": "A containerized environment for organizing thoughts, prompts, and contexts. PromptPods helps you create isolated containers for different thinking contexts, making it easier to manage complex projects and ideas.",
+  "tags": ["Next.js", "TypeScript", "AI", "Knowledge Management"],
+  "github": "https://github.com/e-schultz/promptpods-universe",
+  "link": "https://promptpods-universe.lovable.app",
+  "image": "/promptpods-universe.png",
+  "featured": true,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "Promptpods Universe is a containerized environment for organizing thoughts, prompts, and contexts. It helps users create isolated containers for different thinking contexts, making it easier to manage complex projects and ideas."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "The Pod System"
+    },
+    {
+      "type": "paragraph",
+      "content": "At the core of Promptpods Universe is the concept of \"pods\" - isolated containers that encapsulate specific contexts, workflows, or projects. Each pod can contain:"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Identities",
+          "content": "Different personas or thinking modes that can be activated within a pod"
+        },
+        {
+          "type": "listItem",
+          "title": "Rituals",
+          "content": "Structured workflows or processes that guide thinking and creation"
+        },
+        {
+          "type": "listItem",
+          "title": "Files",
+          "content": "Documents, notes, and resources specific to the pod's context"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "This containerization approach allows users to switch between different contexts cleanly, without the mental overhead of context-switching or the confusion of mixing unrelated ideas."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Ritual Manager"
+    },
+    {
+      "type": "paragraph",
+      "content": "The Ritual Manager is a key feature of Promptpods Universe that allows users to create, edit, and activate structured workflows. Rituals consist of:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "A name and description that defines the ritual's purpose",
+        "A series of steps that guide the user through the process",
+        "Activation controls that determine when and how the ritual is triggered"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "Rituals can be as simple as a daily reflection practice or as complex as a multi-stage creative process. The system is designed to be flexible while providing enough structure to make complex thinking processes more manageable."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Technical Implementation"
+    },
+    {
+      "type": "paragraph",
+      "content": "Promptpods Universe is built using Next.js and TypeScript, with a focus on creating a responsive, intuitive interface for knowledge management. The application features:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "A dark-themed interface optimized for extended use",
+        "Real-time updates and synchronization across devices",
+        "Integration capabilities with AI tools and services",
+        "Extensible architecture that allows for custom plugins and extensions"
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "/promptpods-universe.png",
+      "alt": "Promptpods Universe interface showing the ritual manager and pod system"
+    }
+  ]
+}

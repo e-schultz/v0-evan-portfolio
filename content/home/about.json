@@ -1,0 +1,49 @@
+{
+  "title": "About Me",
+  "description": "I'm a Technical Director and Software Engineer with extensive experience in building high-performing teams and creating effective development environments.",
+  "sections": [
+    {
+      "title": "My Journey",
+      "content": [
+        "With over a decade of experience in software development and team leadership, I've worked with companies ranging from small startups to large enterprises. My focus has been on identifying opportunities and challenges on project teams, and working with stakeholders to implement effective solutions.",
+        "I've influenced the multi-year evolution of multiple enterprise products which are in production today, and I've collaborated with CTOs and other technical directors to identify trends in technology and develop plans to enable engineering teams to meet current and future needs."
+      ]
+    },
+    {
+      "title": "What I Do",
+      "items": [
+        "Technical leadership and team management",
+        "Full-stack development and consulting",
+        "Training and education in modern web technologies",
+        "Open source contribution and maintenance",
+        "Technical writing and public speaking"
+      ]
+    }
+  ],
+  "resumeButton": {
+    "text": "View Full Resume",
+    "url": "/resume"
+  },
+  "experience": [
+    {
+      "title": "Technical Director",
+      "company": "Rangle.io",
+      "period": "2014 - 2022"
+    },
+    {
+      "title": "Software Engineering Manager",
+      "company": "PartnerStack",
+      "period": "2020 - 2021"
+    },
+    {
+      "title": "Director of Frontend Education",
+      "company": "Bridge School",
+      "period": "2019 - 2020"
+    },
+    {
+      "title": "Open Source",
+      "company": "Angular-Redux",
+      "period": "Redux-Beacon\nAugury"
+    }
+  ]
+}

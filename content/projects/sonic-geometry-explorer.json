@@ -1,0 +1,56 @@
+{
+  "title": "Sonic Geometry Explorer",
+  "slug": "sonic-geometry-explorer",
+  "description": "An interactive tool that visualizes the relationship between geometry and sound, transforming mathematical patterns into both visual representations and corresponding audio.",
+  "tags": ["WebAudio API", "Three.js", "JavaScript", "Data Visualization"],
+  "github": "https://github.com/e-schultz/sonic-geometry-explorer",
+  "link": "https://sonic-geometry-explorer.lovable.app",
+  "image": "/sonic-geometry-explorer.png",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "Sonic Geometry Explorer is an interactive tool that visualizes the relationship between geometry and sound. It transforms mathematical patterns into both visual representations and corresponding audio, allowing users to explore the fascinating connections between these domains in real-time."
+    },
+    {
+      "type": "paragraph",
+      "content": "The application creates mesmerizing visual patterns that directly correspond to audio frequencies, harmonics, and rhythms, making abstract mathematical concepts tangible through both sight and sound."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Key Features"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Interactive Visualizations",
+          "content": "Dynamic geometric patterns that respond to audio input and user interaction"
+        },
+        {
+          "type": "listItem",
+          "title": "Real-time Audio Synthesis",
+          "content": "Generate sounds based on geometric relationships and mathematical principles"
+        },
+        {
+          "type": "listItem",
+          "title": "Parameter Controls",
+          "content": "Adjust frequencies, harmonics, amplitudes, and visual elements with intuitive controls"
+        },
+        {
+          "type": "listItem",
+          "title": "Multiple Visualization Modes",
+          "content": "Switch between 2D and 3D representations of sound patterns"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "/sonic-geometry-explorer.png",
+      "alt": "Sonic Geometry Explorer main interface showing a radial pattern with colorful lines emanating from the center"
+    }
+  ]
+}

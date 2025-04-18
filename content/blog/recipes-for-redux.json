@@ -1,0 +1,244 @@
+{
+  "title": "Recipes for Redux",
+  "slug": "recipes-for-redux",
+  "date": "2016-08-05",
+  "author": "Evan Schultz",
+  "excerpt": "Practical patterns and approaches for using Redux effectively with Angular 2.",
+  "tags": ["Redux", "Angular", "JavaScript", "State Management"],
+  "category": "Redux",
+  "image": "/images/blog/redux-recipes.png",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": "As Redux is becoming more popular within the Angular community, it's not always clear how to bridge the gap between working with Redux and how to make it fit naturally with Angular 2."
+    },
+    {
+      "type": "paragraph",
+      "content": "One of the goals with ng2-redux is to provide a developer experience that feels natural with Angular 2 while still benefiting from the existing Redux community: dev tools, middleware, etc."
+    },
+    {
+      "type": "paragraph",
+      "content": "Since last writing about using ng2-redux with Angular 2, here are the lessons we've learned."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Action Creators as Injectable Services"
+    },
+    {
+      "type": "paragraph",
+      "content": "With Redux, your action creators are what generate the actions for your application. They can be a point of side-effects and the only way that you can modify the state of your application is by dispatching an action to be handled by your reducers."
+    },
+    {
+      "type": "paragraph",
+      "content": "When getting started with Redux, it's common to have your action creators just be exported functions that return a simple JSON object. For example:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "// some-actions.ts\nexport function doSomething(id,text) {\n  return {\n    type: 'SOME_ACTION',\n    payload: { id, text }\n  }\n}\n\n// my-component.component.ts\nimport { doSomething } form './some-actions ';\n\n@Component({/*....*/})\nexport class MyComponent {\n  constructor(private ngRedux:NgRedux<AppState>) { }\n\n  handleAction(id,text) {\n    this.ngRedux.dispatch(doSomething(id,text))\n  }\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "As long as you don't need to access anything from Angular - this can work fine. Soon enough most people start asking:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "How do I access Angular's HTTP service?",
+        "How do I access my Injectable services?",
+        "How do I access my state in my services?"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "While the ability to access your state in a creator is easily possible if you're using a middleware like redux-thunk, accessing your Angular services isn't easy with this style of action creator."
+    },
+    {
+      "type": "paragraph",
+      "content": "After trying a few different ways to get access to Angular's DI system, we found that the easiest way is to simply create your action creators as injectable services."
+    },
+    {
+      "type": "paragraph",
+      "content": "Not only does this allow for easy use of Angular's DI within your action creators, you can also inject NgRedux, and get access to your store, and dispatch. In fact in many scenarios this can remove the need to rely on redux-thunk."
+    },
+    {
+      "type": "paragraph",
+      "content": "How this looks in practice is:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "import { Injectable } from '@angular/core';\n\n@Injectable()\nexport class MyActions {\n  constructor(private ngRedux:NgRedux<AppState>, apiService:ApiService) { }\n\n  createRecord(someRecord) {\n    let dispatch = this.ngRedux.dispatch;\n    this.apiService.post(someRecord)\n    .then(response =>\n      dispatch({type: 'RECORD_CREATED', payload: response }))\n    .catch(err=>{\n      dispatch({type: 'RECORD_ERROR', payload: response })\n    })\n  }\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "This is now a service that you can bootstrap along with the rest your application and inject into your component to use:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "@Component({/*....*/})\nexport class MyComponent {\n  constructor(private myActions:MyActions) { }\n\n  createRecord(record) {\n    this.myActions.createRecord(record)\n  }\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "If your component method is only calling the action method, it can be simplified down to being handled by the template:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "import { select } from 'ng2-redux';\n@Component({\n  /* .... */\n  template: `<some-component\n              [someData]=\"data$ | async\"\n              (someEvent)=\"myActions.createRecord($event)\">\n            </some-component>`\n})\nexport class MyComponent {\n  @select() data$:Observable<DataType>;\n  constructor(private myActions:MyActions) { }\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "Once we start writing our components this way, even components that are responsible for selecting state and dispatching actions become very thin classes that provide only a little bit of glue between redux and your template."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Using @select for Cleaner Components"
+    },
+    {
+      "type": "paragraph",
+      "content": "When I last wrote about Angular 2 and Redux I talked briefly about using ngRedux.select to create an observable of your application state. We have added decorators with the release of v3 to let you easily create properties that expose slices of state as an observable."
+    },
+    {
+      "type": "paragraph",
+      "content": "This ends up reducing quite a bit of boiler plate code. For example, previously you may have had something like:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "@Component({/*...*/})\nexport class MyComponent implements OnInit {\n  constructor(private ngRedux:NgRedux<IAppState>) { }\n\n  obs1$:Observable<any>\n  obs2$:Observable<any>\n\n  ngOnInit() {\n    this.obs1 = this.ngRedux.select(state => state.obs1);\n    this.obs2 = this.ngRedux.select(state => state.obs2);\n  }\n\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "This can now be cleaned up to:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "import { select } from 'ng2-redux';\n@Component({/*...*/})\nexport class MyComponent implements OnInit {\n  @select() obs1$:Observable<any>;\n  @select() obs2$:Observable<any>;\n\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "@select has a few different usage patterns. If you do not pass anything into it, it will look for a key in your store with the given property name (removing the $ suffix if needed). You can also pass in a key path to pluck from or a function:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "import { select } from 'ng2-redux';\n@Component({/*...*/})\nexport class MyComponent {\n\n  @select(state=>state.obs1) obs1$:Observable<any>\n  @select(['obs2','nested']) obs2$:Observable<any>\n\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "If you are using ImmutableJS to manage your state, @select will seamlessly handle that for you also and will use the getIn to deeply select a part of your state tree."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Decoupling State Shape with Selectors"
+    },
+    {
+      "type": "paragraph",
+      "content": "A concern that some people have when starting with Redux is the apparent tight coupling of the shape of your application state to the components that are using them. If managed poorly this can make it difficult to refactor the shape of your application state."
+    },
+    {
+      "type": "paragraph",
+      "content": "With several components that know about the structure of your application state, any time you need to refactor or change the structure of your state risks needing to touch on several other parts of your application."
+    },
+    {
+      "type": "paragraph",
+      "content": "It is possible to create selectors to help decouple the shape if your state from the components using them since @select can accept a function. This also makes it easier to create reusable selectors in your application."
+    },
+    {
+      "type": "paragraph",
+      "content": "For example, if we have a Todo application and want to list all todos, all completed todos and all incomplete todos, an approach to creating your selectors could be:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "const INITIAL_STATE=[\n    {text:'An item', completed: false},\n    {text:'An item', completed: true}]\nexport todos(state=INITIAL_STATE,action) {\n  // ...\n}\n\nexport allTodos = (state) => state.todos;\nexport completedTodos = (state) => state.todos.filter(state=>state.todos.completed)\nexport incompleteTodos = (state) => state.todos.filter(state=>!state.todos.completed)"
+    },
+    {
+      "type": "paragraph",
+      "content": "And in your components:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "import { allTodos, completedTodos, incompleteTodos } from './store/todos';\n@Component({/***/})\nexport class MyComponent {\n  @select(allTodos) all$;\n  @select(completedTodos) completed$\n  @select(incompleteTodos) incomplete$;\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "If you need to change the structure of your state, instead of needing to refactor several components as a result of the change, there are now only a few functions that need to be updated. This can greatly reduce the number of places you need to look in your application to update."
+    },
+    {
+      "type": "paragraph",
+      "content": "For example, if we decided to change the shape of our todo state to not be an array of items but an object that contains properties to hold onto the completed and incomplete items like this:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "const INITIAL_STATE= {\n  completed: [{text:'An item', completed: true}],\n  incomplete: [{text:'An item', completed: false}],\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "Instead of searching through your application for every component that is selecting from state.todos, you can easily modify the selectors to return the expected results:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "export allTodos = (state) => [state.todos.completed,state.todos.incomplete]\nexport completedTodos = (state) => state.todos.completed;\nexport incompleteTodos = (state) => state.todos.incompleted;"
+    },
+    {
+      "type": "paragraph",
+      "content": "If your selectors are well unit tested, and the output from them remains the same as before, it becomes much easier to make changes to the structure of your application state and reducers overtime. This is because you are starting to decouple the shape of your state from the components using it."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Managing Side Effects with redux-observable"
+    },
+    {
+      "type": "paragraph",
+      "content": "Managing side effects in your applications can be a tricky task as there are many approaches to handling them. One approach is to have fairly rich action creators that can coordinate the business logic needed to prepare, handle and dispatch your actions."
+    },
+    {
+      "type": "paragraph",
+      "content": "However, there are some things that you might want to do such as debounce an action or cancel a request. One approach is to leave this logic in the Component but it often feels like this is not the most appropriate place for it. Leaving it to the action creators can be tricky also and starts to combine the logic of \"preparing data for the request\" with \"how to execute the request\"."
+    },
+    {
+      "type": "paragraph",
+      "content": "This is where being able to use existing middleware and tools from the Redux ecosystem can be really useful. For example, we could make use of the redux-observable middleware created by Ben Lesh and Jay Phelps."
+    },
+    {
+      "type": "paragraph",
+      "content": "With redux-observable, your actions become an Observable stream and you have the flexibility of the RxJS operators to be able to easily introduce things like debouncing and cancelling requests."
+    },
+    {
+      "type": "paragraph",
+      "content": "A common use-case for debounce is search type-ahead. Instead of firing off a request with every keystroke or change, we want to wait until things stabilize before hitting the server. If we also want to cancel the search request, this becomes easy using debounceTime and takeUntil."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "@Injectable()\nexport class SearchEpic {\n  constructor(http:HTTP) { }\n\n  searchSpotify = (action$: Observable<IPayloadAction>) => {\n    return action$.ofType('SEARCH_SPOTIFY')\n    .debounceTime(500)\n    .mergeMap(({payload})=>{\n      const { term, type } = payload;\n      const url = `https://api.spotify.com/v1/search?q=${term}&type=${type}`;\n      return this.http\n        .get(url)\n        .map((res)=>({type:'SEARCH_RESULTS',payload: res.json()}))\n        .takeUntil(action$.ofType('SEARCH_CANCELLED'))\n        .catch((err)=>({type: 'SEARCH_ERROR'}))\n    })\n  }\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "Our action creator becomes very simple when using this approach and it is only responsible for forming up the correct object to execute the search. The concerns of debouncing or cancelling the request are handled elsewhere in the application."
+    },
+    {
+      "type": "paragraph",
+      "content": "For more information on setting up redux-observable, with Angular 2, be sure to check the documentation to explain the bootstrapping process."
+    },
+    {
+      "type": "paragraph",
+      "content": "Hopefully this post is helpful as you build your Angular 2 applications. This post focused on ng2-redux but many of the same concerns and concepts can be applied to NgRx/Store."
+    },
+    {
+      "type": "paragraph",
+      "content": "Be sure to check out our other blog posts and resources for more Angular 2 information."
+    }
+  ]
+}
