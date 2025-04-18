@@ -109,6 +109,7 @@ export const validateProject: Validator<Project> = (project) => {
     errors.push({ field: "tags", message: "Project must have tags array" })
   }
 
+  // Make fullDescription optional
   if (project.fullDescription) {
     if (!Array.isArray(project.fullDescription)) {
       errors.push({ field: "fullDescription", message: "Project fullDescription must be an array" })
@@ -123,6 +124,7 @@ export const validateProject: Validator<Project> = (project) => {
     }
   }
 
+  // Make screenshots optional
   if (project.screenshots) {
     if (!Array.isArray(project.screenshots)) {
       errors.push({ field: "screenshots", message: "Project screenshots must be an array" })
@@ -143,21 +145,31 @@ export const validateProject: Validator<Project> = (project) => {
 
 // Simple validation function for content
 export function validateContent<T>(data: T, validator: Validator<T>, contentType: string): boolean {
-  const errors = validator(data)
+  try {
+    const errors = validator(data)
 
-  if (errors.length > 0) {
-    console.error(`Validation errors in ${contentType}:`)
-    errors.forEach((error) => {
-      console.error(`- ${error.field}: ${error.message}`)
-    })
+    if (errors.length > 0) {
+      console.error(`Validation errors in ${contentType}:`)
+      errors.forEach((error) => {
+        console.error(`- ${error.field}: ${error.message}`)
+      })
+      return false
+    }
+
+    return true
+  } catch (error) {
+    console.error(`Error validating ${contentType}:`, error)
     return false
   }
-
-  return true
 }
 
 // Simple string array error format for backward compatibility
 export function getValidationErrors<T>(data: T, validator: Validator<T>): string[] {
-  const errors = validator(data)
-  return errors.map((error) => `${error.field}: ${error.message}`)
+  try {
+    const errors = validator(data)
+    return errors.map((error) => `${error.field}: ${error.message}`)
+  } catch (error) {
+    console.error("Error getting validation errors:", error)
+    return ["Unknown validation error"]
+  }
 }

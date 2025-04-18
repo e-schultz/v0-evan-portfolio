@@ -1,52 +1,58 @@
-// Shared type definitions for content structures
-// This file can be imported by both client and server components
+// Content block types
+export type ContentBlockType = "paragraph" | "heading" | "list" | "code" | "image" | "blockquote" | "divider"
 
-export interface BlogPost {
+export type ContentBlock = {
+  type: ContentBlockType
+  content?: string
+  level?: number
+  language?: string
+  items?: Array<{
+    type: "listItem"
+    title?: string
+    content: string
+  }>
+  src?: string
+  alt?: string
+  caption?: string
+}
+
+// Blog post type
+export type BlogPost = {
   title: string
   slug: string
   date: string
   author: string
   excerpt: string
   content: ContentBlock[]
-  image: string
   tags: string[]
   category: string
+  image?: string
+  readingTime?: number
 }
 
-export interface Project {
+// Project type
+export type Project = {
   title: string
   slug: string
   description: string
+  image?: string
   tags: string[]
   github?: string
   link?: string
-  v0Link?: string
-  image?: string
-  featured: boolean
+  featured?: boolean
+  status?: "active" | "completed" | "archived"
+  date?: string
   fullDescription?: ContentBlock[]
-  screenshots?: { image: string; alt: string }[]
+  screenshots?: Array<{
+    image: string
+    alt: string
+    caption?: string
+  }>
+  technologies?: string[]
 }
 
-// Update the ContentBlock type to include language and filename for code blocks
-export type ContentBlock = {
-  type: "heading" | "paragraph" | "list" | "code" | "blockquote" | "image"
-  level?: number
-  content?: string
-  items?: string[] | ListItem[]
-  language?: string // Add this for code blocks
-  filename?: string // Add this for code blocks
-  alt?: string
-  src?: string
-  caption?: string
-}
-
-export type ListItem = {
-  type: "listItem"
-  title?: string
-  content?: string
-}
-
-export interface HeroContent {
+// Hero content type
+export type HeroContent = {
   title: string
   subtitle: string
   description: string
@@ -58,46 +64,105 @@ export interface HeroContent {
     text: string
     url: string
   }
-  socialLinks: {
+  socialLinks: Array<{
     platform: string
     url: string
     label: string
-  }[]
-  image: string
+  }>
+  image?: string
 }
 
-export interface AboutContent {
+// About content type
+export type AboutContent = {
   title: string
   description: string
-  sections: {
+  sections: Array<{
     title: string
     content?: string[]
     items?: string[]
-  }[]
+  }>
   resumeButton: {
     text: string
     url: string
   }
-  experience: {
+  experience: Array<{
     title: string
     company: string
     period: string
-  }[]
+  }>
 }
 
-export interface ContactFormContent {
+// Contact content type
+export type ContactContent = {
   title: string
   description: string
-  fields: {
+  email: {
+    title: string
+    address: string
+  }
+  social: {
+    title: string
+    platforms: Array<{
+      name: string
+      url: string
+      icon: string
+    }>
+  }
+  image: {
+    src: string
+    alt: string
+    caption: string
+    description: string
+  }
+  form: ContactFormContent
+}
+
+export type ContactFormContent = {
+  title: string
+  description: string
+  fields: Array<{
     name: string
     label: string
     type: string
     placeholder: string
     required: boolean
     rows?: number
-  }[]
+  }>
   submitButton: {
     text: string
     icon: string
   }
+}
+
+// Resume content type
+export type ResumeContent = {
+  title: string
+  subtitle?: string
+  description?: string
+  experience: Array<{
+    company: string
+    position: string
+    startDate: string
+    endDate?: string
+    description: string
+    highlights?: string[]
+  }>
+  education: Array<{
+    institution: string
+    degree: string
+    field?: string
+    startDate: string
+    endDate?: string
+    description?: string
+  }>
+  skills: Array<{
+    category: string
+    items: string[]
+  }>
+  certifications?: Array<{
+    name: string
+    issuer: string
+    date: string
+    url?: string
+  }>
 }

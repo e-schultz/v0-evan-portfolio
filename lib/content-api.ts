@@ -4,9 +4,6 @@ import { cache } from "react"
 import fs from "fs"
 import path from "path"
 import { validateContent, validateBlogPost, validateProject } from "./content-validation"
-// Add this import at the top
-// Remove this line
-// import { validateBlogPost, validateProject } from "./content-validator"
 import type { BlogPost, Project } from "./content-types"
 
 // Base directory for content
@@ -206,26 +203,41 @@ export const searchPosts = cache(async (query: string): Promise<BlogPost[]> => {
 
 // Find the getProject function and add validation:
 export const getProject = cache(async (slug: string): Promise<Project | null> => {
-  const project = await getContent<Project>("project", slug)
+  try {
+    const project = await getContent<Project>("project", slug)
 
-  if (project) {
-    // Validate the project and log any errors
-    const errors = validateProject(project)
-    if (errors.length > 0) {
-      console.warn(`Validation issues in project ${slug}:`, errors)
+    if (project) {
+      // Validate the project and log any errors
+      const errors = validateProject(project)
+      if (errors.length > 0) {
+        console.warn(`Validation issues in project ${slug}:`, errors)
+      }
     }
-  }
 
-  return project
+    return project
+  } catch (error) {
+    console.error(`Error getting project ${slug}:`, error)
+    return null
+  }
 })
 
 export const getAllProjects = cache(async (): Promise<Project[]> => {
-  return await getAllContent<Project>("project", validateProject)
+  try {
+    return await getAllContent<Project>("project", validateProject)
+  } catch (error) {
+    console.error("Error getting all projects:", error)
+    return []
+  }
 })
 
 export const getFeaturedProjects = cache(async (): Promise<Project[]> => {
-  const allProjects = await getAllProjects()
-  return allProjects.filter((project) => project.featured)
+  try {
+    const allProjects = await getAllProjects()
+    return allProjects.filter((project) => project.featured)
+  } catch (error) {
+    console.error("Error getting featured projects:", error)
+    return []
+  }
 })
 
 // Generic content function with caching
