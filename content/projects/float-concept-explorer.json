@@ -1,13 +1,14 @@
 {
   "title": "FLOAT Concept Explorer",
   "slug": "float-concept-explorer",
-  "description": "An interactive tool for exploring and visualizing the core concepts of FLOAT (Floating Linked Ontological Associative Thinking) methodology.",
-  "tags": ["Next.js", "Knowledge Visualization", "Concept Mapping", "v0", "React"],
+  "description": "An interactive tool for exploring and visualizing concepts and their relationships.",
+  "tags": ["Next.js", "Knowledge Visualization", "Concept Mapping", "React"],
   "github": "https://github.com/e-schultz/v0-float-concept-explorer",
-  "link": "https://v0-float-concept-explorer.vercel.app/",
-  "v0Link": "https://v0.dev/chat/projects/IEUcXXXXXXX",
-  "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
-  "featured": false,
+  "link": "https://v0-concept-explorer-flows.vercel.app/",
+  "image": "/placeholder.svg?height=600&width=800&query=concept explorer",
+  "featured": true,
+  "status": "active",
+  "date": "2024-01-15",
   "fullDescription": [
     {
       "type": "paragraph",
