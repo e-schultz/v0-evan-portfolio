@@ -30,13 +30,13 @@ export type BlogPost = {
   readingTime?: number
 }
 
-// Project type
+// Project type - make all fields optional except title and slug
 export type Project = {
   title: string
   slug: string
-  description: string
+  description?: string
   image?: string
-  tags: string[]
+  tags?: string[]
   github?: string
   link?: string
   featured?: boolean
