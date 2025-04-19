@@ -17,7 +17,7 @@ export function ProjectGrid({ projects, columns = 3, featured = false, className
   }
 
   return (
-    <div className={`grid ${columnClasses[columns]} gap-6 md:gap-8 ${className}`}>
+    <div className={`grid ${columnClasses[columns]} gap-8 md:gap-10 ${className}`}>
       {projects.map((project, index) => (
         <ProjectCard key={index} project={project} featured={featured} />
       ))}
