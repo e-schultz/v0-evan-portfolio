@@ -6,7 +6,7 @@ export async function GET(request: Request) {
 
   if (!query) {
     return Response.json({ results: [] })
-  }
+  } 
 
   try {
     const results = await searchPosts(query)
