@@ -4,24 +4,29 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge"
 import { Calendar } from "lucide-react"
 import type { BlogPost } from "@/lib/content-types"
+import { getBlogImageUrl, getImageSizes } from "@/lib/image-utils"
 
 interface BlogCardProps {
   post: BlogPost
   showCategory?: boolean
+  priority?: boolean
 }
 
-export function BlogCard({ post, showCategory = false }: BlogCardProps) {
+export function BlogCard({ post, showCategory = false, priority = false }: BlogCardProps) {
+  // Use the image utility to get the full URL
+  const imageUrl = post.image ? getBlogImageUrl(post.image) : "/placeholder.svg"
+
   return (
     <Card className="flex flex-col h-full transition-all duration-300 hover:shadow-lg">
       <div className="h-48 overflow-hidden relative">
         <Image
-          src={post.image || "/placeholder.svg"}
+          src={imageUrl || "/placeholder.svg"}
           alt={post.title}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          sizes={getImageSizes("card")}
           className="object-cover transition-transform hover:scale-105"
-          priority={false}
-          loading="lazy"
+          priority={priority}
+          loading={priority ? "eager" : "lazy"}
         />
       </div>
       <CardHeader>

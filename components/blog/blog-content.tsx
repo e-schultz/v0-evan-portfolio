@@ -1,18 +1,22 @@
 import type { BlogPost } from "@/lib/content-types"
 import { renderContentBlocks } from "@/lib/format-content"
 import Image from "next/image"
+import { getBlogImageUrl, getImageSizes } from "@/lib/image-utils"
 
 // Server component for static blog content
 export function BlogContent({ blogPost }: { blogPost: BlogPost }) {
+  // Use the image utility to get the full URL
+  const imageUrl = blogPost.image ? getBlogImageUrl(blogPost.image) : null
+
   return (
     <div>
-      {blogPost.image && (
+      {imageUrl && (
         <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] mb-8 overflow-hidden rounded-lg">
           <Image
-            src={blogPost.image || "/placeholder.svg"}
+            src={imageUrl || "/placeholder.svg"}
             alt={blogPost.title}
             fill
-            sizes="(max-width: 768px) 100vw, 1200px"
+            sizes={getImageSizes("hero")}
             className="object-cover"
             priority={true}
           />
