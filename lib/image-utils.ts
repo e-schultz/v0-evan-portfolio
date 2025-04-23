@@ -4,12 +4,20 @@
  * @returns The full URL for the image
  */
 export function getBlogImageUrl(imagePath: string): string {
+<<<<<<< HEAD
   // If the image path is a full URL, return it as is
+=======
+  // If the image path is a full URL (including Blob URLs), return it as is
+>>>>>>> 52c8bb5 (image migration)
   if (imagePath.startsWith("http")) {
     return imagePath
   }
 
+<<<<<<< HEAD
   // For local images, ensure they start with a slash
+=======
+  // For local images that haven't been migrated yet, ensure they start with a slash
+>>>>>>> 52c8bb5 (image migration)
   return imagePath.startsWith("/") ? imagePath : `/${imagePath}`
 }
 
