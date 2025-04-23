@@ -61,7 +61,9 @@
     "prism-react-renderer": "latest",
     "fs": "latest",
     "path": "latest",
-    "util": "latest"
+    "util": "latest",
+    "@vercel/blob": "latest",
+    "glob": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",
