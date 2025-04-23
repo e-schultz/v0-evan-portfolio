@@ -2,38 +2,14 @@
 
 import type React from "react"
 import { useState } from "react"
-import { useFormStatus } from "react-dom"
-import { submitContactFormAction } from "@/lib/server-actions"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Send } from "lucide-react"
+import { Send, Loader2 } from "lucide-react"
 import type { ContactFormContent } from "@/lib/content-types"
 import { EnhancedErrorBoundary } from "@/components/enhanced-error-boundary"
 import { FormErrorFallback } from "@/components/error-fallbacks/form-error-fallback"
-
-// Submit button with loading state
-function SubmitButton() {
-  const { pending } = useFormStatus()
-
-  return (
-    <button
-      type="submit"
-      className="hero-button inline-flex items-center justify-center px-8 py-3 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
-      disabled={pending}
-      aria-label="Send Message"
-    >
-      {pending ? (
-        <>Sending...</>
-      ) : (
-        <>
-          Send Message <Send className="ml-2 h-4 w-4" />
-        </>
-      )}
-    </button>
-  )
-}
 
 interface ContactFormProps {
   formContent?: ContactFormContent
@@ -46,8 +22,7 @@ export function ContactForm({ formContent }: ContactFormProps) {
     subject: "",
     message: "",
   })
-  const [submitSuccess, setSubmitSuccess] = useState(false)
-  const [submitError, setSubmitError] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -102,18 +77,6 @@ export function ContactForm({ formContent }: ContactFormProps) {
         <CardDescription>{content.description}</CardDescription>
       </CardHeader>
       <CardContent>
-        {submitSuccess ? (
-          <div className="bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300 p-4 rounded-lg mb-6">
-            Thank you for your message! I'll get back to you as soon as possible.
-          </div>
-        ) : null}
-
-        {submitError ? (
-          <div className="bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300 p-4 rounded-lg mb-6">
-            {submitError}
-          </div>
-        ) : null}
-
         <EnhancedErrorBoundary
           fallback={
             <FormErrorFallback
@@ -121,32 +84,19 @@ export function ContactForm({ formContent }: ContactFormProps) {
               message="We encountered an error with the contact form. Please try again later or contact me directly via email."
             />
           }
-          resetKeys={[submitSuccess, submitError]}
         >
           <form
-            action={async (formData) => {
-              try {
-                const result = await submitContactFormAction(formData)
-                if (result.success) {
-                  setSubmitSuccess(true)
-                  setSubmitError("")
-                  setFormState({
-                    name: "",
-                    email: "",
-                    subject: "",
-                    message: "",
-                  })
-                } else {
-                  setSubmitSuccess(false)
-                  setSubmitError(result.message || "There was an error submitting your message. Please try again.")
-                }
-              } catch (error) {
-                setSubmitSuccess(false)
-                setSubmitError("There was an error submitting your message. Please try again.")
-              }
-            }}
+            action="https://api.web3forms.com/submit"
+            method="POST"
+            onSubmit={() => setIsSubmitting(true)}
             className="space-y-4 md:space-y-6"
           >
+            {/* Web3Forms required fields */}
+            <input type="hidden" name="access_key" value="6f45f241-8399-4323-a018-25938f3427f3" />
+            <input type="hidden" name="_subject" value="New Contact Form Submission" />
+            <input type="hidden" name="_next" value="https://evanschultz.dev/thank-you" />
+            <input type="hidden" name="_captcha" value="false" />
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {content.fields.slice(0, 2).map((field) => (
                 <div key={field.name} className="space-y-2">
@@ -194,7 +144,23 @@ export function ContactForm({ formContent }: ContactFormProps) {
               </div>
             ))}
 
-            <SubmitButton />
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="hero-button inline-flex items-center justify-center px-8 py-3 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+              aria-label="Send Message"
+            >
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Sending...
+                </>
+              ) : (
+                <>
+                  Send Message <Send className="ml-2 h-4 w-4" />
+                </>
+              )}
+            </button>
           </form>
         </EnhancedErrorBoundary>
       </CardContent>
