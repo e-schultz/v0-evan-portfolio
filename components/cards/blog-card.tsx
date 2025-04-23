@@ -12,7 +12,7 @@ interface BlogCardProps {
 
 export function BlogCard({ post, showCategory = false }: BlogCardProps) {
   return (
-    <Card className="flex flex-col h-full">
+    <Card className="flex flex-col h-full transition-all duration-300 hover:shadow-lg">
       <div className="h-48 overflow-hidden relative">
         <Image
           src={post.image || "/placeholder.svg"}
@@ -21,6 +21,7 @@ export function BlogCard({ post, showCategory = false }: BlogCardProps) {
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform hover:scale-105"
           priority={false}
+          loading="lazy"
         />
       </div>
       <CardHeader>
@@ -34,22 +35,27 @@ export function BlogCard({ post, showCategory = false }: BlogCardProps) {
       <CardContent className="flex-grow">
         {showCategory && (
           <Badge variant="outline" className="mb-2">
-            <Link href={`/blog/category/${encodeURIComponent(post.category.toLowerCase())}`}>{post.category}</Link>
+            <Link href={`/blog/category/${encodeURIComponent(post.category.toLowerCase())}`} prefetch={true}>
+              {post.category}
+            </Link>
           </Badge>
         )}
         <div className="flex flex-wrap gap-2">
           {post.tags.map((tag, tagIndex) => (
             <Badge key={tagIndex} variant="secondary">
-              <Link href={`/blog/tag/${encodeURIComponent(tag.toLowerCase())}`}>{tag}</Link>
+              <Link href={`/blog/tag/${encodeURIComponent(tag.toLowerCase())}`} prefetch={true}>
+                {tag}
+              </Link>
             </Badge>
           ))}
         </div>
       </CardContent>
       <CardFooter>
-        <a
+        <Link
           href={`/blog/${post.slug}`}
           className="hero-button inline-flex items-center justify-center px-8 py-3 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
           aria-label={`Read more about ${post.title}`}
+          prefetch={true}
         >
           Read More
           <svg
@@ -67,7 +73,7 @@ export function BlogCard({ post, showCategory = false }: BlogCardProps) {
             <path d="M5 12h14"></path>
             <path d="m12 5 7 7-7 7"></path>
           </svg>
-        </a>
+        </Link>
       </CardFooter>
     </Card>
   )

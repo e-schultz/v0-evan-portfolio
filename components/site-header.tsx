@@ -24,7 +24,7 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 w-full border-b bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 theme-transition shadow-sm">
       <div className="container flex h-16 items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-2">
-          <Link href="/" className="font-mono text-xl font-bold">
+          <Link href="/" className="font-mono text-xl font-bold" prefetch={true}>
             evan.schultz
           </Link>
         </div>
@@ -38,6 +38,7 @@ export function SiteHeader() {
               className={`text-sm font-medium transition-colors hover:text-primary ${
                 pathname === route.href ? "text-foreground" : "text-muted-foreground"
               }`}
+              prefetch={true}
             >
               {route.label}
             </Link>
@@ -67,6 +68,7 @@ export function SiteHeader() {
                     pathname === route.href ? "text-foreground" : "text-muted-foreground"
                   }`}
                   onClick={() => setIsMenuOpen(false)}
+                  prefetch={true}
                 >
                   {route.label}
                 </Link>
