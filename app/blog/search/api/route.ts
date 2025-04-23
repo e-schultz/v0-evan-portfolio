@@ -1,4 +1,3 @@
-// Redirect /blog/search to /blog/search/page
 export function GET(request: Request) {
   const url = new URL(request.url)
   const query = url.searchParams.get("q") || ""
