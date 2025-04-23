@@ -137,6 +137,13 @@
         "text": "Contact Me",
         "url": "/contact",
         "variant": "outline"
+      },
+      {
+        "text": "View GitHub Profile",
+        "url": "https://github.com/e-schultz",
+        "variant": "default",
+        "icon": "github",
+        "external": true
       }
     ]
   }

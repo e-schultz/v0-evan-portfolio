@@ -226,15 +226,28 @@ async function AboutPageContent() {
               <h2 className="text-2xl md:text-3xl font-bold">{aboutContent.cta.title}</h2>
               <p className="text-muted-foreground">{aboutContent.cta.content}</p>
               <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
-                {aboutContent.cta.buttons.map((button, index) =>
-                  button.variant === "default" ? (
-                    <Link
-                      key={index}
-                      href={button.url}
-                      className="hero-button inline-flex items-center justify-center px-8 py-3 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
-                      aria-label={button.text}
-                    >
-                      {button.text}
+                {aboutContent.cta.buttons.map((button, index) => (
+                  <Link
+                    key={index}
+                    href={button.url}
+                    target={button.url.startsWith("http") ? "_blank" : undefined}
+                    rel={button.url.startsWith("http") ? "noopener noreferrer" : undefined}
+                    className={`inline-flex items-center justify-center px-8 py-3 rounded-md ${
+                      button.variant === "default"
+                        ? "bg-blue-600 text-white font-medium hover:bg-blue-700"
+                        : "border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+                    } transition-all duration-200 hover:scale-105 active:scale-95 ${
+                      button.variant === "default" ? "hover:shadow-md" : "hover:shadow-sm"
+                    } w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900`}
+                    aria-label={button.text}
+                  >
+                    {button.icon === "github" && (
+                      <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.387.6.113.82-.258.82-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.087-.744.083-.729.083-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.834 2.809 1.304 3.495.998.108-.776.418-1.304.762-1.604-.266-.809-.814-1.656-2.087-2.012 0 0-.671-2.158 1.52-2.158 0 0 .482-.149.793.609.291-.086.614-.144.928-.144.314 0 .637.058.928.144.311-.758.793-.609.793-.609 2.191.484 1.52 2.158 1.52 2.158 1.274.356 1.822 1.203 2.087 2.012.344.3.674.828.762 1.604.686-.694 2.425-1.224 3.495-.998 0 .015 1.205.084 1.838-.729 0 0-.787.369-1.333 1.756-.546 1.387-1.695 2.142-4.033 1.416 0 .319.22.69.82.577C20.562 22.197 24 17.6 24 12.297c0-6.627-5.373-12-12-12z" />
+                      </svg>
+                    )}
+                    {button.text}
+                    {button.variant === "default" && (
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -250,19 +263,10 @@ async function AboutPageContent() {
                         <path d="M5 12h14"></path>
                         <path d="m12 5 7 7-7 7"></path>
                       </svg>
-                    </Link>
-                  ) : (
-                    <Link
-                      key={index}
-                      href={button.url}
-                      className="inline-flex items-center justify-center px-8 py-3 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-sm font-medium w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
-                      aria-label={button.text}
-                    >
-                      {button.text}
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  ),
-                )}
+                    )}
+                    {button.variant !== "default" && <ArrowRight className="ml-2 h-4 w-4" />}
+                  </Link>
+                ))}
               </div>
             </div>
           </ContentContainer>

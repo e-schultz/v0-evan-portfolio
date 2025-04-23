@@ -8,6 +8,17 @@ import { Suspense } from "react"
 import { ErrorBoundary } from "@/components/error-boundary"
 import { BlogListSkeleton } from "@/components/skeletons/blog-list-skeleton"
 
+// Define params type
+type CategoryPageParams = {
+  category: string
+}
+
+// Define the page props type
+type CategoryPageProps = {
+  params: CategoryPageParams
+  searchParams?: Record<string, string | string[] | undefined>
+}
+
 export async function generateStaticParams() {
   try {
     // Use direct server function instead of API route
@@ -19,7 +30,7 @@ export async function generateStaticParams() {
   }
 }
 
-export default function CategoryPage({ params }: { params: { category: string } }) {
+export default function CategoryPage({ params }: CategoryPageProps) {
   return (
     <MainLayout>
       <PageHeader
@@ -41,7 +52,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
 }
 
 // Separate async component for category content
-async function CategoryContent({ params }: { params: { category: string } }) {
+async function CategoryContent({ params }: { params: CategoryPageParams }) {
   // Await params before accessing its properties
   const decodedCategory = decodeURIComponent(params.category)
   // Use direct server function instead of API route

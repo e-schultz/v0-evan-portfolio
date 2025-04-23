@@ -5,16 +5,26 @@ import { ArrowLeft } from "lucide-react"
 import { EnhancedErrorBoundary } from "@/components/enhanced-error-boundary"
 import { ContentErrorFallback } from "@/components/error-fallbacks/content-error-fallback"
 
+// Define params type
+type BlogPostParams = {
+  slug: string
+}
+
+// Define the page props type
+type BlogPostPageProps = {
+  params: BlogPostParams
+  searchParams?: Record<string, string | string[] | undefined>
+}
+
 // Generate static params for all blog posts
 export async function generateStaticParams() {
   const slugs = await getAllBlogSlugs()
   return slugs.map((slug) => ({ slug }))
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  // Await params before accessing its properties
-  const resolvedParams = await params
-  const post = await getBlogPost(resolvedParams.slug)
+export async function generateMetadata({ params }: BlogPostPageProps) {
+  const slug = params.slug
+  const post = await getBlogPost(slug)
 
   if (!post) {
     return {
@@ -45,7 +55,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
   // Create a promise that will be resolved in the client component
   const blogPostPromise = getBlogPost(params.slug)
 

@@ -8,10 +8,20 @@ import { formatContent } from "@/lib/format-content"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 
-export async function generateMetadata({ params }: { params: { slug: string } }) {
-  // Await params before accessing its properties
-  const resolvedParams = await params
-  const project = await getProject(resolvedParams.slug)
+// Define params type
+type ProjectPageParams = {
+  slug: string
+}
+
+// Define the page props type
+type ProjectPageProps = {
+  params: ProjectPageParams
+  searchParams?: Record<string, string | string[] | undefined>
+}
+
+export async function generateMetadata({ params }: ProjectPageProps) {
+  const slug = params.slug
+  const project = await getProject(slug)
 
   if (!project) {
     return {
@@ -39,7 +49,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default function ProjectPage({ params }: { params: { slug: string } }) {
+export default function ProjectPage({ params }: ProjectPageProps) {
   return (
     <Suspense fallback={<ProjectPageSkeleton />}>
       <ProjectContent params={params} />
@@ -71,10 +81,9 @@ function ProjectPageSkeleton() {
   )
 }
 
-async function ProjectContent({ params }: { params: { slug: string } }) {
-  // Await params before accessing its properties
-  const resolvedParams = await params
-  const project = await getProject(resolvedParams.slug)
+async function ProjectContent({ params }: { params: ProjectPageParams }) {
+  const slug = params.slug
+  const project = await getProject(slug)
 
   if (!project) {
     return (
