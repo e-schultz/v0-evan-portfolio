@@ -6,22 +6,9 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Calendar, Briefcase, GraduationCap, Mic, User, ArrowRight } from "lucide-react"
 import { getGenericContent } from "@/lib/content-api"
 import { ContentError } from "@/components/content-error"
-import { Suspense } from "react"
-import { LoadingSpinner } from "@/components/ui/loading-spinner"
-import { ErrorBoundary } from "@/components/error-boundary"
 import Link from "next/link"
 
-export default function AboutPage() {
-  return (
-    <ErrorBoundary fallback={<div className="p-4 text-red-500">Failed to load about page content</div>}>
-      <Suspense fallback={<LoadingSpinner />}>
-        <AboutPageContent />
-      </Suspense>
-    </ErrorBoundary>
-  )
-}
-
-async function AboutPageContent() {
+export default async function AboutPage() {
   try {
     const aboutContent = await getGenericContent("pages/about")
 
