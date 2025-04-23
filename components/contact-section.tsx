@@ -2,11 +2,31 @@
 
 import type React from "react"
 import { useState } from "react"
+import { useFormStatus } from "react-dom"
+import { submitContactFormAction } from "@/lib/server-actions"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Mail, MessageSquare, Send } from "lucide-react"
+import { EnhancedErrorBoundary } from "@/components/enhanced-error-boundary"
+
+// Submit button with loading state
+function SubmitButton() {
+  const { pending } = useFormStatus()
+
+  return (
+    <Button type="submit" className="w-full" disabled={pending}>
+      {pending ? (
+        <>Sending...</>
+      ) : (
+        <>
+          Send Message <Send className="ml-2 h-4 w-4" />
+        </>
+      )}
+    </Button>
+  )
+}
 
 export function ContactSection() {
   const [formState, setFormState] = useState({
@@ -15,39 +35,12 @@ export function ContactSection() {
     subject: "",
     message: "",
   })
-
-  const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitSuccess, setSubmitSuccess] = useState(false)
   const [submitError, setSubmitError] = useState("")
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setFormState((prev) => ({ ...prev, [name]: value }))
-  }
-
-  // Replace async/await with a non-async approach using callbacks
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    setSubmitSuccess(false)
-    setSubmitError("")
-
-    // Use setTimeout with callbacks instead of async/await
-    setTimeout(() => {
-      try {
-        setSubmitSuccess(true)
-        setFormState({
-          name: "",
-          email: "",
-          subject: "",
-          message: "",
-        })
-      } catch (error) {
-        setSubmitError("There was an error submitting your message. Please try again.")
-      } finally {
-        setIsSubmitting(false)
-      }
-    }, 1500)
   }
 
   return (
@@ -137,69 +130,86 @@ export function ContactSection() {
               </div>
             ) : null}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <EnhancedErrorBoundary>
+              <form
+                action={async (formData) => {
+                  try {
+                    const result = await submitContactFormAction(formData)
+                    if (result.success) {
+                      setSubmitSuccess(true)
+                      setSubmitError("")
+                      setFormState({
+                        name: "",
+                        email: "",
+                        subject: "",
+                        message: "",
+                      })
+                    } else {
+                      setSubmitSuccess(false)
+                      setSubmitError(result.message || "There was an error submitting your message. Please try again.")
+                    }
+                  } catch (error) {
+                    setSubmitSuccess(false)
+                    setSubmitError("There was an error submitting your message. Please try again.")
+                  }
+                }}
+                className="space-y-6"
+              >
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="name">Name</Label>
+                    <Input
+                      id="name"
+                      name="name"
+                      placeholder="Your name"
+                      value={formState.name}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="email">Email</Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="Your email address"
+                      value={formState.email}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                </div>
+
                 <div className="space-y-2">
-                  <Label htmlFor="name">Name</Label>
+                  <Label htmlFor="subject">Subject</Label>
                   <Input
-                    id="name"
-                    name="name"
-                    placeholder="Your name"
-                    value={formState.name}
+                    id="subject"
+                    name="subject"
+                    placeholder="What is this regarding?"
+                    value={formState.subject}
                     onChange={handleChange}
                     required
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email</Label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="Your email address"
-                    value={formState.email}
+                  <Label htmlFor="message">Message</Label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    placeholder="Your message"
+                    rows={5}
+                    value={formState.message}
                     onChange={handleChange}
                     required
                   />
                 </div>
-              </div>
 
-              <div className="space-y-2">
-                <Label htmlFor="subject">Subject</Label>
-                <Input
-                  id="subject"
-                  name="subject"
-                  placeholder="What is this regarding?"
-                  value={formState.subject}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="message">Message</Label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  placeholder="Your message"
-                  rows={5}
-                  value={formState.message}
-                  onChange={handleChange}
-                  required
-                />
-              </div>
-
-              <Button type="submit" className="w-full" disabled={isSubmitting}>
-                {isSubmitting ? (
-                  <>Sending...</>
-                ) : (
-                  <>
-                    Send Message <Send className="ml-2 h-4 w-4" />
-                  </>
-                )}
-              </Button>
-            </form>
+                <SubmitButton />
+              </form>
+            </EnhancedErrorBoundary>
           </div>
         </div>
       </div>

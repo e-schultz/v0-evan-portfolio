@@ -1,6 +1,5 @@
 "use client"
 
-import { MainLayout } from "@/components/layouts/main-layout"
 import { PageHeader } from "@/components/ui/page-header"
 import { ContentContainer } from "@/components/ui/content-container"
 import { Button } from "@/components/ui/button"
@@ -27,7 +26,7 @@ export default function ResumePage() {
   ]
 
   return (
-    <MainLayout>
+    <>
       <PageHeader title="Resume" description="My professional experience and qualifications">
         <div className="mt-6">
           <Button>
@@ -288,6 +287,6 @@ export default function ResumePage() {
           </div>
         </ContentContainer>
       </section>
-    </MainLayout>
+    </>
   )
 }

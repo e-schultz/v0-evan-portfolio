@@ -11,6 +11,8 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Send } from "lucide-react"
 import type { ContactFormContent } from "@/lib/content-types"
+import { EnhancedErrorBoundary } from "@/components/enhanced-error-boundary"
+import { FormErrorFallback } from "@/components/error-fallbacks/form-error-fallback"
 
 // Submit button with loading state
 function SubmitButton() {
@@ -108,77 +110,87 @@ export function ContactForm({ formContent }: ContactFormProps) {
           </div>
         ) : null}
 
-        <form
-          action={async (formData) => {
-            try {
-              const result = await submitContactFormAction(formData)
-              if (result.success) {
-                setSubmitSuccess(true)
-                setSubmitError("")
-                setFormState({
-                  name: "",
-                  email: "",
-                  subject: "",
-                  message: "",
-                })
-              } else {
-                setSubmitSuccess(false)
-                setSubmitError(result.message || "There was an error submitting your message. Please try again.")
-              }
-            } catch (error) {
-              setSubmitSuccess(false)
-              setSubmitError("There was an error submitting your message. Please try again.")
-            }
-          }}
-          className="space-y-4 md:space-y-6"
+        <EnhancedErrorBoundary
+          fallback={
+            <FormErrorFallback
+              title="Form Error"
+              message="We encountered an error with the contact form. Please try again later or contact me directly via email."
+            />
+          }
+          resetKeys={[submitSuccess, submitError]}
         >
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            {content.fields.slice(0, 2).map((field) => (
+          <form
+            action={async (formData) => {
+              try {
+                const result = await submitContactFormAction(formData)
+                if (result.success) {
+                  setSubmitSuccess(true)
+                  setSubmitError("")
+                  setFormState({
+                    name: "",
+                    email: "",
+                    subject: "",
+                    message: "",
+                  })
+                } else {
+                  setSubmitSuccess(false)
+                  setSubmitError(result.message || "There was an error submitting your message. Please try again.")
+                }
+              } catch (error) {
+                setSubmitSuccess(false)
+                setSubmitError("There was an error submitting your message. Please try again.")
+              }
+            }}
+            className="space-y-4 md:space-y-6"
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {content.fields.slice(0, 2).map((field) => (
+                <div key={field.name} className="space-y-2">
+                  <Label htmlFor={field.name}>{field.label}</Label>
+                  <Input
+                    id={field.name}
+                    name={field.name}
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    value={formState[field.name as keyof typeof formState] || ""}
+                    onChange={handleChange}
+                    required={field.required}
+                  />
+                </div>
+              ))}
+            </div>
+
+            {content.fields.slice(2).map((field) => (
               <div key={field.name} className="space-y-2">
                 <Label htmlFor={field.name}>{field.label}</Label>
-                <Input
-                  id={field.name}
-                  name={field.name}
-                  type={field.type}
-                  placeholder={field.placeholder}
-                  value={formState[field.name as keyof typeof formState] || ""}
-                  onChange={handleChange}
-                  required={field.required}
-                />
+                {field.type === "textarea" ? (
+                  <Textarea
+                    id={field.name}
+                    name={field.name}
+                    placeholder={field.placeholder}
+                    rows={field.rows || 5}
+                    value={formState[field.name as keyof typeof formState] || ""}
+                    onChange={handleChange}
+                    required={field.required}
+                    className="resize-none"
+                  />
+                ) : (
+                  <Input
+                    id={field.name}
+                    name={field.name}
+                    type={field.type}
+                    placeholder={field.placeholder}
+                    value={formState[field.name as keyof typeof formState] || ""}
+                    onChange={handleChange}
+                    required={field.required}
+                  />
+                )}
               </div>
             ))}
-          </div>
 
-          {content.fields.slice(2).map((field) => (
-            <div key={field.name} className="space-y-2">
-              <Label htmlFor={field.name}>{field.label}</Label>
-              {field.type === "textarea" ? (
-                <Textarea
-                  id={field.name}
-                  name={field.name}
-                  placeholder={field.placeholder}
-                  rows={field.rows || 5}
-                  value={formState[field.name as keyof typeof formState] || ""}
-                  onChange={handleChange}
-                  required={field.required}
-                  className="resize-none"
-                />
-              ) : (
-                <Input
-                  id={field.name}
-                  name={field.name}
-                  type={field.type}
-                  placeholder={field.placeholder}
-                  value={formState[field.name as keyof typeof formState] || ""}
-                  onChange={handleChange}
-                  required={field.required}
-                />
-              )}
-            </div>
-          ))}
-
-          <SubmitButton />
-        </form>
+            <SubmitButton />
+          </form>
+        </EnhancedErrorBoundary>
       </CardContent>
     </Card>
   )

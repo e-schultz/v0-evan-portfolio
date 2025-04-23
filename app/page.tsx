@@ -1,4 +1,3 @@
-import { MainLayout } from "@/components/layouts/main-layout"
 import { HeroSection } from "@/components/hero-section"
 import { AboutSection } from "@/components/about-section"
 import { ProjectsSection } from "@/components/projects-section"
@@ -15,12 +14,12 @@ export default async function Home() {
   const latestPosts = await getLatestBlogPosts(3)
 
   return (
-    <MainLayout>
+    <>
       <HeroSection heroContent={heroContent} />
       <AboutSection aboutContent={aboutContent} />
       <ProjectsSection projects={featuredProjects} />
       <BlogPreview posts={latestPosts} />
       <ContactSection />
-    </MainLayout>
+    </>
   )
 }

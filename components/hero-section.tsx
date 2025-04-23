@@ -62,23 +62,18 @@ export function HeroSection({ heroContent }: HeroSectionProps) {
               ))}
             </div>
           </div>
-          <div className="relative h-[250px] sm:h-[300px] md:h-[350px] lg:h-[450px] rounded-lg overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-background/50 mix-blend-multiply z-10"></div>
-            {heroContent.image ? (
+          {heroContent.image && (
+            <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] overflow-hidden rounded-lg">
               <Image
                 src={heroContent.image || "/placeholder.svg"}
-                alt="Tech-inspired illustration"
+                alt={heroContent.title || "Hero image"}
                 fill
-                sizes="(max-width: 768px) 100vw, 50vw"
-                priority
+                sizes="100vw"
                 className="object-cover"
+                priority={true}
               />
-            ) : (
-              <div className="w-full h-full bg-muted flex items-center justify-center">
-                <span className="text-muted-foreground">Image not available</span>
-              </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </div>
     </section>

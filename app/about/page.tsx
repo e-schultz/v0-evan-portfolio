@@ -1,5 +1,4 @@
 import Link from "next/link"
-import { MainLayout } from "@/components/layouts/main-layout"
 import { PageHeader } from "@/components/ui/page-header"
 import { ContentContainer } from "@/components/ui/content-container"
 import { SectionHeader } from "@/components/ui/section-header"
@@ -17,7 +16,7 @@ export default async function AboutPage() {
   }
 
   return (
-    <MainLayout>
+    <>
       <PageHeader title={aboutContent.title} description={aboutContent.subtitle} />
 
       {/* Hero Section with Image */}
@@ -46,6 +45,7 @@ export default async function AboutPage() {
         </ContentContainer>
       </section>
 
+      {/* Rest of the content remains the same */}
       {/* Philosophy Section */}
       <section className="py-12 md:py-16 bg-muted/30">
         <ContentContainer maxWidth="3xl" className="px-4 md:px-6">
@@ -207,6 +207,6 @@ export default async function AboutPage() {
           </div>
         </ContentContainer>
       </section>
-    </MainLayout>
+    </>
   )
 }

@@ -1,83 +1,50 @@
 "use client"
 
-import type React from "react"
 import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { Input } from "@/components/ui/input"
-import { Button } from "@/components/ui/button"
-import { Search } from "lucide-react"
-import { BlogPostGrid } from "@/components/blog/blog-post-grid"
-import { NoResults } from "@/components/ui/no-results"
-import { LoadingSpinner } from "@/components/loading-spinner"
+import { useCachedFetch } from "@/lib/use-cached-fetch"
+import { useDebounce } from "@/lib/use-debounce"
 import type { BlogPost } from "@/lib/content-types"
+import { BlogCard } from "@/components/blog/blog-card"
+import { NoResults } from "@/components/ui/no-results"
 
-interface BlogSearchClientProps {
-  initialQuery?: string
-  initialResults?: BlogPost[]
-  showResults?: boolean
-}
+export function BlogSearchClient() {
+  const [searchQuery, setSearchQuery] = useState("")
+  const debouncedSearch = useDebounce(searchQuery, 300)
 
-export function BlogSearchClient({
-  initialQuery = "",
-  initialResults = [],
-  showResults = false,
-}: BlogSearchClientProps) {
-  const [searchQuery, setSearchQuery] = useState(initialQuery)
-  const [results, setResults] = useState<BlogPost[]>(initialResults)
-  const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
+  const {
+    data: searchResults,
+    loading,
+    error,
+  } = useCachedFetch<BlogPost[]>(
+    `/blog/search?q=${encodeURIComponent(debouncedSearch)}`,
+    {},
+    60000, // 1 minute cache
+  )
 
-  // Handle form submission
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault()
-
-    if (searchQuery.trim()) {
-      // Navigate to search page with query
-      router.push(`/blog/search?q=${encodeURIComponent(searchQuery)}`)
-    }
-  }
-
-  if (!showResults) {
-    // Just render the search form
-    return (
-      <form onSubmit={handleSearch} className="flex max-w-lg mx-auto">
-        <Input
-          type="search"
-          placeholder="Search articles..."
-          className="rounded-r-none"
+  return (
+    <div className="w-full">
+      <div className="mb-8">
+        <input
+          type="text"
+          placeholder="Search blog posts..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
+          className="w-full p-2 border rounded-md dark:bg-gray-800 dark:border-gray-700"
         />
-        <Button type="submit" className="rounded-l-none">
-          <Search className="h-4 w-4 mr-2" /> Search
-        </Button>
-      </form>
-    )
-  }
+      </div>
 
-  // Render search results
-  return (
-    <div>
-      {isLoading ? (
-        <div className="flex justify-center">
-          <LoadingSpinner size="large" />
+      {loading && searchQuery && <div>Searching...</div>}
+
+      {error && <div>Error: {error.message}</div>}
+
+      {searchResults && searchResults.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {searchResults.map((post) => (
+            <BlogCard key={post.slug} post={post} />
+          ))}
         </div>
-      ) : results.length > 0 ? (
-        <BlogPostGrid posts={results} columns={3} showCategory={true} />
-      ) : initialQuery ? (
-        <NoResults
-          title="No results found"
-          message={`No articles match your search for "${initialQuery}".`}
-          actionText="Browse all articles"
-          actionLink="/blog"
-        />
       ) : (
-        <NoResults
-          title="Enter a search term"
-          message="Type in the search box above to find articles."
-          actionText="Browse all articles"
-          actionLink="/blog"
-        />
+        searchQuery && !loading && <NoResults message="No blog posts found matching your search." />
       )}
     </div>
   )

@@ -99,3 +99,18 @@ export function renderContentBlocks(content: ContentBlock[]): React.ReactNode {
     }
   })
 }
+
+// Add the missing formatContent export
+export function formatContent(content: string | ContentBlock[]): React.ReactNode {
+  if (!content) return null
+
+  if (typeof content === "string") {
+    return formatText(content)
+  }
+
+  if (Array.isArray(content)) {
+    return renderContentBlocks(content)
+  }
+
+  return null
+}

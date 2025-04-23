@@ -4,9 +4,6 @@ import { cache } from "react"
 import fs from "fs"
 import path from "path"
 import { validateContent, validateBlogPost, validateProject } from "./content-validation"
-// Add this import at the top
-// Remove this line
-// import { validateBlogPost, validateProject } from "./content-validator"
 import type { BlogPost, Project } from "./content-types"
 
 // Base directory for content
@@ -60,8 +57,8 @@ function getContentFilePath(contentType: ContentType, slug: string): string {
   return path.join(contentDirectory, directory, `${slug}.json`)
 }
 
-// Read JSON content with validation
-export async function getContent<T>(
+// Read JSON content with validation - wrapped with cache
+export const getContent = cache(async function getContent<T>(
   contentType: ContentType,
   slug: string,
   validator?: (data: T) => any[],
@@ -96,10 +93,10 @@ export async function getContent<T>(
     console.error(`Error reading content file: ${filePath}`, error)
     return null
   }
-}
+})
 
-// Get all content slugs of a specific type
-export async function getAllContentSlugs(contentType: ContentType): Promise<string[]> {
+// Get all content slugs of a specific type - wrapped with cache
+export const getAllContentSlugs = cache(async function getAllContentSlugs(contentType: ContentType): Promise<string[]> {
   const directory =
     contentType === "blog" ? "blog" : contentType === "project" ? "projects" : contentType === "home" ? "home" : "pages"
 
@@ -112,10 +109,13 @@ export async function getAllContentSlugs(contentType: ContentType): Promise<stri
     console.error(`Error reading directory: ${dirPath}`, error)
     return []
   }
-}
+})
 
-// Get all content items of a specific type
-export async function getAllContent<T>(contentType: ContentType, validator?: (data: T) => any[]): Promise<T[]> {
+// Get all content items of a specific type - wrapped with cache
+export const getAllContent = cache(async function getAllContent<T>(
+  contentType: ContentType,
+  validator?: (data: T) => any[],
+): Promise<T[]> {
   const slugs = await getAllContentSlugs(contentType)
 
   const contentItems = await Promise.all(
@@ -125,7 +125,7 @@ export async function getAllContent<T>(contentType: ContentType, validator?: (da
   )
 
   return contentItems.filter(Boolean) as T[]
-}
+})
 
 // Find the getBlogPost function and add validation:
 export const getBlogPost = cache(async (slug: string): Promise<BlogPost | null> => {
@@ -148,9 +148,9 @@ export const getAllBlogSlugs = cache(async (): Promise<string[]> => {
 })
 
 // Add this function to filter out duplicate blog posts by slug
-export async function getUniqueBlogPosts(posts: BlogPost[]): Promise<BlogPost[]> {
+export const getUniqueBlogPosts = cache(async function getUniqueBlogPosts(posts: BlogPost[]): Promise<BlogPost[]> {
   return Array.from(new Map(posts.map((post) => [post.slug, post])).values())
-}
+})
 
 // Update the getAllBlogPosts function to use the new filter
 async function readBlogPosts(): Promise<BlogPost[]> {
@@ -159,9 +159,10 @@ async function readBlogPosts(): Promise<BlogPost[]> {
 
 export const getAllBlogPosts = cache(async (): Promise<BlogPost[]> => {
   const posts = await readBlogPosts()
+  const uniquePosts = await getUniqueBlogPosts(posts)
 
   // Sort by date, newest first
-  return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  return uniquePosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 })
 
 export const getLatestBlogPosts = cache(async (count: number): Promise<BlogPost[]> => {

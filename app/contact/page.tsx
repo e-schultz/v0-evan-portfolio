@@ -1,4 +1,3 @@
-import { MainLayout } from "@/components/layouts/main-layout"
 import { PageHeader } from "@/components/ui/page-header"
 import { ContentContainer } from "@/components/ui/content-container"
 import { ContactForm } from "@/components/contact-form"
@@ -14,18 +13,16 @@ export default async function ContactPage() {
     // If content is missing, provide default values
     if (!contactContent) {
       return (
-        <MainLayout>
-          <ContentContainer>
-            <div className="py-12">
-              <ContentError
-                title="Contact Information Unavailable"
-                message="We're having trouble loading the contact information. Please try again later."
-                backLink="/"
-                backText="Back to Home"
-              />
-            </div>
-          </ContentContainer>
-        </MainLayout>
+        <ContentContainer>
+          <div className="py-12">
+            <ContentError
+              title="Contact Information Unavailable"
+              message="We're having trouble loading the contact information. Please try again later."
+              backLink="/"
+              backText="Back to Home"
+            />
+          </div>
+        </ContentContainer>
       )
     }
 
@@ -64,7 +61,7 @@ export default async function ContactPage() {
     }
 
     return (
-      <MainLayout>
+      <>
         <PageHeader title={title} description={description} />
 
         <section className="py-12 md:py-16">
@@ -122,23 +119,21 @@ export default async function ContactPage() {
             </div>
           </ContentContainer>
         </section>
-      </MainLayout>
+      </>
     )
   } catch (error) {
     console.error("Error rendering contact page:", error)
     return (
-      <MainLayout>
-        <ContentContainer>
-          <div className="py-12">
-            <ContentError
-              title="Contact Page Error"
-              message="We're having trouble loading the contact page. Please try again later."
-              backLink="/"
-              backText="Back to Home"
-            />
-          </div>
-        </ContentContainer>
-      </MainLayout>
+      <ContentContainer>
+        <div className="py-12">
+          <ContentError
+            title="Contact Page Error"
+            message="We're having trouble loading the contact page. Please try again later."
+            backLink="/"
+            backText="Back to Home"
+          />
+        </div>
+      </ContentContainer>
     )
   }
 }

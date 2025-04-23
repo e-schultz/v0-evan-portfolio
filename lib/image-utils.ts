@@ -9,8 +9,8 @@ export function getBlogImageUrl(imagePath: string): string {
     return imagePath
   }
 
-  // For local images, just return the path as is
-  return imagePath
+  // For local images, ensure they start with a slash
+  return imagePath.startsWith("/") ? imagePath : `/${imagePath}`
 }
 
 /**
@@ -27,5 +27,24 @@ export function getBlogImageDimensions(type: "thumbnail" | "card" | "hero" = "ca
     case "card":
     default:
       return { width: 600, height: 400 }
+  }
+}
+
+/**
+ * Get the appropriate sizes attribute for responsive images
+ * @param type The type of image (thumbnail, card, hero, etc.)
+ * @returns The sizes attribute string for the Image component
+ */
+export function getImageSizes(type: "thumbnail" | "card" | "hero" | "project" = "card"): string {
+  switch (type) {
+    case "thumbnail":
+      return "100px"
+    case "hero":
+      return "100vw"
+    case "project":
+      return "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+    case "card":
+    default:
+      return "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
   }
 }

@@ -10,13 +10,16 @@ interface BlogCardProps {
     excerpt: string
     date: string
     image?: string
+    category?: string
   }
+  showCategory?: boolean
   priority?: boolean
 }
 
-const BlogCard: React.FC<BlogCardProps> = ({ post, priority = false }) => {
+// Add named export here
+export const BlogCard: React.FC<BlogCardProps> = ({ post, showCategory = false, priority = false }) => {
   return (
-    <div className="bg-white rounded-lg shadow-md overflow-hidden">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
       <Link href={`/blog/${post.slug}`} aria-label={`Read more about ${post.title}`}>
         {post.image && (
           <div className="relative w-full aspect-video overflow-hidden rounded-lg mb-4">
@@ -32,15 +35,16 @@ const BlogCard: React.FC<BlogCardProps> = ({ post, priority = false }) => {
         )}
 
         <div className="p-4">
-          <h2 className="text-xl font-semibold text-gray-800 hover:text-blue-600 transition-colors duration-200">
+          <h2 className="text-xl font-semibold text-gray-800 dark:text-gray-100 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200">
             {post.title}
           </h2>
-          <p className="text-gray-600 text-sm mt-2">{post.excerpt}</p>
-          <p className="text-gray-500 text-xs mt-2">{new Date(post.date).toLocaleDateString()}</p>
+          <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">{post.excerpt}</p>
+          <p className="text-gray-500 dark:text-gray-400 text-xs mt-2">{new Date(post.date).toLocaleDateString()}</p>
         </div>
       </Link>
     </div>
   )
 }
 
+// Keep default export for backward compatibility
 export default BlogCard

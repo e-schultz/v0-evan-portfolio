@@ -2,6 +2,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight } from "lucide-react"
 import type { AboutContent } from "@/lib/content-types"
+import Image from "next/image"
 
 interface AboutSectionProps {
   aboutContent: AboutContent
@@ -48,6 +49,19 @@ export function AboutSection({ aboutContent }: AboutSectionProps) {
               </Link>
             </Button>
           </div>
+
+          {aboutContent.image && (
+            <div className="relative w-full h-[300px] md:w-[300px] md:h-[300px] overflow-hidden rounded-full mx-auto">
+              <Image
+                src={aboutContent.image || "/placeholder.svg"}
+                alt={aboutContent.name || "Profile image"}
+                fill
+                sizes="(max-width: 768px) 100vw, 300px"
+                className="object-cover"
+                priority={true}
+              />
+            </div>
+          )}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 md:mt-0">
             <div className="space-y-4">
