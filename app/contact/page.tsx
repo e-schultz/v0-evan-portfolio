@@ -5,8 +5,21 @@ import { Mail, MessageSquare } from "lucide-react"
 import { SocialLinks } from "@/components/ui/social-links"
 import { getGenericContent } from "@/lib/content-api"
 import { ContentError } from "@/components/content-error"
+import { Suspense } from "react"
+import { LoadingSpinner } from "@/components/ui/loading-spinner"
+import { ErrorBoundary } from "@/components/error-boundary"
 
-export default async function ContactPage() {
+export default function ContactPage() {
+  return (
+    <ErrorBoundary fallback={<div className="p-4 text-red-500">Failed to load contact page</div>}>
+      <Suspense fallback={<LoadingSpinner />}>
+        <ContactContent />
+      </Suspense>
+    </ErrorBoundary>
+  )
+}
+
+async function ContactContent() {
   try {
     const contactContent = await getGenericContent("pages/contact")
 

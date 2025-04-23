@@ -33,7 +33,7 @@ try {
   console.log("Delete:", file2)
 
   console.log("\nTo delete the duplicate file, run:")
-  console.log(`node scripts/delete-duplicate-blog-post.js`)
+  console.log(`rm ${path.join(contentDir, file2)}`)
 } catch (error) {
   console.error("Error comparing files:", error.message)
 }

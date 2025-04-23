@@ -54,12 +54,6 @@ export function BlogCard({ post, showCategory = false, priority = false }: BlogC
             </Badge>
           ))}
         </div>
-
-        {post.historicalNote && (
-          <div className="mt-4 p-3 bg-amber-100/10 border border-amber-200/20 rounded-md text-amber-200 text-sm italic">
-            <p>{post.historicalNote}</p>
-          </div>
-        )}
       </CardContent>
       <CardFooter>
         <Link
@@ -89,6 +83,3 @@ export function BlogCard({ post, showCategory = false, priority = false }: BlogC
     </Card>
   )
 }
-
-// Add named export for backward compatibility
-export { BlogCard as default }

@@ -1,3 +1,4 @@
+import { Suspense } from "react"
 import { PageHeader } from "@/components/ui/page-header"
 import { ContentContainer } from "@/components/ui/content-container"
 import { SectionHeader } from "@/components/ui/section-header"
@@ -5,13 +6,10 @@ import { ProjectGrid } from "@/components/projects/project-grid"
 import { PulseButton } from "@/components/ui/pulse-button"
 import { ArrowRight, Github } from "lucide-react"
 import { getAllProjects } from "@/lib/content-api"
+import { ErrorBoundary } from "@/components/error-boundary"
 import Link from "next/link"
 
-export default async function ProjectsPage() {
-  const allProjects = await getAllProjects()
-  const featuredProjects = allProjects.filter((project) => project.featured)
-  const otherProjects = allProjects.filter((project) => !project.featured)
-
+export default function ProjectsPage() {
   return (
     <>
       <PageHeader
@@ -19,21 +17,11 @@ export default async function ProjectsPage() {
         description="A collection of my work, including open source contributions, experiments, and educational resources."
       />
 
-      {/* Featured Projects */}
-      <section className="py-16 md:py-20">
-        <ContentContainer>
-          <SectionHeader title="Featured Projects" className="mb-8 md:mb-10" />
-          <ProjectGrid projects={featuredProjects} columns={3} featured={true} />
-        </ContentContainer>
-      </section>
-
-      {/* Other Projects */}
-      <section className="py-16 md:py-20 bg-muted/50">
-        <ContentContainer>
-          <SectionHeader title="More Projects" className="mb-8 md:mb-10" />
-          <ProjectGrid projects={otherProjects} columns={3} />
-        </ContentContainer>
-      </section>
+      <ErrorBoundary fallback={<div className="p-4 text-red-500">Failed to load projects</div>}>
+        <Suspense fallback={<ProjectsPageSkeleton />}>
+          <ProjectsContent />
+        </Suspense>
+      </ErrorBoundary>
 
       {/* Open Source Contributions */}
       <section className="py-16 md:py-20">
@@ -103,6 +91,33 @@ function ProjectsPageSkeleton() {
               </div>
             ))}
           </div>
+        </ContentContainer>
+      </section>
+    </>
+  )
+}
+
+// Combined async component for projects to reduce duplicate data fetching
+async function ProjectsContent() {
+  const allProjects = await getAllProjects()
+  const featuredProjects = allProjects.filter((project) => project.featured)
+  const otherProjects = allProjects.filter((project) => !project.featured)
+
+  return (
+    <>
+      {/* Featured Projects */}
+      <section className="py-16 md:py-20">
+        <ContentContainer>
+          <SectionHeader title="Featured Projects" className="mb-8 md:mb-10" />
+          <ProjectGrid projects={featuredProjects} columns={3} featured={true} />
+        </ContentContainer>
+      </section>
+
+      {/* Other Projects */}
+      <section className="py-16 md:py-20 bg-muted/50">
+        <ContentContainer>
+          <SectionHeader title="More Projects" className="mb-8 md:mb-10" />
+          <ProjectGrid projects={otherProjects} columns={3} />
         </ContentContainer>
       </section>
     </>

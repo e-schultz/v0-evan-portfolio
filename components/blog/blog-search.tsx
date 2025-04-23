@@ -1,25 +1,15 @@
 "use client"
 
 import type React from "react"
-
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Search } from "lucide-react"
 
-interface BlogSearchProps {
-  initialQuery?: string
-}
-
-export function BlogSearch({ initialQuery = "" }: BlogSearchProps) {
-  const [searchQuery, setSearchQuery] = useState(initialQuery)
+export function BlogSearch() {
+  const [searchQuery, setSearchQuery] = useState("")
   const router = useRouter()
-
-  // Update the search query when initialQuery changes
-  useEffect(() => {
-    setSearchQuery(initialQuery)
-  }, [initialQuery])
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()

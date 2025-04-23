@@ -1,22 +1,58 @@
 "use client"
 
+import type React from "react"
 import { useState } from "react"
+import { useFormStatus } from "react-dom"
+import { submitContactFormAction } from "@/lib/server-actions"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Send, Loader2 } from "lucide-react"
+import { Send } from "lucide-react"
+import type { ContactFormContent } from "@/lib/content-types"
 import { EnhancedErrorBoundary } from "@/components/enhanced-error-boundary"
-import { Button } from "@/components/ui/button"
+import { FormErrorFallback } from "@/components/error-fallbacks/form-error-fallback"
+
+// Submit button with loading state
+function SubmitButton() {
+  const { pending } = useFormStatus()
+
+  return (
+    <button
+      type="submit"
+      className="hero-button inline-flex items-center justify-center px-8 py-3 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+      disabled={pending}
+      aria-label="Send Message"
+    >
+      {pending ? (
+        <>Sending...</>
+      ) : (
+        <>
+          Send Message <Send className="ml-2 h-4 w-4" />
+        </>
+      )}
+    </button>
+  )
+}
 
 interface ContactFormProps {
-  formContent?: any
+  formContent?: ContactFormContent
 }
 
 export function ContactForm({ formContent }: ContactFormProps) {
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  })
   const [submitSuccess, setSubmitSuccess] = useState(false)
   const [submitError, setSubmitError] = useState("")
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormState((prev) => ({ ...prev, [name]: value }))
+  }
 
   // Default content if none is provided
   const content = formContent || {
@@ -80,26 +116,39 @@ export function ContactForm({ formContent }: ContactFormProps) {
 
         <EnhancedErrorBoundary
           fallback={
-            <div className="bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300 p-4 rounded-lg mb-6">
-              We encountered an error with the contact form. Please try again later or contact me directly via email.
-            </div>
+            <FormErrorFallback
+              title="Form Error"
+              message="We encountered an error with the contact form. Please try again later or contact me directly via email."
+            />
           }
           resetKeys={[submitSuccess, submitError]}
         >
           <form
-            action="https://api.web3forms.com/submit"
-            method="POST"
+            action={async (formData) => {
+              try {
+                const result = await submitContactFormAction(formData)
+                if (result.success) {
+                  setSubmitSuccess(true)
+                  setSubmitError("")
+                  setFormState({
+                    name: "",
+                    email: "",
+                    subject: "",
+                    message: "",
+                  })
+                } else {
+                  setSubmitSuccess(false)
+                  setSubmitError(result.message || "There was an error submitting your message. Please try again.")
+                }
+              } catch (error) {
+                setSubmitSuccess(false)
+                setSubmitError("There was an error submitting your message. Please try again.")
+              }
+            }}
             className="space-y-4 md:space-y-6"
-            onSubmit={() => setIsSubmitting(true)}
           >
-            {/* Web3Forms required fields */}
-            <input type="hidden" name="access_key" value="6f45f241-8399-4323-a018-25938f3427f3" />
-            <input type="hidden" name="_subject" value="New Contact Form Submission" />
-            <input type="hidden" name="_next" value="https://evanschultz.dev/thank-you" />
-            <input type="hidden" name="_captcha" value="false" />
-
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {content.fields.slice(0, 2).map((field: any) => (
+              {content.fields.slice(0, 2).map((field) => (
                 <div key={field.name} className="space-y-2">
                   <Label htmlFor={field.name}>{field.label}</Label>
                   <Input
@@ -107,6 +156,8 @@ export function ContactForm({ formContent }: ContactFormProps) {
                     name={field.name}
                     type={field.type}
                     placeholder={field.placeholder}
+                    value={formState[field.name as keyof typeof formState] || ""}
+                    onChange={handleChange}
                     required={field.required}
                     className="transition-all duration-200 focus:ring-2 focus:ring-primary/50"
                   />
@@ -114,7 +165,7 @@ export function ContactForm({ formContent }: ContactFormProps) {
               ))}
             </div>
 
-            {content.fields.slice(2).map((field: any) => (
+            {content.fields.slice(2).map((field) => (
               <div key={field.name} className="space-y-2">
                 <Label htmlFor={field.name}>{field.label}</Label>
                 {field.type === "textarea" ? (
@@ -123,6 +174,8 @@ export function ContactForm({ formContent }: ContactFormProps) {
                     name={field.name}
                     placeholder={field.placeholder}
                     rows={field.rows || 5}
+                    value={formState[field.name as keyof typeof formState] || ""}
+                    onChange={handleChange}
                     required={field.required}
                     className="resize-none transition-all duration-200 focus:ring-2 focus:ring-primary/50"
                   />
@@ -132,6 +185,8 @@ export function ContactForm({ formContent }: ContactFormProps) {
                     name={field.name}
                     type={field.type}
                     placeholder={field.placeholder}
+                    value={formState[field.name as keyof typeof formState] || ""}
+                    onChange={handleChange}
                     required={field.required}
                     className="transition-all duration-200 focus:ring-2 focus:ring-primary/50"
                   />
@@ -139,21 +194,7 @@ export function ContactForm({ formContent }: ContactFormProps) {
               </div>
             ))}
 
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="hero-button inline-flex items-center justify-center px-8 py-3 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
-            >
-              {isSubmitting ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending...
-                </>
-              ) : (
-                <>
-                  <Send className="mr-2 h-4 w-4" /> {content.submitButton.text || "Send Message"}
-                </>
-              )}
-            </Button>
+            <SubmitButton />
           </form>
         </EnhancedErrorBoundary>
       </CardContent>

@@ -3,12 +3,8 @@ import { PageHeader } from "@/components/ui/page-header"
 import { ContentContainer } from "@/components/ui/content-container"
 import { BlogSearchClient } from "@/components/blog/blog-search-client"
 import { searchPosts } from "@/lib/content-api"
-import { Suspense } from "react"
-import { LoadingSpinner } from "@/components/loading-spinner"
-import { EnhancedErrorBoundary } from "@/components/enhanced-error-boundary"
-import { ContentErrorFallback } from "@/components/error-fallbacks/content-error-fallback"
 
-// This is a Server Component
+// This is now a Server Component
 export default async function SearchPage({
   searchParams,
 }: {
@@ -29,20 +25,7 @@ export default async function SearchPage({
 
       <section className="py-12">
         <ContentContainer>
-          <EnhancedErrorBoundary
-            fallback={
-              <ContentErrorFallback
-                title="Search Error"
-                message="We encountered an error while searching. Please try again."
-                backLink="/blog"
-                backText="Back to Blog"
-              />
-            }
-          >
-            <Suspense fallback={<LoadingSpinner size="large" />}>
-              <BlogSearchClient initialQuery={query} initialResults={initialResults} showResults={true} />
-            </Suspense>
-          </EnhancedErrorBoundary>
+          <BlogSearchClient initialQuery={query} initialResults={initialResults} showResults={true} />
         </ContentContainer>
       </section>
     </MainLayout>

@@ -1,28 +1,17 @@
+import { Suspense } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { getProject, getAllContentSlugs } from "@/lib/content-api"
+import { getProject } from "@/lib/content-api"
 import { ContentContainer } from "@/components/ui/content-container"
+import { ContentError } from "@/components/content-error"
+import { formatContent } from "@/lib/format-content"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
-import { renderContentBlocks } from "@/lib/format-content"
-import type { Metadata } from "next"
 
-// Define proper types for the params
-type PageParams = {
-  params: {
-    slug: string
-  }
-}
-
-// Generate static params for all projects
-export async function generateStaticParams() {
-  const slugs = await getAllContentSlugs("project")
-  return slugs.map((slug) => ({ slug }))
-}
-
-// Generate metadata for the page
-export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
-  const project = await getProject(params.slug)
+export async function generateMetadata({ params }: { params: { slug: string } }) {
+  // Await params before accessing its properties
+  const resolvedParams = await params
+  const project = await getProject(resolvedParams.slug)
 
   if (!project) {
     return {
@@ -40,7 +29,7 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
       type: "article",
       images: [
         {
-          url: project.image || "/placeholder.svg",
+          url: project.image,
           width: 1200,
           height: 630,
           alt: project.title,
@@ -50,23 +39,53 @@ export async function generateMetadata({ params }: PageParams): Promise<Metadata
   }
 }
 
-// The page component
-export default async function Page({ params }: PageParams) {
-  const project = await getProject(params.slug)
+export default function ProjectPage({ params }: { params: { slug: string } }) {
+  return (
+    <Suspense fallback={<ProjectPageSkeleton />}>
+      <ProjectContent params={params} />
+    </Suspense>
+  )
+}
+
+function ProjectPageSkeleton() {
+  return (
+    <ContentContainer>
+      <div className="py-8">
+        <div className="flex items-center mb-8">
+          <Button variant="outline" size="sm" className="mr-4">
+            <ArrowLeft className="mr-2 h-4 w-4" /> Back to Projects
+          </Button>
+        </div>
+        <div className="max-w-4xl mx-auto">
+          <div className="h-10 w-3/4 bg-muted animate-pulse rounded mb-4"></div>
+          <div className="h-6 w-full bg-muted animate-pulse rounded mb-8"></div>
+          <div className="aspect-video w-full bg-muted animate-pulse rounded mb-8"></div>
+          <div className="space-y-4">
+            <div className="h-4 bg-muted animate-pulse rounded"></div>
+            <div className="h-4 bg-muted animate-pulse rounded"></div>
+            <div className="h-4 bg-muted animate-pulse rounded w-4/5"></div>
+          </div>
+        </div>
+      </div>
+    </ContentContainer>
+  )
+}
+
+async function ProjectContent({ params }: { params: { slug: string } }) {
+  // Await params before accessing its properties
+  const resolvedParams = await params
+  const project = await getProject(resolvedParams.slug)
 
   if (!project) {
     return (
       <ContentContainer>
         <div className="py-12">
-          <div className="text-center">
-            <h1 className="text-2xl font-bold mb-4">Project Not Found</h1>
-            <p className="text-muted-foreground mb-6">
-              Sorry, the project you're looking for doesn't exist or has been moved.
-            </p>
-            <Button asChild>
-              <Link href="/projects">Browse All Projects</Link>
-            </Button>
-          </div>
+          <ContentError
+            title="Project Not Found"
+            message="The requested project could not be found."
+            backLink="/projects"
+            backText="Back to Projects"
+          />
         </div>
       </ContentContainer>
     )
@@ -99,7 +118,7 @@ export default async function Page({ params }: PageParams) {
         </div>
 
         <div className="prose prose-lg dark:prose-invert max-w-none">
-          {project.fullDescription && renderContentBlocks(project.fullDescription)}
+          {project.fullDescription ? formatContent(project.fullDescription) : null}
         </div>
       </article>
     </ContentContainer>
