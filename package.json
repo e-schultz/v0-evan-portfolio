@@ -61,13 +61,7 @@
     "prism-react-renderer": "latest",
     "fs": "latest",
     "path": "latest",
-<<<<<<< HEAD
     "util": "latest"
-=======
-    "util": "latest",
-    "@vercel/blob": "latest",
-    "glob": "latest"
->>>>>>> 52c8bb5 (image migration)
   },
   "devDependencies": {
     "@types/node": "^22",

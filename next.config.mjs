@@ -2,7 +2,6 @@
 const nextConfig = {
   // Add any necessary configuration here
   eslint: {
-<<<<<<< HEAD
     ignoreDuringBuilds: true,
   },
   typescript: {
@@ -11,22 +10,6 @@ const nextConfig = {
   images: {
     domains: ['hebbkx1anhila5yf.public.blob.vercel-storage.com', 'sjc.microlink.io'],
     unoptimized: true,
-=======
-    // Comment out or remove this line to enable ESLint during builds
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    // Comment out or remove this line to enable TypeScript checks during builds
-    ignoreBuildErrors: true,
-  },
-  images: {
-    domains: [
-      'hebbkx1anhila5yf.public.blob.vercel-storage.com', 
-      'public.blob.vercel-storage.com',
-      'sjc.microlink.io'
-    ],
-    unoptimized: false,
->>>>>>> 52c8bb5 (image migration)
   },
   // Explicitly set the output to be standalone to avoid issues with sharp
   output: 'standalone',
