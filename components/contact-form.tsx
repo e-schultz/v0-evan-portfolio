@@ -1,33 +1,22 @@
 "use client"
 
-import type React from "react"
 import { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Send, Loader2 } from "lucide-react"
-import type { ContactFormContent } from "@/lib/content-types"
 import { EnhancedErrorBoundary } from "@/components/enhanced-error-boundary"
-import { FormErrorFallback } from "@/components/error-fallbacks/form-error-fallback"
+import { Button } from "@/components/ui/button"
 
 interface ContactFormProps {
-  formContent?: ContactFormContent
+  formContent?: any
 }
 
 export function ContactForm({ formContent }: ContactFormProps) {
-  const [formState, setFormState] = useState({
-    name: "",
-    email: "",
-    subject: "",
-    message: "",
-  })
   const [isSubmitting, setIsSubmitting] = useState(false)
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { name, value } = e.target
-    setFormState((prev) => ({ ...prev, [name]: value }))
-  }
+  const [submitSuccess, setSubmitSuccess] = useState(false)
+  const [submitError, setSubmitError] = useState("")
 
   // Default content if none is provided
   const content = formContent || {
@@ -77,19 +66,31 @@ export function ContactForm({ formContent }: ContactFormProps) {
         <CardDescription>{content.description}</CardDescription>
       </CardHeader>
       <CardContent>
+        {submitSuccess ? (
+          <div className="bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300 p-4 rounded-lg mb-6">
+            Thank you for your message! I'll get back to you as soon as possible.
+          </div>
+        ) : null}
+
+        {submitError ? (
+          <div className="bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300 p-4 rounded-lg mb-6">
+            {submitError}
+          </div>
+        ) : null}
+
         <EnhancedErrorBoundary
           fallback={
-            <FormErrorFallback
-              title="Form Error"
-              message="We encountered an error with the contact form. Please try again later or contact me directly via email."
-            />
+            <div className="bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300 p-4 rounded-lg mb-6">
+              We encountered an error with the contact form. Please try again later or contact me directly via email.
+            </div>
           }
+          resetKeys={[submitSuccess, submitError]}
         >
           <form
             action="https://api.web3forms.com/submit"
             method="POST"
-            onSubmit={() => setIsSubmitting(true)}
             className="space-y-4 md:space-y-6"
+            onSubmit={() => setIsSubmitting(true)}
           >
             {/* Web3Forms required fields */}
             <input type="hidden" name="access_key" value="6f45f241-8399-4323-a018-25938f3427f3" />
@@ -98,7 +99,7 @@ export function ContactForm({ formContent }: ContactFormProps) {
             <input type="hidden" name="_captcha" value="false" />
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {content.fields.slice(0, 2).map((field) => (
+              {content.fields.slice(0, 2).map((field: any) => (
                 <div key={field.name} className="space-y-2">
                   <Label htmlFor={field.name}>{field.label}</Label>
                   <Input
@@ -106,8 +107,6 @@ export function ContactForm({ formContent }: ContactFormProps) {
                     name={field.name}
                     type={field.type}
                     placeholder={field.placeholder}
-                    value={formState[field.name as keyof typeof formState] || ""}
-                    onChange={handleChange}
                     required={field.required}
                     className="transition-all duration-200 focus:ring-2 focus:ring-primary/50"
                   />
@@ -115,7 +114,7 @@ export function ContactForm({ formContent }: ContactFormProps) {
               ))}
             </div>
 
-            {content.fields.slice(2).map((field) => (
+            {content.fields.slice(2).map((field: any) => (
               <div key={field.name} className="space-y-2">
                 <Label htmlFor={field.name}>{field.label}</Label>
                 {field.type === "textarea" ? (
@@ -124,8 +123,6 @@ export function ContactForm({ formContent }: ContactFormProps) {
                     name={field.name}
                     placeholder={field.placeholder}
                     rows={field.rows || 5}
-                    value={formState[field.name as keyof typeof formState] || ""}
-                    onChange={handleChange}
                     required={field.required}
                     className="resize-none transition-all duration-200 focus:ring-2 focus:ring-primary/50"
                   />
@@ -135,8 +132,6 @@ export function ContactForm({ formContent }: ContactFormProps) {
                     name={field.name}
                     type={field.type}
                     placeholder={field.placeholder}
-                    value={formState[field.name as keyof typeof formState] || ""}
-                    onChange={handleChange}
                     required={field.required}
                     className="transition-all duration-200 focus:ring-2 focus:ring-primary/50"
                   />
@@ -144,23 +139,21 @@ export function ContactForm({ formContent }: ContactFormProps) {
               </div>
             ))}
 
-            <button
+            <Button
               type="submit"
               disabled={isSubmitting}
               className="hero-button inline-flex items-center justify-center px-8 py-3 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
-              aria-label="Send Message"
             >
               {isSubmitting ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Sending...
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Sending...
                 </>
               ) : (
                 <>
-                  Send Message <Send className="ml-2 h-4 w-4" />
+                  <Send className="mr-2 h-4 w-4" /> {content.submitButton.text || "Send Message"}
                 </>
               )}
-            </button>
+            </Button>
           </form>
         </EnhancedErrorBoundary>
       </CardContent>

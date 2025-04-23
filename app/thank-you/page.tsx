@@ -12,30 +12,33 @@ export const metadata = {
 export default function ThankYouPage() {
   return (
     <>
-      <PageHeader title="Thank You!" description="Your message has been sent successfully." />
+      <PageHeader
+        title="Thank You!"
+        description="Your message has been sent successfully. I'll get back to you soon."
+      />
 
       <section className="py-12">
         <ContentContainer maxWidth="md" className="text-center">
-          <div className="flex flex-col items-center justify-center space-y-6">
-            <div className="bg-blue-600/10 p-6 rounded-full">
-              <CheckCircle className="h-16 w-16 text-blue-600" />
+          <div className="flex justify-center mb-8">
+            <div className="bg-green-100 dark:bg-green-900/20 p-6 rounded-full">
+              <CheckCircle className="h-16 w-16 text-green-600 dark:text-green-400" />
             </div>
+          </div>
 
-            <div className="space-y-4 max-w-lg">
-              <h2 className="text-2xl font-bold">Message Received</h2>
-              <p className="text-muted-foreground">
-                I'll review your message and get back to you as soon as possible. Thank you for reaching out!
-              </p>
-            </div>
+          <p className="text-lg mb-8">
+            I appreciate you taking the time to reach out. I'll review your message and respond as soon as possible.
+          </p>
 
-            <div className="pt-6">
-              <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
-                <Link href="/">
-                  <ArrowLeft className="mr-2 h-4 w-4" />
-                  Back to Home
-                </Link>
-              </Button>
-            </div>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button asChild variant="outline" size="lg">
+              <Link href="/">
+                <ArrowLeft className="mr-2 h-5 w-5" /> Back to Home
+              </Link>
+            </Button>
+
+            <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700">
+              <Link href="/projects">Explore Projects</Link>
+            </Button>
           </div>
         </ContentContainer>
       </section>
