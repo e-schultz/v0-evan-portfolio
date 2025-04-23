@@ -1,0 +1,73 @@
+{
+  "title": "Get In Touch",
+  "description": "Have a question or want to work together? Feel free to reach out!",
+  "email": {
+    "title": "Email",
+    "address": "evan@schultz.codes"
+  },
+  "social": {
+    "title": "Social Media",
+    "platforms": [
+      {
+        "name": "GitHub",
+        "url": "https://github.com/e-schultz",
+        "icon": "github"
+      },
+      {
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com/in/evanschultz1/",
+        "icon": "linkedin"
+      },
+      {
+        "name": "Twitter",
+        "url": "http://twitter.com/e_p82",
+        "icon": "twitter"
+      }
+    ]
+  },
+  "image": {
+    "src": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-5SsOyDxtW9BKbvDdq5KoaxNd187Q0p.png",
+    "alt": "Cyberpunk command center with green-tinted monitors",
+    "caption": "Command Center",
+    "description": "Ready to receive your transmission. Connect with me through any of the available channels."
+  },
+  "form": {
+    "title": "Send Me a Message",
+    "description": "Fill out the form below and I'll get back to you as soon as possible.",
+    "fields": [
+      {
+        "name": "name",
+        "label": "Name",
+        "type": "text",
+        "placeholder": "Your name",
+        "required": true
+      },
+      {
+        "name": "email",
+        "label": "Email",
+        "type": "email",
+        "placeholder": "Your email address",
+        "required": true
+      },
+      {
+        "name": "subject",
+        "label": "Subject",
+        "type": "text",
+        "placeholder": "What is this regarding?",
+        "required": true
+      },
+      {
+        "name": "message",
+        "label": "Message",
+        "type": "textarea",
+        "placeholder": "Your message",
+        "required": true,
+        "rows": 5
+      }
+    ],
+    "submitButton": {
+      "text": "Send Message",
+      "icon": "send"
+    }
+  }
+}

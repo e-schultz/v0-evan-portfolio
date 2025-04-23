@@ -1,0 +1,62 @@
+{
+  "title": "Sacred Voxel Recursion",
+  "slug": "sacred-voxel-recursion",
+  "description": "An interactive 3D exploration of sacred geometry patterns using voxel-based recursive algorithms to generate complex, meditative structures.",
+  "tags": ["Three.js", "WebGL", "Sacred Geometry", "Voxel Art", "v0"],
+  "github": "https://github.com/e-schultz/v0-sacred-voxel-recursion",
+  "link": "https://v0-sacred-voxel-recursion.vercel.app/",
+  "v0Link": "https://v0.dev/chat/projects/IEUcXXXXXXX",
+  "image": "/v0-sacred-voxel-recursion.png",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "Sacred Voxel Recursion is an interactive 3D exploration of sacred geometry patterns using voxel-based recursive algorithms. The project generates complex, meditative structures that users can explore and interact with in real-time."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Concept"
+    },
+    {
+      "type": "paragraph",
+      "content": "Sacred geometry has been used across cultures and throughout history to represent fundamental patterns of creation and cosmic order. This project translates these ancient concepts into the digital realm, using recursive algorithms to generate 3D voxel structures that embody principles like the Flower of Life, Metatron's Cube, and the Sri Yantra."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Interactive Experience"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Pattern Selection",
+          "content": "Choose from various sacred geometry patterns as the base for generation"
+        },
+        {
+          "type": "listItem",
+          "title": "Recursion Depth",
+          "content": "Control how many levels of recursion are applied to create complexity"
+        },
+        {
+          "type": "listItem",
+          "title": "Color Schemes",
+          "content": "Select different color palettes inspired by chakras and energy centers"
+        },
+        {
+          "type": "listItem",
+          "title": "Meditation Mode",
+          "content": "A guided experience with breathing patterns synchronized to gentle transformations"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "/v0-sacred-voxel-recursion.png",
+      "alt": "Sacred Voxel Recursion showing a complex 3D structure based on the Flower of Life pattern"
+    }
+  ]
+}

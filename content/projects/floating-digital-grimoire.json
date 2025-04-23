@@ -1,0 +1,35 @@
+{
+  "title": "Floating Digital Grimoire",
+  "slug": "floating-digital-grimoire",
+  "description": "A digital knowledge repository inspired by ancient grimoires, allowing users to collect, organize, and explore knowledge in a visually rich environment.",
+  "tags": ["React", "WebGL", "Knowledge Management", "Interactive Design"],
+  "github": "https://github.com/e-schultz/floating-digital-grimoire",
+  "link": "https://floating-digital-grimoire.lovable.app",
+  "image": "/floating-digital-grimoire.png",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "The Floating Digital Grimoire is a digital knowledge repository inspired by ancient grimoires. This interactive application allows users to collect, organize, and explore knowledge in a visually rich environment with magical aesthetics."
+    },
+    {
+      "type": "blockquote",
+      "content": "A digital tapestry of fragmented poetry, broken code, and forgotten commands."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Concept & Design"
+    },
+    {
+      "type": "paragraph",
+      "content": "Drawing inspiration from ancient magical texts and modern programming paradigms, the Floating Digital Grimoire creates a unique space where code becomes incantation and knowledge becomes magic. The project explores the intersection of technology and mysticism, treating programming as a form of modern magic."
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "/floating-digital-grimoire.png",
+      "alt": "Floating Digital Grimoire interface showing code fragments and glyph constellations"
+    }
+  ]
+}

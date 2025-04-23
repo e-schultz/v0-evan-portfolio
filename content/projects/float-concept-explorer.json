@@ -1,0 +1,81 @@
+{
+  "title": "FLOAT Concept Explorer",
+  "slug": "float-concept-explorer",
+  "description": "An interactive tool for exploring and visualizing the core concepts of FLOAT (Floating Linked Ontological Associative Thinking) methodology.",
+  "tags": ["Next.js", "Knowledge Visualization", "Concept Mapping", "v0", "React"],
+  "github": "https://github.com/e-schultz/v0-float-concept-explorer",
+  "link": "https://v0-float-concept-explorer.vercel.app/",
+  "v0Link": "https://v0.dev/chat/projects/IEUcXXXXXXX",
+  "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "FLOAT Concept Explorer is an interactive tool for exploring and visualizing the core concepts of FLOAT (Floating Linked Ontological Associative Thinking) methodology. It provides a dynamic interface for understanding the philosophical and practical aspects of this knowledge management approach."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Core FLOAT Concepts"
+    },
+    {
+      "type": "paragraph",
+      "content": "The explorer visualizes and explains the seven foundational concepts of FLOAT:"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Heresy as Interface",
+          "content": "Exploring unauthorized protocols as interfaces with forbidden truths"
+        },
+        {
+          "type": "listItem",
+          "title": "Identity as Wayfinding",
+          "content": "Understanding the self as a compass forged through wandering"
+        },
+        {
+          "type": "listItem",
+          "title": "Knowledge as Recursive Ritual",
+          "content": "True knowledge as that which can be called again ritually and structurally"
+        },
+        {
+          "type": "listItem",
+          "title": "Horror as Unstable Epistemology",
+          "content": "The monster as that which breaks your model of knowing"
+        },
+        {
+          "type": "listItem",
+          "title": "Liberation Through Breakdown",
+          "content": "Control systems collapsing under recursive self-awareness"
+        },
+        {
+          "type": "listItem",
+          "title": "Memory as a Live System",
+          "content": "Memory as ritual architecture—responsive and co-evolving"
+        },
+        {
+          "type": "listItem",
+          "title": "FLOAT Itself",
+          "content": "A way of surviving the archive, a rebellion staged in notation"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Interactive Features"
+    },
+    {
+      "type": "paragraph",
+      "content": "The explorer allows users to navigate through these concepts in a non-linear fashion, seeing how they interconnect and influence each other. Each concept is presented with explanatory text, visual representations, and practical applications in knowledge management."
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+      "alt": "FLOAT Concept Explorer showing an interactive visualization of the seven core FLOAT concepts"
+    }
+  ]
+}

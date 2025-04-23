@@ -1,0 +1,150 @@
+{
+  "title": "About Me",
+  "subtitle": "Technical Director & Software Engineer",
+  "description": "Building high performing teams and the environment that enables them.",
+  "image": {
+    "src": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-GXUZgIH0KzaRLIRZWYQbj9CtcMAguc.png",
+    "alt": "Futuristic technician in orange hazard suit with glowing helmet viewing code terminal",
+    "caption": "Exploring the depths of technology and memory systems"
+  },
+  "introduction": [
+    "With over a decade of experience in software development and team leadership, I've worked with companies ranging from small startups to large enterprises. My focus has been on identifying opportunities and challenges on project teams, and working with stakeholders to implement effective solutions.",
+    "I've influenced the multi-year evolution of multiple enterprise products which are in production today, and I've collaborated with CTOs and other technical directors to identify trends in technology and develop plans to enable engineering teams to meet current and future needs."
+  ],
+  "philosophy": {
+    "title": "My Philosophy",
+    "content": [
+      "I believe that great software is built by great teams. My approach to leadership is centered around creating environments where engineers can do their best work, where innovation is encouraged, and where technical excellence is valued.",
+      "I'm passionate about mentoring and knowledge sharing, and I've dedicated significant time throughout my career to helping others grow their skills and advance their careers."
+    ]
+  },
+  "journey": {
+    "title": "Professional Journey",
+    "milestones": [
+      {
+        "period": "2021 - 2022",
+        "role": "Technical Director, Coach",
+        "company": "Rangle.io",
+        "description": "Led technical direction and coaching for development teams, mentored engineers and tech leads on career growth, and facilitated knowledge sharing initiatives."
+      },
+      {
+        "period": "2020 - 2021",
+        "role": "Software Engineering Manager",
+        "company": "PartnerStack",
+        "description": "Managed engineering teams and technical projects, implemented development processes and best practices, and collaborated with product and design teams on feature development."
+      },
+      {
+        "period": "2019 - 2020",
+        "role": "Director of Frontend Education",
+        "company": "Bridge School",
+        "description": "Ran operations of the front-end program, created and updated curriculum for future cohorts, developed exercises and homework assignments, onboarded new mentors and instructors, and assessed solutions to technical challenges."
+      },
+      {
+        "period": "2014 - 2020",
+        "role": "Technical Director",
+        "company": "Rangle",
+        "description": "Served in multiple roles including manager, full-stack developer, consultant, and educator. Managed engineers across different client accounts, developed career growth plans, participated in coaching initiatives, and worked with companies from startups to large enterprises."
+      }
+    ]
+  },
+  "skills": {
+    "title": "Technical Skills",
+    "categories": [
+      {
+        "name": "Frontend",
+        "items": ["React", "Angular", "Vue.js", "TypeScript", "JavaScript", "HTML/CSS", "Next.js"]
+      },
+      {
+        "name": "Backend",
+        "items": ["Node.js", "Express", "NestJS", "GraphQL", "REST API Design"]
+      },
+      {
+        "name": "DevOps",
+        "items": ["CI/CD", "Docker", "AWS", "Vercel", "GitHub Actions"]
+      },
+      {
+        "name": "Leadership",
+        "items": ["Team Management", "Technical Mentoring", "Project Planning", "Agile Methodologies"]
+      }
+    ]
+  },
+  "education": {
+    "title": "Education",
+    "degrees": [
+      {
+        "degree": "Bachelor of Commerce",
+        "field": "Information Technology Management",
+        "institution": "Ryerson University",
+        "year": "2010"
+      }
+    ],
+    "certifications": [
+      {
+        "name": "Certified Scrum Master",
+        "issuer": "Scrum Alliance",
+        "year": "2016"
+      }
+    ]
+  },
+  "speaking": {
+    "title": "Speaking & Writing",
+    "content": "Throughout my career, I've shared my knowledge through conference talks, workshops, and blog posts. I've spoken at events like JSCamp, Angular Camp, and React Europe, and I've written articles on topics ranging from React hooks to testing methodologies.",
+    "highlights": [
+      {
+        "title": "How to create \"Vuetiful\" Data-Driven User Interface",
+        "event": "JSCamp 2018",
+        "links": [
+          {
+            "text": "Video",
+            "url": "http://bit.ly/vue-jscamp-2018"
+          },
+          {
+            "text": "Slides",
+            "url": "http://bit.ly/vue-jscamp-2018-slides"
+          }
+        ]
+      },
+      {
+        "title": "Building Angular 2 Applications with Redux",
+        "event": "Angular Camp",
+        "links": [
+          {
+            "text": "Video",
+            "url": "http://bit.ly/angular-camp-redux-video"
+          },
+          {
+            "text": "Slides",
+            "url": "http://bit.ly/angular-camp-redux-slides"
+          }
+        ]
+      }
+    ]
+  },
+  "personal": {
+    "title": "Beyond Code",
+    "content": "When I'm not working with technology, I enjoy exploring creative outlets that help me maintain perspective and bring fresh ideas to my technical work. I'm particularly interested in the intersection of technology and art, and how they can influence and enhance each other."
+  },
+  "cta": {
+    "title": "Let's Connect",
+    "content": "I'm always interested in hearing about new projects, opportunities for collaboration, or just connecting with fellow technology enthusiasts.",
+    "buttons": [
+      {
+        "text": "View My Resume",
+        "url": "/resume",
+        "variant": "default"
+      },
+      {
+        "text": "Contact Me",
+        "url": "/contact",
+        "variant": "outline"
+      },
+      {
+        "text": "View GitHub Profile",
+        "url": "https://github.com/e-schultz",
+        "variant": "default",
+        "icon": "github",
+        "external": true
+      }
+    ]
+  }
+}

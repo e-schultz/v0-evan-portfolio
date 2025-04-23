@@ -1,0 +1,221 @@
+{
+  "title": "Are Your Unit Tests Failing for the Expected Reasons?",
+  "slug": "are-your-unit-tests-failing-for-the-expected-reasons",
+  "date": "2016-09-09",
+  "author": "Evan Schultz",
+  "excerpt": "Learn how to write more effective unit tests that fail for the right reasons and provide meaningful feedback when they do.",
+  "tags": ["Testing", "JavaScript", "Unit Tests", "Best Practices"],
+  "category": "Testing",
+  "image": "/images/blog/unit-test-failures.png",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": "Unit tests can be an invaluable tool in the developers toolbox. You don't need to be a strict TDD purist to make unit testing worthwhile. Once you get into the flow of writing tests, it can be rather satisfying to watch the Nyan Cat Reporter go across your screen as the number of tests passing increase."
+    },
+    {
+      "type": "paragraph",
+      "content": "As with any other tool though, it can be misused, and not always provide the benefit that you want or expect."
+    },
+    {
+      "type": "paragraph",
+      "content": "The other day I was doing some code clean up, and came across a test that started to make me ask questions instead of having them answered."
+    },
+    {
+      "type": "paragraph",
+      "content": "Some of the questions that a unit test should be answering:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "What is it testing?",
+        "What is it doing?",
+        "What is expected behavior?",
+        "What is the actual behavior?",
+        "Does it pass or fail for the expected reasons?"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "The test that made me go 'hrmm?' looked something like this:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "/// .... mock removed for now\n\nit('should call /location/calculate-distance correctly', () =>\n   locationApi.calculateDistance(10,20,30,40).then(res => {\n     expect(res.distance).to.equal('ok');\n   })\n );"
+    },
+    {
+      "type": "paragraph",
+      "content": "Reading this unit test, it's not really clear what is actually being tested. The it block is saying that it should call /location/calculate-distance correctly, but the expect at the bottom is looking at the response."
+    },
+    {
+      "type": "paragraph",
+      "content": "Currently this test is passing, but it's not passing for a reason that the test states it should be. Yes, there is something responding, but response.distance being ok has nothing to do with the behavior we wanting to verify."
+    },
+    {
+      "type": "paragraph",
+      "content": "This application was using fetch-mock to mock out HTTP requests. The mock for this test looks like:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "before(() => {\n  fetchMock\n  .mock(\n    (url, options) =>\n      url === [\n        LOCATION_ENDPOINT,\n        'calculate-distance?&lat1=10&long1=20&lat2=30&long2=40',\n      ].join('/')\n      && options.method === 'GET',\n    {\n      body: JSON.stringify({ distance: 'ok' }),\n      status: 200,\n      headers: { 'content-type': 'application/json' },\n    }\n  );\n});"
+    },
+    {
+      "type": "paragraph",
+      "content": "This starts to give a bit more insight, and after digging around that was going on in locationApi.calculateDistance - it seems like this test is wanting to verify that for a given set of parameters, the URL is formed up correctly to query the API to calculate the distance."
+    },
+    {
+      "type": "paragraph",
+      "content": "When the test runs, it currently passes. If it fails though, am I getting useful information? If I tweak the location code in how it forms up a URL, the errors that get reported look like:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "1) api/location should call /location/calculate-distance correctly:\n     Error: only absolute urls are supported\n      at node_modules/node-fetch/index.js:54:10\n      at new Fetch (node_modules/node-fetch/index.js:49:9)\n      at Fetch (node_modules/node-fetch/index.js:37:10)\n      at module.exports (node_modules/isomorphic-fetch/fetch-npm-node.js:8:19)\n      at FetchMock.fetchMock (node_modules/fetch-mock/src/fetch-mock.js:265:17)\n      at exports.default (src/api/helpers/composer-request.js:14:12)\n      at Object.exports.getTaxEstimate (src/api/location-api.js:8:10)\n      at Context.<anonymous> (src/api/location-api.test.js:27:13)"
+    },
+    {
+      "type": "paragraph",
+      "content": "And hidden away at the top of the unit tests running and easy to miss, is:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "api/location\nunmatched call to /location!calculate-distance?lat1=10&long1=20&lat2=30&long2=40"
+    },
+    {
+      "type": "paragraph",
+      "content": "This isn't terribly useful information. The error that is getting reported doesn't tell me anything about what the expected and actual results were."
+    },
+    {
+      "type": "paragraph",
+      "content": "Error: only absolute urls are supported"
+    },
+    {
+      "type": "paragraph",
+      "content": "This is an error thrown by fetch-mock before our expect statements have even been hit. There is a hint at the top of the unit test reports where fetch-mock will complain about an unmatched call."
+    },
+    {
+      "type": "paragraph",
+      "content": "This message is easy to miss, and it also requires the person reading the unit test results to understand a bit of how fetch-mock works get pointed in the right direction."
+    },
+    {
+      "type": "paragraph",
+      "content": "For a seemingly trivial unit test, it asks more questions than it answers."
+    },
+    {
+      "type": "paragraph",
+      "content": "A more accurate description of this test would be:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "describe('fetch-mock behavior', () => {\n  it('should return the object I told it to if no error is thrown', () => {\n\n  });\n});"
+    },
+    {
+      "type": "paragraph",
+      "content": "If we were the authors of fetch-mock, that could possibly be a useful test. But, we are wanting to write unit tests for the system we are building, not for the mocking frameworks we are using."
+    },
+    {
+      "type": "paragraph",
+      "content": "The fact that expect(res.distance).to.equal('ok'); is more of a coincidence than the behavior you want to test."
+    },
+    {
+      "type": "paragraph",
+      "content": "What can we do to make it clear what the intended purpose of this test is, and that it provides meaningful errors when it fails?"
+    },
+    {
+      "type": "paragraph",
+      "content": "Let's revisit the questions we asked at the start, and clean up the test to start answering them."
+    },
+    {
+      "type": "paragraph",
+      "content": "When the calculateDistance is called, then an API is called with a specific URL and query parameters. The response object is inconsequential here. Let's adjust the unit test to start making a bit more sense:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "it('should call calculate-distance with correct query parameters', () => {  \n  //\n});"
+    },
+    {
+      "type": "paragraph",
+      "content": "The 'it' sentence starts to describe what we are doing without needing to read the test body."
+    },
+    {
+      "type": "paragraph",
+      "content": "The initial test wasn't that bad at answering this one, it's calling the locationApi.calculateDistance,"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "it('should call calculate-distance with correct query parameters', () => {  \n  return locationApi\n  .calculateDistance(10,20,30,40)\n  .then(() => {\n    // ..\n  });\n});"
+    },
+    {
+      "type": "paragraph",
+      "content": "This is where the previous test started to fail at answering these questions. We don't care if the response object has a distance of 'ok', we want to verify the URL that is being hit."
+    },
+    {
+      "type": "paragraph",
+      "content": "In answering this question, we can state what the expected and actual results are."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "it('should call calculate-distance with correct query parameters', () => {  \n  const EXPECTED_URL = `${LOCATION_ENDPOINT}/calculate-distance?lat1=10&long1=20&lat2=30&long2=40`;\n  return locationApi\n  .calculateDistance(10,20,30,40)\n  .then(() => {\n    const ACTUAL_URL = fetchMock.lastUrl();\n    expect(EXPECTED_URL).to.equal(ACTUAL_URL);\n  });\n});"
+    },
+    {
+      "type": "paragraph",
+      "content": "Now when reading the unit test, the expected reasons for passing/failing are more obvious. The thing that I am asserting is reflective of the behavior that I want."
+    },
+    {
+      "type": "paragraph",
+      "content": "However, if the test fails, the output still isn't very useful and still complains about: Error: only absolute urls are supported"
+    },
+    {
+      "type": "paragraph",
+      "content": "This leads to answering the final question:"
+    },
+    {
+      "type": "paragraph",
+      "content": "Currently fetch-mock is throwing an error before we even hit our expect statement, so we can't guarantee that things are passing or failing for the reasons we expect."
+    },
+    {
+      "type": "paragraph",
+      "content": "Adjusting our mock is pretty straightforward. Instead of having the mock be very specific for a URL, I am adjusting it to match just about anything that begins with a slash."
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "before(() =>fetchMock.mock(`^/`,\n   { body: JSON.stringify({ data: 'ok' }),\n     status: 200,\n     headers: { 'content-type': 'application/json' },\n   }));"
+    },
+    {
+      "type": "paragraph",
+      "content": "When we run our test and if it fails, the error that gets reported is now:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "1) should call calculate-distance with correct query parameters:\n\n      AssertionError: expected '/location!calculate-distance?lat1=10&long1=20&lat2=30&long2=40' to equal '/location/calculate-distance?lat1=10&long1=20&lat2=30&long2=40'\n      + expected - actual\n\n      -/location!calculate-distance?lat1=10&long1=20&lat2=30&long2=40\n      +/location/calculate-distance?lat1=10&long1=20&lat2=30&long2=40\n\n      at src/api/location-api.test.js:21:29\n      at process._tickCallback (internal/process/next_tick.js:103:7)"
+    },
+    {
+      "type": "paragraph",
+      "content": "With a few minor changes to the unit test and the mock, the test is starting to answer questions, instead of making us ask them."
+    },
+    {
+      "type": "list",
+      "items": [
+        "The mock has been simplified and is easier to understand.",
+        "The expect statement makes it clear the behavior that we are testing.",
+        "The test fails for the correct reason - actual does not meet expected behavior.",
+        "When the test fails, it is descriptive to what the error is."
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "Next time you're writing a unit test or reviewing others, maybe double check to ensure that they are passing or failing for the reasons that you expect."
+    },
+    {
+      "type": "paragraph",
+      "content": "If reading a unit test makes you ask questions, then it could be a sign that you need to clean them up to make them useful."
+    }
+  ]
+}

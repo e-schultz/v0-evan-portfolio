@@ -1,0 +1,70 @@
+{
+  "title": "FLOAT BBS Zine Explorer",
+  "slug": "float-bbs-zine-explorer",
+  "description": "A retro BBS-inspired interface for exploring digital zines and philosophical concepts through the FLOAT framework.",
+  "tags": ["Next.js", "Retro Computing", "Digital Zines", "Philosophy", "Terminal UI"],
+  "github": "https://github.com/e-schultz/v0-float-zine-experiments",
+  "link": "https://v0-test-smoky-mu.vercel.app/",
+  "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+  "featured": true,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "FLOAT BBS Zine Explorer is a nostalgic yet forward-thinking digital space that reimagines the classic Bulletin Board System (BBS) interface as a tool for exploring philosophical concepts, digital zines, and experimental thought frameworks."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "FLOAT: Feedback Loops of Affective Transformation"
+    },
+    {
+      "type": "paragraph",
+      "content": "At the core of this project is FLOAT - a speculative digital framework blending psychoanalytic theory, queer theory, computational concepts, and philosophical frameworks. It serves as both a personal knowledge management system and a conceptual exploration tool."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Core Principles"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Shacks not Cathedrals",
+          "content": "Choose lightweight, adaptable cognitive structures over rigid complex systems"
+        },
+        {
+          "type": "listItem",
+          "title": "Emotional Resonance as Data",
+          "content": "Truth is validated through affective resonance"
+        },
+        {
+          "type": "listItem",
+          "title": "Remembering Forward",
+          "content": "Memory as emergence, not retrieval"
+        },
+        {
+          "type": "listItem",
+          "title": "Ritual over Routine",
+          "content": "Intentional cycles of meaning-making"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Retro-Futuristic Interface"
+    },
+    {
+      "type": "paragraph",
+      "content": "The project features a deliberately retro interface that evokes the aesthetic of early 1990s BBS systems, complete with terminal-style text, neon colors against a black background, and command-line interactions. This nostalgic design choice creates a unique space for exploring forward-thinking concepts through a lens of digital history."
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+      "alt": "FLOAT BBS interface showing the terminal with core principles and navigation options"
+    }
+  ]
+}

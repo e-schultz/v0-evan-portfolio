@@ -1,0 +1,69 @@
+{
+  "title": "Pixelated Mystic Artifacts",
+  "slug": "pixelated-mystic-artifacts",
+  "description": "A generative art project that creates pixel art representations of imaginary mystical artifacts, combining procedural generation with symbolic visual language.",
+  "tags": ["Pixel Art", "Generative Art", "Procedural Generation", "JavaScript"],
+  "github": "https://github.com/e-schultz/pixelated-mystic-artifacts",
+  "link": "https://pixelated-mystic-artifacts.vercel.app/",
+  "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "Pixelated Mystic Artifacts is a generative art project that creates pixel art representations of imaginary mystical artifacts, combining procedural generation with symbolic visual language. Each artifact is unique, with its own visual characteristics, symbolic meanings, and fictional history."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Artifact Generation"
+    },
+    {
+      "type": "paragraph",
+      "content": "The project uses custom algorithms to generate artifacts with consistent internal logic while maintaining variety and visual interest. The generation process includes:"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Base Shape Generation",
+          "content": "Creating the foundational form of the artifact"
+        },
+        {
+          "type": "listItem",
+          "title": "Symbolic Element Placement",
+          "content": "Adding runes, glyphs, and other symbolic elements"
+        },
+        {
+          "type": "listItem",
+          "title": "Color Palette Selection",
+          "content": "Choosing harmonious colors with symbolic associations"
+        },
+        {
+          "type": "listItem",
+          "title": "Detail Rendering",
+          "content": "Adding pixel-level details like weathering, glow effects, or material textures"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Artifact Lore"
+    },
+    {
+      "type": "paragraph",
+      "content": "Each generated artifact comes with procedurally generated lore—a name, origin, powers, and history. This narrative context enriches the visual experience and creates a more complete fictional artifact."
+    },
+    {
+      "type": "paragraph",
+      "content": "The project explores the intersection of procedural generation, visual symbolism, and fictional worldbuilding. It asks how we can use algorithmic processes to create objects that feel meaningful and charged with symbolic potential, despite their digital and procedural origins."
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+      "alt": "Pixelated Mystic Artifacts showing a grid of generated pixel art artifacts with various shapes, symbols, and colors"
+    }
+  ]
+}

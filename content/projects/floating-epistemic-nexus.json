@@ -1,0 +1,75 @@
+{
+  "title": "Floating Epistemic Nexus",
+  "slug": "floating-epistemic-nexus",
+  "description": "An interconnected knowledge graph visualization tool that helps users explore relationships between concepts, ideas, and information.",
+  "tags": ["D3.js", "Graph Visualization", "Knowledge Management", "React"],
+  "github": "https://github.com/e-schultz/floating-epistemic-nexus",
+  "link": "https://floating-epistemic-nexus.lovable.app",
+  "image": "/floating-epistemic-nexus.png",
+  "featured": true,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "Floating Epistemic Nexus is an interconnected knowledge graph visualization tool that helps users explore relationships between concepts, ideas, and information. It creates a dynamic, navigable network of knowledge based on the FLOAT philosophy."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "The FLOAT System"
+    },
+    {
+      "type": "paragraph",
+      "content": "At its core, FLOAT (Floating Linked Ontological Associative Thinking) is a philosophical and visual framework for organizing knowledge. The system is built around seven key elements:"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Heresy as Interface",
+          "content": "A visual exploration of heresy as an unauthorized protocol—an interface with forbidden truths."
+        },
+        {
+          "type": "listItem",
+          "title": "Identity as Wayfinding",
+          "content": "You are not the self—you are the compass forged in wandering."
+        },
+        {
+          "type": "listItem",
+          "title": "Knowledge as Recursive Ritual",
+          "content": "Nothing is truly known unless it can be called again—ritually, structurally, reverently."
+        },
+        {
+          "type": "listItem",
+          "title": "Horror as Unstable Epistemology",
+          "content": "The monster is not the unknown—it is what breaks your model of knowing."
+        },
+        {
+          "type": "listItem",
+          "title": "Liberation Through Breakdown",
+          "content": "Control systems collapse under recursive self-awareness. Liberation comes not by repair, but by reassembly."
+        },
+        {
+          "type": "listItem",
+          "title": "Memory as a Live System",
+          "content": "Memory is not recall. It is a ritual architecture—responsive, co-evolving, alive."
+        },
+        {
+          "type": "listItem",
+          "title": "FLOAT Itself",
+          "content": "FLOAT is not a tool. It is a way of surviving the archive. A rebellion staged in notation."
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-12%20at%2011.30.45%E2%80%AFPM-UeDapuCHxuF9qCT4CgLW0Qmizoh5NT.png",
+      "alt": "The Seven Elements interface showing the foundational concepts of FLOAT"
+    },
+    {
+      "image": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-12%20at%2011.31.02%E2%80%AFPM-2RZik1PDrQPFLDW8hNbBCkLFMHzxMB.png",
+      "alt": "Memory as a Live System concept page"
+    }
+  ]
+}

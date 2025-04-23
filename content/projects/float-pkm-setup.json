@@ -1,0 +1,61 @@
+{
+  "title": "FLOAT PKM Setup",
+  "slug": "float-pkm-setup",
+  "description": "A starter kit for setting up a Personal Knowledge Management (PKM) system using the FLOAT methodology.",
+  "tags": ["PKM", "Next.js", "Knowledge Management", "Productivity", "v0"],
+  "github": "https://github.com/e-schultz/float-pkm-ideas-v0-1",
+  "link": "https://v0-next-js-float-setup.vercel.app",
+  "v0Link": "https://v0.dev/chat/projects/IEt9SykcYxk",
+  "image": "/float-pkm-setup.png",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "FLOAT PKM Setup is a starter kit for setting up a Personal Knowledge Management (PKM) system using the FLOAT methodology. It helps users quickly establish a framework for capturing, organizing, and connecting information in a thoughtful, structured way."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "What is FLOAT?"
+    },
+    {
+      "type": "paragraph",
+      "content": "FLOAT (Floating Linked Ontological Associative Thinking) is a methodology for organizing knowledge and thoughts. It's designed to create a more fluid, interconnected system for managing information compared to traditional hierarchical systems."
+    },
+    {
+      "type": "paragraph",
+      "content": "The FLOAT system is built around several key concepts:"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Thought Spaces",
+          "content": "Dedicated areas for different types of thinking (Main Consciousness, Creative Ideation, Critical Analysis)"
+        },
+        {
+          "type": "listItem",
+          "title": "Time Echoes",
+          "content": "Temporal organization of thoughts (Today, Yesterday, Last Week)"
+        },
+        {
+          "type": "listItem",
+          "title": "Thought Maps",
+          "content": "Visual representations of connected ideas and concepts"
+        },
+        {
+          "type": "listItem",
+          "title": "AI Analysis",
+          "content": "Intelligent assistance for discovering patterns and insights in your thoughts"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-13%20at%202.18.29%E2%80%AFAM-kQSWLGHzny9DYTriYMupxoBU3uJUpX.png",
+      "alt": "FLOAT PKM interface showing the thought map with Consciousness Core and AI assistant welcome message"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "title": "Tweeterkasten",
+  "slug": "tweeterkasten",
+  "description": "A hybrid tool that combines the Zettelkasten note-taking method with Twitter-like microblogging, creating a unique system for capturing, connecting, and sharing atomic thoughts.",
+  "tags": ["Knowledge Management", "Social Media", "Note-taking", "React", "Next.js"],
+  "github": "https://github.com/e-schultz/tweeterkasten",
+  "link": "https://tweeterkasten.vercel.app/",
+  "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "Tweeterkasten is a hybrid tool that combines the Zettelkasten note-taking method with Twitter-like microblogging, creating a unique system for capturing, connecting, and sharing atomic thoughts. It bridges the gap between personal knowledge management and social sharing."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Concept"
+    },
+    {
+      "type": "paragraph",
+      "content": "The Zettelkasten method, popularized by sociologist Niklas Luhmann, involves creating atomic notes with unique identifiers and explicit connections between them. Tweeterkasten adapts this approach for the digital age, incorporating elements of social media to create a system that is both personally valuable and socially shareable."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Key Features"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Atomic Notes",
+          "content": "Create tweet-sized notes with unique identifiers"
+        },
+        {
+          "type": "listItem",
+          "title": "Bidirectional Linking",
+          "content": "Connect notes to form a knowledge graph"
+        },
+        {
+          "type": "listItem",
+          "title": "Timeline View",
+          "content": "Browse notes chronologically like a Twitter feed"
+        },
+        {
+          "type": "listItem",
+          "title": "Graph View",
+          "content": "Visualize connections between notes"
+        },
+        {
+          "type": "listItem",
+          "title": "Selective Sharing",
+          "content": "Choose which notes to make public and which to keep private"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Use Cases"
+    },
+    {
+      "type": "paragraph",
+      "content": "Tweeterkasten serves multiple purposes depending on the user's needs:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Personal knowledge management and idea development",
+        "Public thinking and sharing of atomic ideas",
+        "Collaborative knowledge building with selective privacy",
+        "Long-form writing preparation through connected atomic thoughts"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "The project explores how the structured thinking of Zettelkasten can be combined with the immediacy and social aspects of Twitter to create a new kind of thinking and sharing tool."
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+      "alt": "Tweeterkasten interface showing the timeline view of atomic notes with connection indicators"
+    }
+  ]
+}

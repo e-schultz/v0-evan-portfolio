@@ -1,0 +1,69 @@
+{
+  "title": "Geometric Harmony Generator",
+  "slug": "geometric-harmony-generator",
+  "description": "A tool that creates harmonious geometric patterns based on mathematical principles, allowing users to explore beautiful, symmetric designs with interactive controls.",
+  "tags": ["Canvas API", "Mathematics", "Generative Art", "Interactive Design"],
+  "github": "https://github.com/e-schultz/geometric-harmony-generator",
+  "link": "https://geometric-harmony-generator.lovable.app",
+  "image": "/geometric-harmony-generator.png",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "Geometric Harmony Generator is a tool that creates harmonious geometric patterns based on mathematical principles. Users can explore beautiful, symmetric designs with interactive controls for parameters like symmetry, complexity, and color."
+    },
+    {
+      "type": "blockquote",
+      "content": "GEOMETRIC HARMONY GENERATOR\nMINIMAL VISUALIZATION"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Concept & Design"
+    },
+    {
+      "type": "paragraph",
+      "content": "The Geometric Harmony Generator explores the intersection of mathematics, design, and mindfulness. It creates visual representations of mathematical harmony through geometric forms, encouraging a meditative state through observation of evolving patterns."
+    },
+    {
+      "type": "paragraph",
+      "content": "The minimalist aesthetic emphasizes the beauty of pure geometry, using simple wireframe structures to create complex visual experiences. The current visualization showcases nested cubes that create a sense of depth and recursion, drawing the viewer into an exploration of space and form."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Features"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Minimal Visualization Mode",
+          "content": "A clean, wireframe aesthetic that focuses on form and structure"
+        },
+        {
+          "type": "listItem",
+          "title": "Integrated Timer",
+          "content": "Set sessions of 25 minutes (or custom durations) for focused observation"
+        },
+        {
+          "type": "listItem",
+          "title": "Testing Mode",
+          "content": "Accelerated visualization (5x speed) for rapid exploration of pattern evolution"
+        },
+        {
+          "type": "listItem",
+          "title": "Pause and Reset Controls",
+          "content": "Allows users to control the flow of the visualization"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "/geometric-harmony-generator.png",
+      "alt": "Geometric Harmony Generator showing a minimal visualization of nested wireframe cubes"
+    }
+  ]
+}

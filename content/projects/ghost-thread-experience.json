@@ -1,0 +1,51 @@
+{
+  "title": "Ghost Thread Experience",
+  "slug": "ghost-thread-experience",
+  "description": "An experimental web application that explores the concept of 'ghost threads' - digital remnants of handwritten notes and thoughts that persist in digital spaces.",
+  "tags": ["React", "TypeScript", "Vite", "Tailwind CSS", "shadcn/ui"],
+  "github": "https://github.com/e-schultz/ghost-thread-experience",
+  "link": "https://ghost-thread-experience.lovable.app",
+  "image": "/ghost-thread-experience.png",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "Ghost Thread Experience is an experimental web application that explores the concept of 'ghost threads' - digital remnants of handwritten notes and thoughts that persist in digital spaces. The project simulates a terminal/console interface for viewing and interacting with these digitized thoughts."
+    },
+    {
+      "type": "paragraph",
+      "content": "With its retro-futuristic aesthetic featuring a dark theme with magenta/pink accents, the application creates an immersive environment that blurs the line between analog and digital, past and present."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Key Features"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "ECHO READER",
+          "content": "A terminal-like interface that displays chronological entries from ghost-trace sessions"
+        },
+        {
+          "type": "listItem",
+          "title": "Scratch Viewer",
+          "content": "A split-view interface showing both the original handwritten notes and their AI-parsed text equivalents"
+        },
+        {
+          "type": "listItem",
+          "title": "Session Tracking",
+          "content": "Organizes thoughts and notes into discrete sessions with timestamps and confidence scores"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-13%20at%202.43.52%E2%80%AFAM-isOLLuh6DMw9oV10KlnaXWtSzxjYDl.png",
+      "alt": "Ghost Thread Experience interface showing the Scratch Viewer with a notebook page"
+    }
+  ]
+}

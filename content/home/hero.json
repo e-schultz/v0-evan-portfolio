@@ -1,0 +1,31 @@
+{
+  "title": "Evan Schultz",
+  "subtitle": "Technical Director & Software Engineer",
+  "description": "Building high performing teams and the environment that enables them.",
+  "primaryButton": {
+    "text": "View Projects",
+    "url": "/projects"
+  },
+  "secondaryButton": {
+    "text": "Contact Me",
+    "url": "/contact"
+  },
+  "socialLinks": [
+    {
+      "platform": "github",
+      "url": "https://github.com/e-schultz",
+      "label": "GitHub"
+    },
+    {
+      "platform": "linkedin",
+      "url": "https://www.linkedin.com/in/evanschultz1/",
+      "label": "LinkedIn"
+    },
+    {
+      "platform": "twitter",
+      "url": "http://twitter.com/e_p82",
+      "label": "Twitter"
+    }
+  ],
+  "image": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/evan.just.evan__Title_Techno_Ruins_on_the_Ominous_Shore_Fragmen_731f5629-e5a1-46ea-a258-b64f470e5995-7AvHbOgQTduSAehAjWOajxR7hAJx3Q.png"
+}

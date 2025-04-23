@@ -1,0 +1,305 @@
+{
+  "title": "Refactor to React Hooks, Not Classes",
+  "slug": "refactor-to-react-hooks-not-classes",
+  "date": "2019-03-28",
+  "author": "Evan Schultz",
+  "excerpt": "Are you tired of refactoring stateless-functional components to class-based ones, just to manage simple local state? Learn how React Hooks can help you write more concise and maintainable code.",
+  "tags": ["React", "Hooks", "JavaScript", "Functional Components"],
+  "category": "React",
+  "image": "/images/blog/react-hooks-refactor.png",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": "JavaScript and its ecosystem are evolving at a rapid pace. As new frameworks, libraries, and features get added JavaScript fatigue can start to set in."
+    },
+    {
+      "type": "paragraph",
+      "content": "Are you tired of refactoring stateless-functional components to class-based ones, just to manage simple local state? Have you heard about React Hooks, but not sure how to use them in your current codebase? Then this article is for you!"
+    },
+    {
+      "type": "paragraph",
+      "content": "It can be difficult to know what's worth adopting, when to adopt it, and how to introduce it into our existing projects."
+    },
+    {
+      "type": "paragraph",
+      "content": "While adopting some things may require large refactors or even migration to a new framework, other changes can be incrementally added to your existing projects."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Class-based or Functional?"
+    },
+    {
+      "type": "paragraph",
+      "content": "React allows us to build both class-based and functional components."
+    },
+    {
+      "type": "paragraph",
+      "content": "Generally, it's recommended to start with a functional component for a few key reasons, explained by David Jöch:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Functional component are much easier to read and test because they are plain JavaScript functions without state or lifecycle-hooks",
+        "You end up with less code",
+        "They help you to use best practices. It will get easier to separate container and presentational components because you need to think more about your component's state if you don't have access to setState() in your component",
+        "The React team mentioned that there may be a performance boost for functional component in future React versions"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "We're not going to go into the details of that here, and that's not to say that class-based components don't have their benefits."
+    },
+    {
+      "type": "paragraph",
+      "content": "When following the recommended approach and starting with most of our components being functional - what happens when you need to keep track of some internal state, or be able to take advantage of React lifecycle methods such as componentDidMount or componentWillUpdate?"
+    },
+    {
+      "type": "paragraph",
+      "content": "Currently you would need to convert it to a Class-based component."
+    },
+    {
+      "type": "paragraph",
+      "content": "But not for much longer."
+    },
+    {
+      "type": "paragraph",
+      "content": "React Hooks are coming to save the day!"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Class Dismissed"
+    },
+    {
+      "type": "paragraph",
+      "content": "At Rangle, we've been exploring the potential of React Hooks, so I reached out to coworkers to see if they had any examples of existing code they thought could benefit from Hooks."
+    },
+    {
+      "type": "paragraph",
+      "content": "Harry Nicholls sent me an example from a current project he's working on. The scenario he described is that the team had:"
+    },
+    {
+      "type": "paragraph",
+      "content": "A stateless-functional component that was refactored to a class-based component just so we could track the state of the Sidebar (to open and close it via a button, and open it after navigating to a new page)."
+    },
+    {
+      "type": "paragraph",
+      "content": "We could definitely make use of useState here, and probably useEffect too."
+    },
+    {
+      "type": "paragraph",
+      "content": "There are other components that have a similar toggleExpanded functionality, so it could even be extracted into a utility and imported where needed."
+    },
+    {
+      "type": "paragraph",
+      "content": "This sounded like a great scenario for using hooks. With a bit of code removed for clarity, the initial functional version is below:"
+    },
+    {
+      "type": "code",
+      "language": "jsx",
+      "content": "export const Layout = ({ children, pageName, router }) => {\n    const currentPath = stripLangFromPath(router.pathname);\n    const sectionRoutes = getCategorisedRoutesForSection(router.pathname);\n  return (\n    <div>\n      <MainNav />\n      <div>\n        <Sidebar pathname={currentPath} />\n      </div>\n      <Page name={pageName}>\n        {children}\n        {sectionRoutes.uncategorised.length > 1 && (\n          <NextPage pathname={currentPath} sectionRoutes={sectionRoutes.uncategorised} />\n        )}\n      </Page>\n      <div>\n        <Footer />\n      </div>\n    </div>\n  );\n};"
+    },
+    {
+      "type": "paragraph",
+      "content": "Requirements changed, the component then needed to know whether the Sidebar was expanded or not, and needed to listen to events from the router. It was refactored into a class component so it could have state and access to the componentDidMount lifecycle hook."
+    },
+    {
+      "type": "paragraph",
+      "content": "Harry ended up with this class-based component:"
+    },
+    {
+      "type": "code",
+      "language": "jsx",
+      "content": "export class Layout extends React.Component {\n  constructor() {\n    super();\n    this.state = {\n      isSidebarExpanded: true,\n    };\n  }\n\n  componentDidMount() {\n    Router.events.on('routeChangeComplete', () => {\n      this.setState({\n        isSidebarExpanded: true,\n      });\n    });\n  }\n\n  toggleSidebar = isSidebarExpanded => {\n    this.setState({\n      isSidebarExpanded: !isSidebarExpanded,\n    });\n  };\n\n  render() {\n    const { children, pageName, router } = this.props;\n    const { isSidebarExpanded } = this.state;\n    const currentPath = stripLangFromPath(router.pathname);\n        const sectionRoutes = getCategorisedRoutesForSection(router.pathname);\n\n    return (\n      <div>\n        <MainNav />\n        <div>\n          <Sidebar\n            pathname={currentPath}\n            toggleSidebar={this.toggleSidebar}\n            isExpanded={isSidebarExpanded}\n          />\n        </div>\n        <Page name={pageName}>\n          {children}\n          <NextPage pathname={currentPath} sectionRoutes={sectionRoutes.uncategorised} />\n        </Page>\n        <div>\n          <Footer />\n        </div>\n      </div>\n    );\n  }\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "The component is now significantly bigger, just because of the small change in requirements."
+    },
+    {
+      "type": "paragraph",
+      "content": "This is a scenario where Hooks would be a good fit, and an easy way to start to leverage new features of React without needing a large-scale refactor effort."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "But how can I identify similar scenarios in my own projects?"
+    },
+    {
+      "type": "paragraph",
+      "content": "First think about how the change came about, and what are the additional requirements really asking you to do?"
+    },
+    {
+      "type": "paragraph",
+      "content": "In Harry's case, the change was driven by these additional requirements:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Keep track of whether or not the sidebar is expanded",
+        "Respond to router events once the component mounts"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "Two things should jump out here:"
+    },
+    {
+      "type": "list",
+      "items": ["Keeping track of something means adding state", "Responding to events requires a subscription"]
+    },
+    {
+      "type": "paragraph",
+      "content": "Considering these, we can then think about which hooks would be appropriate to use:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "useState for tracking the state of the sidebar",
+        "useEffect for the router event subscription and cleanup"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "Here's what the functional Layout component could look like with those hooks:"
+    },
+    {
+      "type": "code",
+      "language": "jsx",
+      "content": "export function Layout(props) {\n  const [isSidebarExpanded, setSideBarExpanded] = useState(true);\n\n  function handleRouteChange(url) {\n    setSideBarExpanded(true);\n  }\n\n  useEffect(function routeChangeComplete() {\n    Router.events.on('routeChangeComplete', handleRouteChange);\n    return () => Router.events.off('routeChangeComplete', handleRouteChange);\n  },[]);\n\n  const toggleSidebar = () => setSideBarExpanded(!isSidebarExpanded);\n\n  const { children, pageName, router } = props;\n  const currentPath = stripLangFromPath(router.pathname);\n  const sectionRoutes = getCategorisedRoutesForSection(router.pathname);\n\n  return (\n    <div>\n      <MainNav />\n      <div>\n        <Sidebar\n          pathname={currentPath}\n          sectionRoutes={sectionRoutes}\n          toggleSidebar={toggleSidebar}\n          isExpanded={isSidebarExpanded}\n        />\n      </div>\n      <Page name={pageName}>\n        {children}\n        <NextPage\n          pathname={currentPath}\n          sectionRoutes={sectionRoutes.uncategorised}\n         />\n      </Page>\n      <div>\n        <Footer />\n      </div>\n    </div>\n  );\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "An eagle-eyed code reviewer may have noticed a potential bug in the initial class based version - we're not cleaning up the subscription when the component unmounts."
+    },
+    {
+      "type": "paragraph",
+      "content": "It's easy to overlook this when your subscription code and cleanup code are split between two different lifecycle methods such as:"
+    },
+    {
+      "type": "list",
+      "items": ["componentDidMount", "componentWillUnmount"]
+    },
+    {
+      "type": "paragraph",
+      "content": "With the useEffect hook, your cleanup code can live right next to your subscription code."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Custom Hooks"
+    },
+    {
+      "type": "paragraph",
+      "content": "One of the benefits when we start keeping related code close together like this, is being able to notice which common patterns emerge."
+    },
+    {
+      "type": "paragraph",
+      "content": "In this case, wanting to run a function when a router event happens, and clean up the subscription when the component unmounts."
+    },
+    {
+      "type": "paragraph",
+      "content": "This could be generalized into a custom hook useOnRouterEvent:"
+    },
+    {
+      "type": "code",
+      "language": "jsx",
+      "content": "// utils/hooks.js\nfunction useOnRouterEvent(event, cb) {\n  useEffect(function handleEvent() {\n    Router.events.on(event, cb);\n    return () => Router.events.off(event, cb);\n  },[]);\n}\n\n// Layout.js\nfunction Layout(props) {\n  const [isSidebarExpanded, setSideBarExpanded] = useState(true);\n\n  function handleRouteChange(url) {\n    setSideBarExpanded(true);\n  }\n  useOnRouterEvent('routeChangeComplete', handleRouteChange);\n\n/* ...... */\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "We could use an ()⇒ arrow function in the useEffect handler, however using named functions will help keep things easier to debug, and show the function name in the React Devtools once they support Hooks."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Extracting Reusable Behaviour"
+    },
+    {
+      "type": "paragraph",
+      "content": "Other components in the library also need similar toggle functionality. The common requirement is to keep track of whether a component is expanded or not, while being able to explicitly set it it's state, with the option to simply toggle it."
+    },
+    {
+      "type": "paragraph",
+      "content": "We can extract this behaviour into another custom, reusable hook, useToggle:"
+    },
+    {
+      "type": "code",
+      "language": "jsx",
+      "content": "function useToggle(initialState) {\n    const [isExpanded, setExpanded] = useState(initialState);\n\n    function toggleExpanded() {\n        setExpanded(!isExpanded);\n    }\n    // We probably still want to expose 'setExpanded' so we can explicitly set the state\n    return [isExpanded, setExpanded, toggleExpanded]; \n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "We can then leverage this hook in the Layout component as we discussed above:"
+    },
+    {
+      "type": "code",
+      "language": "jsx",
+      "content": "function Layout(props) {\n  const [isSidebarExpanded, setSidebarExpanded, toggleSidebar] = useToggle(true);\n\n  function handleRouteChange(url) {\n    setSidebarExpanded(true);\n  }\n  useOnRouterEvent('routeChangeComplete', handleRouteChange);\n\n    {/* ...... */}\n\n  return (\n    <div>\n      <MainNav />\n      <div>\n        <Sidebar\n          pathname={currentPath}\n          sectionRoutes={sectionRoutes}\n          toggleSidebar={toggleSidebar}\n          isExpanded={isSidebarExpanded}\n        />\n      </div>\n      {/* ...... */}\n  );\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "The concept of a toggle can apply to many situations, so we looked for another component in the project that had a similar need. One such component was the PropsTable, that needs to toggle the expanded state."
+    },
+    {
+      "type": "paragraph",
+      "content": "This is another case, where a functional component was turned into a class based one just for a simple bit of state."
+    },
+    {
+      "type": "paragraph",
+      "content": "Class-based PropsTable:"
+    },
+    {
+      "type": "code",
+      "language": "jsx",
+      "content": "export class PropsTable extends React.Component {\n  constructor(props) {\n    super(props);\n\n    this.state = {\n      isExpanded: false,\n      propsRows: this.getPropsRows(props.components),\n    };\n  }\n\n    getPropsRows(components) {\n        { /* ...... */ }\n  }\n\n  toggleExpanded() {\n    this.setState(prevState => ({\n      isExpanded: !prevState.isExpanded,\n    }));\n  }\n\n  render() {\n    const { collapseTo } = this.props;\n    const { propsRows, isExpanded } = this.state;\n\n    const isExpandable = collapseTo >= 0 && propsRows.length > collapseTo;\n    const displayedPropRows = isExpandable && !isExpanded ? propsRows.slice(0, collapseTo) : propsRows;\n    const showMoreText = isExpanded ? 'Show Less' : 'Show More';\n    const showMoreIcon = isExpanded ? 'chevron-up' : 'chevron-down';\n\n    return (\n      <Table>\n         { /* ..... */ }\n        <tbody>\n          {displayedPropRows.map(row => (\n            <Prop prop={row} />\n          ))}\n        </tbody>\n        <tfoot>\n          <tr>\n            <td colSpan=\"3\">\n              <Button element=\"button\" variant=\"moreless\" onClick={this.toggleExpanded}>\n                {showMoreText}\n                <FontAwesomeIcon icon={showMoreIcon} />\n              </Button>\n            </td>\n          </tr>\n        </tfoot>\n      </Table>\n    );\n  }\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "With hooks, we are able to keep this as a functional component, and easily reuse code that is based on behaviour, not UI."
+    },
+    {
+      "type": "paragraph",
+      "content": "And here it is as a functional component with the custom useToggle hook:"
+    },
+    {
+      "type": "code",
+      "language": "jsx",
+      "content": "export function PropsTable(props) {\n  const [isTableExpanded, , toggleExpanded] = useToggle(false); // Skipped 'setExpanded' function as it's not used here\n\n  function getPropsRows(components) {\n    { /* ...... */ }\n  }\n\n  const { collapseTo } = props;\n  const propsRows = getPropsRows(props.components);\n\n  const isExpandable = collapseTo >= 0 && propsRows.length > collapseTo;\n  const displayedPropRows = isExpandable && !isTableExpanded ? propsRows.slice(0, collapseTo) : propsRows;\n  const showMoreText = isTableExpanded ? 'Show Less' : 'Show More';\n  const showMoreIcon = isTableExpanded ? 'chevron-up' : 'chevron-down';\n\n  return (\n    <Table>\n      {/* ... */}\n      <tbody>\n        {displayedPropRows.map(row => (\n          <Prop prop={row} />\n        ))}\n      </tbody>\n      <tfoot>\n        <tr>\n          <td colSpan=\"3\">\n            <Button element=\"button\" variant=\"moreless\" onClick={toggleExpanded}>\n              {showMoreText}\n              <FontAwesomeIcon icon={showMoreIcon} />\n            </Button>\n          </td>\n        </tr>\n      </tfoot>\n    </Table>\n  );\n}"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Is there a Hook for that?"
+    },
+    {
+      "type": "paragraph",
+      "content": "Hopefully this post has shown you how Hooks will allow you to track state and access lifecycle hooks in a functional component."
+    },
+    {
+      "type": "paragraph",
+      "content": "Soon, you won't be forced to use class-based components if you need to do these things. You'll be able to add built-in React Hooks to your functional component, and create custom, reusable Hook utilities for commonly used functionalities."
+    },
+    {
+      "type": "paragraph",
+      "content": "If you want to start identifying areas for improvement now, and get some easy wins, look out for simple, class-based components in your codebase that track small pieces of local state, or subscribe to events."
+    },
+    {
+      "type": "paragraph",
+      "content": "And next time you find yourself about to change a functional component to a class-based component, ask yourself:"
+    },
+    {
+      "type": "paragraph",
+      "content": "Is there a Hook for that?"
+    },
+    {
+      "type": "paragraph",
+      "content": "If there isn't, could you create one?"
+    },
+    {
+      "type": "paragraph",
+      "content": "Keep your eyes on the Rangle.io blog, as we'll continue to find and share examples like this to demonstrate how your existing codebase can benefit from Hooks."
+    }
+  ]
+}

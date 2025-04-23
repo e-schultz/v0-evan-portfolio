@@ -1,0 +1,53 @@
+{
+  "title": "Endless Designs",
+  "slug": "endless-designs",
+  "description": "A generative design tool that creates infinite variations of geometric patterns and compositions with a minimalist black and white aesthetic.",
+  "tags": ["Generative Design", "Creative Tools", "React", "Canvas API", "v0"],
+  "github": "https://github.com/e-schultz/v0-endless-designs",
+  "link": "https://v0-endless-designs.vercel.app",
+  "v0Link": "https://v0.dev/chat/projects/IESm6pp4Au1",
+  "image": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-17%20at%203.41.42%E2%80%AFPM-gCiJOkPLhFOp6LbCrcSQIza5wjhR0e.png",
+  "featured": true,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "Endless Designs is a generative design tool that creates infinite variations of geometric patterns and compositions. With a minimalist black and white aesthetic, it generates beautiful tessellations, spirals, fractals, and abstract compositions that can be used for inspiration, backgrounds, or as starting points for more complex designs."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Key Features"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Infinite Variations",
+          "content": "Generate unlimited design variations with a single click"
+        },
+        {
+          "type": "listItem",
+          "title": "Parameter Controls",
+          "content": "Fine-tune the generation process with adjustable parameters"
+        },
+        {
+          "type": "listItem",
+          "title": "Export Options",
+          "content": "Save your favorite designs in various formats for use in other applications"
+        },
+        {
+          "type": "listItem",
+          "title": "Design History",
+          "content": "Keep track of your generation history to revisit previous designs"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-17%20at%203.41.42%E2%80%AFPM-gCiJOkPLhFOp6LbCrcSQIza5wjhR0e.png",
+      "alt": "Endless Designs interface showing the Infinite Tessellation pattern and a gallery of geometric designs"
+    }
+  ]
+}

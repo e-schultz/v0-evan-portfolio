@@ -1,0 +1,87 @@
+{
+  "title": "Note Tweeter Layout",
+  "slug": "note-tweeter-layout",
+  "description": "A specialized layout engine for transforming structured notes into visually appealing, Twitter-optimized formats with support for various content types and threading strategies.",
+  "tags": ["Layout Engine", "Social Media", "Typography", "Design System", "JavaScript"],
+  "github": "https://github.com/e-schultz/note-tweeter-layout",
+  "link": "https://note-tweeter-layout.vercel.app/",
+  "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "Note Tweeter Layout is a specialized layout engine for transforming structured notes into visually appealing, Twitter-optimized formats with support for various content types and threading strategies. It bridges the gap between the structured world of note-taking and the character-limited, visually-driven environment of Twitter."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Layout Capabilities"
+    },
+    {
+      "type": "paragraph",
+      "content": "The engine provides sophisticated layout options for different types of content:"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Text Optimization",
+          "content": "Intelligent breaking of text to fit Twitter's character limits while preserving meaning"
+        },
+        {
+          "type": "listItem",
+          "title": "Image Integration",
+          "content": "Strategic placement of images within threads for maximum impact"
+        },
+        {
+          "type": "listItem",
+          "title": "Code Formatting",
+          "content": "Special handling for code snippets, including syntax highlighting in images"
+        },
+        {
+          "type": "listItem",
+          "title": "Quote Styling",
+          "content": "Visually distinct formatting for quotations and references"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Threading Strategies"
+    },
+    {
+      "type": "paragraph",
+      "content": "The engine supports multiple approaches to creating Twitter threads from notes:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Sequential threading of connected notes",
+        "Hierarchical threading that preserves note relationships",
+        "Topic-based clustering for thematic coherence",
+        "Narrative restructuring for storytelling flow"
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Visual Customization"
+    },
+    {
+      "type": "paragraph",
+      "content": "Note Tweeter Layout includes a design system with customizable templates for different content types and purposes. Users can create their own visual styles or use pre-designed templates optimized for engagement, education, or discussion."
+    },
+    {
+      "type": "paragraph",
+      "content": "The project explores the intersection of information design, social media constraints, and knowledge sharing, creating new possibilities for translating structured thought into engaging social media content."
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+      "alt": "Note Tweeter Layout interface showing the layout engine transforming structured notes into Twitter-optimized formats"
+    }
+  ]
+}

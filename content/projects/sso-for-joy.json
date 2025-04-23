@@ -1,0 +1,75 @@
+{
+  "title": "SSO for Joy",
+  "slug": "sso-for-joy",
+  "description": "A playful exploration of Single Sign-On concepts through the lens of emotional states, where authentication becomes a journey of self-discovery.",
+  "tags": ["Next.js", "Authentication", "Conceptual Art", "v0", "Interactive"],
+  "github": "https://github.com/e-schultz/v0-sso-for-joy",
+  "link": "https://v0-sso-for-joy.vercel.app/",
+  "v0Link": "https://v0.dev/chat/projects/IEUcXXXXXXX",
+  "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "SSO for Joy is a playful exploration of Single Sign-On concepts through the lens of emotional states, where authentication becomes a journey of self-discovery. This conceptual project reimagines the typically utilitarian process of authentication as an opportunity for reflection and emotional connection."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Concept"
+    },
+    {
+      "type": "paragraph",
+      "content": "In traditional Single Sign-On (SSO) systems, users authenticate once to access multiple services. SSO for Joy extends this metaphor to emotional states—what if we could authenticate our emotional presence once and carry that awareness across different contexts of our lives?"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "The Authentication Journey"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Emotional Check-In",
+          "content": "Users begin by identifying their current emotional state through interactive prompts"
+        },
+        {
+          "type": "listItem",
+          "title": "Validation Process",
+          "content": "The system validates the emotional state through reflective questions and visual feedback"
+        },
+        {
+          "type": "listItem",
+          "title": "Token Generation",
+          "content": "A unique 'emotional token' is generated, representing the authenticated emotional state"
+        },
+        {
+          "type": "listItem",
+          "title": "Cross-Context Access",
+          "content": "The token provides access to different 'services' or life contexts with appropriate emotional framing"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Technical Meets Philosophical"
+    },
+    {
+      "type": "paragraph",
+      "content": "While the project uses actual authentication technologies like JWT tokens and OAuth flows, it repurposes them to serve a more philosophical and introspective purpose. The technical implementation becomes a vehicle for exploring how we carry our emotional states across different contexts in our lives."
+    },
+    {
+      "type": "paragraph",
+      "content": "SSO for Joy invites users to consider: What if we approached our emotional presence with the same intentionality that we approach digital security? What if our authentic emotional state could be recognized and honored across all aspects of our lives?"
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "https://sjc.microlink.io/DgF7M0pPMY9Rfd1ZPX8EiAtg1r9YV7ngmjIirygCzarDvwMdr8vkPJyFVWlM106oCKra7G5dzviK1lfLGZdMKQ.jpeg",
+      "alt": "SSO for Joy interface showing the emotional authentication process with vibrant, abstract visuals"
+    }
+  ]
+}

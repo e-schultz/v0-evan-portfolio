@@ -1,0 +1,80 @@
+{
+  "title": "ZettelTweet",
+  "slug": "zetteltweet",
+  "description": "A modern note-taking application that combines the Zettelkasten method with a Twitter-like interface for organizing and connecting thoughts.",
+  "tags": ["Next.js", "Zettelkasten", "Note-taking", "Knowledge Management", "v0"],
+  "github": "https://github.com/e-schultz/v0-float-zet-concept-project",
+  "link": "https://v0-zettelkasten-note-app.vercel.app",
+  "v0Link": "https://v0.dev/chat/projects/x1PSWTYbQJ0",
+  "image": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-17%20at%207.55.59%E2%80%AFPM-sDYg8f876TrZTn633eSphkJ1mfS0BB.png",
+  "featured": true,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "ZettelTweet is a modern note-taking application that combines the structured methodology of Zettelkasten with the familiar, stream-based interface of Twitter. It provides a unique way to capture, organize, and connect thoughts in a non-linear fashion."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Key Features"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "Timeline View",
+          "content": "Chronological display of notes similar to a social media feed"
+        },
+        {
+          "type": "listItem",
+          "title": "Threads",
+          "content": "Group related notes into connected threads of thought"
+        },
+        {
+          "type": "listItem",
+          "title": "Bidirectional Linking",
+          "content": "Create connections between notes to build a knowledge graph"
+        },
+        {
+          "type": "listItem",
+          "title": "Search Functionality",
+          "content": "Quickly find notes across your entire collection"
+        },
+        {
+          "type": "listItem",
+          "title": "Dark Mode Interface",
+          "content": "Sleek, eye-friendly design with neon pink accents"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "The Zettelkasten Method"
+    },
+    {
+      "type": "paragraph",
+      "content": "Zettelkasten (German for 'slip box') is a knowledge management and note-taking system created by German sociologist Niklas Luhmann. The method emphasizes creating atomic notes with connections between them, forming a network of ideas that can generate new insights and connections over time."
+    },
+    {
+      "type": "paragraph",
+      "content": "ZettelTweet modernizes this approach by combining it with familiar social media interfaces, making the method more accessible and engaging for digital natives."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Built with v0"
+    },
+    {
+      "type": "paragraph",
+      "content": "This project was created using v0.dev, Vercel's AI-powered design tool. The entire application was designed and generated through conversational prompts, showcasing how AI can accelerate the development of sophisticated web applications."
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-04-17%20at%207.55.59%E2%80%AFPM-sDYg8f876TrZTn633eSphkJ1mfS0BB.png",
+      "alt": "ZettelTweet interface showing the Timeline view with notes organized by mental models and connections between topics"
+    }
+  ]
+}

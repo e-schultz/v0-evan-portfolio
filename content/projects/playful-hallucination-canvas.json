@@ -1,0 +1,73 @@
+{
+  "title": "FLOAT.K8s - Playful Hallucination Canvas",
+  "slug": "playful-hallucination-canvas",
+  "description": "An experimental platform combining Kubernetes (K8s) concepts with interactive visual hallucinations, creating a playful canvas where infrastructure management meets generative art.",
+  "tags": ["Kubernetes", "Canvas API", "WebGL", "Generative Art", "DevOps Visualization"],
+  "github": "https://github.com/e-schultz/playful-hallucination-canvas",
+  "link": "https://playful-hallucination-canvas.lovable.app",
+  "image": "/playful-hallucination-canvas.png",
+  "featured": false,
+  "fullDescription": [
+    {
+      "type": "paragraph",
+      "content": "FLOAT.K8s - Playful Hallucination Canvas is an experimental platform combining Kubernetes (K8s) concepts with interactive visual hallucinations. It creates a playful canvas where infrastructure management meets generative art, visualizing complex cognitive structures as dynamic, evolving patterns."
+    },
+    {
+      "type": "blockquote",
+      "content": "Explore the evolution from chaotic play to FLOAT.K8s, a framework for managing meta-meta cognitive overwhelm"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Concept & Design"
+    },
+    {
+      "type": "paragraph",
+      "content": "The Playful Hallucination Canvas represents a conceptual framework that maps the relationships between different cognitive structures and technological concepts. At its core is FLOAT.K8s, a metaphorical extension of Kubernetes that manages not containers, but cognitive processes and meta-cognitive structures."
+    },
+    {
+      "type": "paragraph",
+      "content": "The canvas visualizes several key concepts:"
+    },
+    {
+      "type": "list",
+      "items": [
+        {
+          "type": "listItem",
+          "title": "FLOAT.K8s",
+          "content": "The central framework represented as a hexagon, managing meta-cognitive processes"
+        },
+        {
+          "type": "listItem",
+          "title": "AIReinforcedBias",
+          "content": "Representing \"LLMs amplifying cognitive overload and reinforcing existing thought patterns\""
+        },
+        {
+          "type": "listItem",
+          "title": "ChaoticPlay",
+          "content": "The genesis or starting point of the framework"
+        },
+        {
+          "type": "listItem",
+          "title": "RitualisticShell",
+          "content": "The Kubernetes-inspired core of the system"
+        },
+        {
+          "type": "listItem",
+          "title": "PersonalPhilosophy",
+          "content": "Guiding principles for the framework"
+        }
+      ]
+    }
+  ],
+  "screenshots": [
+    {
+      "image": "/playful-hallucination-canvas.png",
+      "alt": "Playful Hallucination Canvas interface showing the FLOAT.K8s concept map with nodes for AIReinforcedBias, ChaoticPlay, and more"
+    },
+    {
+      "image": "/playful-hallucination-canvas-full.jpeg",
+      "alt": "Full view of the Playful Hallucination Canvas showing the interactive concept map"
+    }
+  ]
+}

@@ -1,0 +1,412 @@
+{
+  "title": "Do it with Elegance: How to Create Data-Driven User Interfaces in Vue",
+  "slug": "how-to-create-data-driven-user-interfaces-in-vue",
+  "date": "2018-03-07",
+  "author": "Evan Schultz",
+  "excerpt": "Learn how to build dynamic user interfaces in Vue.js where components are determined at runtime based on application state, user preferences, or API responses.",
+  "tags": ["Vue.js", "JavaScript", "Dynamic Components", "Forms"],
+  "category": "Vue.js",
+  "image": "/images/blog/vue-dynamic-components.png",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": "Although we usually know what components are needed when building most views within an app, sometimes we don't know what they are until runtime. This means we need to build a screen based on the application state, user preferences, or response from an API. A common case is building dynamic forms, where the questions and components needed are either configured by a JSON object, or where fields change based on the users' answers."
+    },
+    {
+      "type": "paragraph",
+      "content": "All modern JavaScript frameworks have ways of handling dynamic components. This blog post will show you how to do it in Vue.JS, which provides a remarkably elegant and easy solution to the above scenario."
+    },
+    {
+      "type": "paragraph",
+      "content": "Once you see how easy this can be using Vue.JS, you might get inspired and see applications for dynamic components that you have never considered before!"
+    },
+    {
+      "type": "paragraph",
+      "content": "We need to walk before we can run, so first I'll go over the basics of dynamic components, and then dive into how these concepts can be used to build your own dynamic form builder."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Dynamic Components in Vue"
+    },
+    {
+      "type": "paragraph",
+      "content": "Vue has a built-in component called (fittingly) <component>. You can see the full details in the VueJS guide on Dynamic Components."
+    },
+    {
+      "type": "paragraph",
+      "content": "The guide says: \"You can use the same mount point and dynamically switch between multiple components using the reserved element and dynamically bind to its is attribute.\""
+    },
+    {
+      "type": "paragraph",
+      "content": "What this means is that being able to swap between components can be as simple as:"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "content": "<component :is=\"componentType\">"
+    },
+    {
+      "type": "paragraph",
+      "content": "Let's flesh this out a bit more and see what is going on. We will create two components called DynamicOne and DynamicTwo - for now One and Two will be the same, so I won't repeat the code for both:"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "content": "<template>\n  <div>Dynamic Component One</div>\n</template>\n<script>\nexport default {\n  name: 'DynamicOne',\n}\n</script>"
+    },
+    {
+      "type": "paragraph",
+      "content": "For a quick example of being able to toggle between them, in our App.vue we will set up our component:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "import DynamicOne from './components/DynamicOne.vue'\nimport DynamicTwo from './components/DynamicTwo.vue'\n\nexport default {\n  name: 'app',\n  components: {\n    DynamicOne, DynamicTwo\n  },\n  data() {\n    return {\n      showWhich: 'DynamicOne'\n    }\n  }\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "Note: the showWhich data property is the string value of DynamicOne - this is the property name created in the components object on the component."
+    },
+    {
+      "type": "paragraph",
+      "content": "In our template, we will set up two buttons to swap between the two dynamic components:"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "content": "<button @click=\"showWhich = 'DynamicOne'\">Show Component One</button>\n<button @click=\"showWhich = 'DynamicTwo'\">Show Component Two</button>\n\n<component :is=\"showWhich\"></component>"
+    },
+    {
+      "type": "paragraph",
+      "content": "Clicking on the buttons will swap out DynamicOne with DynamicTwo."
+    },
+    {
+      "type": "paragraph",
+      "content": "At this point, you might be thinking, \"Well, so what? That's handy - but I could have used v-if just as easily.\""
+    },
+    {
+      "type": "paragraph",
+      "content": "This example starts to shine when you realize that <component> works just like any other component, and it can be used in combination with things like v-for for iterating over a collection, or making the :is bindable to an input prop, data prop, or computed property."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Props and Events with Dynamic Components"
+    },
+    {
+      "type": "paragraph",
+      "content": "Components don't live in isolation - they need a way to communicate with the world around them. With Vue, this is done with props and events."
+    },
+    {
+      "type": "paragraph",
+      "content": "You can specify property and event bindings on a dynamic component the same way as any other component, and if the component that gets loaded does not need that property, Vue will not complain about unknown attributes or properties."
+    },
+    {
+      "type": "paragraph",
+      "content": "Let's modify our components to display a greeting. One will accept just firstName and lastName, while another will accept firstName, lastName and title."
+    },
+    {
+      "type": "paragraph",
+      "content": "For the events, we will add a button in DynamicOne that will emit an event called 'upperCase', and in DynamicTwo, a button that will emit an event 'lowerCase'."
+    },
+    {
+      "type": "paragraph",
+      "content": "Putting it together, consuming the dynamic component starts to look like:"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "content": "<component \n\t:is=\"showWhich\" \n\t:firstName=\"person.firstName\"\n\t:lastName=\"person.lastName\"\n\t:title=\"person.title\"\n\t@upperCase=\"switchCase('upperCase')\"\n\t@lowerCase=\"switchCase('lowerCase')\">\n</component>"
+    },
+    {
+      "type": "paragraph",
+      "content": "Not every property or event needs to be defined on the dynamic component that we are switching between."
+    },
+    {
+      "type": "paragraph",
+      "content": "At this point, you might be wondering, \"If the components are dynamic, and not every component needs to know every possible prop - do I need to know the props up front, and declare them in the template?\""
+    },
+    {
+      "type": "paragraph",
+      "content": "Thankfully, the answer is no. Vue provides a shortcut, where you can bind all the keys of an object to props of the component using v-bind."
+    },
+    {
+      "type": "paragraph",
+      "content": "This simplifies the template to:"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "content": "<component \n\t:is=\"showWhich\" \n\tv-bind=\"person\"\n\t@upperCase=\"switchCase('upperCase')\"\n\t@lowerCase=\"switchCase('lowerCase')\">\n</component>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Building a Form Generator"
+    },
+    {
+      "type": "paragraph",
+      "content": "Now that we have the building blocks of Dynamic Components, we can start building on top of other Vue basics to start building a form generator."
+    },
+    {
+      "type": "paragraph",
+      "content": "Let's start with a basic form schema - a JSON object that describes the fields, labels, options, etc for a form. To start, we will account for:"
+    },
+    {
+      "type": "list",
+      "items": ["Text and Numeric input fields", "A Select list"]
+    },
+    {
+      "type": "paragraph",
+      "content": "The starting schema looks like:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "schema: [{\n          fieldType: \"SelectList\",\n          name: \"title\",\n          multi: false,\n          label: \"Title\",\n          options: [\"Ms\", \"Mr\", \"Mx\", \"Dr\", \"Madam\", \"Lord\"]\n        },\n        {\n          fieldType: \"TextInput\",\n          placeholder: \"First Name\",\n          label: \"First Name\",\n          name: \"firstName\"\n        },\n        {\n          fieldType: \"TextInput\",\n          placeholder: \"Last Name\",\n          label: \"Last Name\",\n          name: \"lastName\"\n        },\n        {\n          fieldType: \"NumberInput\",\n          placeholder: \"Age\",\n          name: \"age\",\n          label: \"Age\",\n          minValue: 0\n        }\n      ]"
+    },
+    {
+      "type": "paragraph",
+      "content": "Pretty straightforward - labels, placeholders, etc - and for a select list, a list of possible options. We will keep the component implementation for these simple for this example."
+    },
+    {
+      "type": "paragraph",
+      "content": "TextInput.vue - template"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "content": "<div>\n\t<label>{{label}}</label>\n\t<input type=\"text\"\n         :name=\"name\"\n          placeholder=\"placeholder\">\n</div>"
+    },
+    {
+      "type": "paragraph",
+      "content": "TextInput.vue - script"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "export default {\n  name: 'TextInput',\n  props: ['placeholder', 'label', 'name']\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "SelectList.vue - template"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "content": "<div>\n    <label>{{label}}</label>\n    <select :multiple=\"multi\">\n      <option v-for=\"option in options\"\n              :key=\"option\">\n        {{option}}\n      </option>\n    </select>\n  </div>"
+    },
+    {
+      "type": "paragraph",
+      "content": "SelectList.vue - script"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "export default {\n  name: 'SelectList',\n  props: ['multi', 'options', 'name', 'label']\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "To generate the form based on this schema, add this:"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "content": "<component v-for=\"(field, index) in schema\"\n               :key=\"index\"\n               :is=\"field.fieldType\"\n               v-bind=\"field\">\n</component>"
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Data Binding with Dynamic Components"
+    },
+    {
+      "type": "paragraph",
+      "content": "If a form is generated but does not bind data, is it very useful? Probably not. We currently are generating a form but have no means of binding data to it. Your first instinct might be to add a value property to the schema, and in the components use v-model like so:"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "content": "<input type=\"text\" \n    :name=\"name\"\n    v-model=\"value\"\n\t  :placeholder=\"placeholder\">"
+    },
+    {
+      "type": "paragraph",
+      "content": "There are a few potential pitfalls with this approach, but the one that we care about most is one that Vue will give us an error/warning about:"
+    },
+    {
+      "type": "code",
+      "language": "text",
+      "content": "[Vue warn]: Avoid mutating a prop directly since the value will be overwritten whenever the parent component re-renders. Instead, use a data or computed property based on the prop's value. Prop being mutated: \"value\"\n\nfound in\n\n---> <TextInput> at src/components/v4/TextInput.vue\n       <FormsDemo> at src/components/DemoFour.vue\n         <App> at src/App.vue\n           <Root>"
+    },
+    {
+      "type": "paragraph",
+      "content": "While Vue does provide helpers to make two-way binding of component state easier, the framework still prefers a one-way data flow. We have tried to mutate the parent's data directly within our component, so Vue is warning us about that."
+    },
+    {
+      "type": "paragraph",
+      "content": "Looking a little more closely at v-model, it does not have that much magic to it, so let's break it down as described in the Vue Guide on Form Input Components."
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "content": "<input v-model=\"something\">"
+    },
+    {
+      "type": "paragraph",
+      "content": "Is the same as:"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "content": "<input\n  v-bind:value=\"something\"\n  v-on:input=\"something = $event.target.value\">"
+    },
+    {
+      "type": "paragraph",
+      "content": "With the magic revealed, what we want to accomplish is:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Let the parent provide the value to the child component",
+        "Let the parent know that a value has been updated"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "We accomplish this by binding to the :value and emitting an @input event to notify the parent that something has changed."
+    },
+    {
+      "type": "paragraph",
+      "content": "Let's look at our TextInput component:"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "content": "<div>\n    <label>{{label}}</label>\n    <input type=\"text\"\n           :name=\"name\"\n           :value=\"value\"\n           @input=\"$emit('input',$event.target.value)\"\n           :placeholder=\"placeholder\">\n  </div>"
+    },
+    {
+      "type": "paragraph",
+      "content": "Since the parent is responsible for providing the value, it is also responsible for handling the binding to its own component state. For this we can use v-model on the component tag:"
+    },
+    {
+      "type": "paragraph",
+      "content": "FormGenerator.vue - template"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "content": "<component v-for=\"(field, index) in schema\"\n\t\t:key=\"index\"\n\t\t:is=\"field.fieldType\"\n\t\tv-model=\"formData[field.name]\"\n\t\tv-bind=\"field\">\n</component>"
+    },
+    {
+      "type": "paragraph",
+      "content": "Notice how we are using v-model=\"formData[field.name]\". We need to provide an object on the data property for this:"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "export default {\n\tdata() {\n    return {\n      formData: {\n        firstName: 'Evan'\n      },\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "We can leave the object empty, or if we have some initial field values that we want to set up, we could specify them here."
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "content": "Creating a Reusable Form Generator Component"
+    },
+    {
+      "type": "paragraph",
+      "content": "Now that we have gone over generating a form, it's starting to become apparent that this component is taking on quite a bit of responsibility. While this is not complicated code, it would be nice if the form generator itself was a reusable component."
+    },
+    {
+      "type": "paragraph",
+      "content": "For this form generator, we will want to pass the schema to it as a prop and be able to have data-binding set up between the components."
+    },
+    {
+      "type": "paragraph",
+      "content": "When using the generator, the template becomes:"
+    },
+    {
+      "type": "paragraph",
+      "content": "GeneratorDemo.vue - template"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "content": "<form-generator :schema=\"schema\" v-model=\"formData\">\n</form-generator>"
+    },
+    {
+      "type": "paragraph",
+      "content": "This cleans up the parent component quite a bit. It only cares about FormGenerator, and not about each input type that could be used, wiring up events, etc."
+    },
+    {
+      "type": "paragraph",
+      "content": "Next, make a component called FormGenerator. This will pretty much be copy-pasted of the initial code with a few minor, but key tweaks:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Change from v-model to :value and @input event handling",
+        "Add props value and schema",
+        "Implement updateForm"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "The FormGenerator component becomes:"
+    },
+    {
+      "type": "paragraph",
+      "content": "FormGenerator.vue - template"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "content": "<component v-for=\"(field, index) in schema\"\n               :key=\"index\"\n               :is=\"field.fieldType\"\n               :value=\"formData[field.name]\"\n               @input=\"updateForm(field.name, $event)\"\n               v-bind=\"field\">\n    </component>"
+    },
+    {
+      "type": "paragraph",
+      "content": "FormGenerator.vue - script"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "import NumberInput from '@/components/v5/NumberInput'\nimport SelectList from '@/components/v5/SelectList'\nimport TextInput from '@/components/v5/TextInput'\n\nexport default {\n  name: \"FormGenerator\",\n  components: { NumberInput, SelectList, TextInput },\n  props: ['schema', 'value'],\n  data() {\n    return {\n      formData: this.value || {}\n    };\n  },\n  methods: {\n    updateForm(fieldName, value) {\n      this.$set(this.formData, fieldName, value);\n      this.$emit('input', this.formData)\n    }\n  }\n};"
+    },
+    {
+      "type": "paragraph",
+      "content": "Since the formData property does not know every possible field that we could pass in, we want to use this.$set so Vue's reactive system can keep track of any changes, and allow the FormGenerator component to keep track of its own internal state."
+    },
+    {
+      "type": "paragraph",
+      "content": "Now we have a basic, reusable form generator."
+    },
+    {
+      "type": "paragraph",
+      "content": "Using it within a component:"
+    },
+    {
+      "type": "paragraph",
+      "content": "GeneratorDemo.vue - template"
+    },
+    {
+      "type": "code",
+      "language": "html",
+      "content": "<form-generator :schema=\"schema\" v-model=\"formData\">\n</form-generator>"
+    },
+    {
+      "type": "paragraph",
+      "content": "GeneratorDemo.vue - script"
+    },
+    {
+      "type": "code",
+      "language": "javascript",
+      "content": "import FormGenerator from '@/components/v5/FormGenerator'\n\nexport default {\n  name: \"GeneratorDemo\",\n  components: { FormGenerator },\n  data() {\n    return {\n      formData: {\n        firstName: 'Evan'\n      },\n      schema: [{ /* .... */ },\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "So now that you've seen how a form generator can leverage the basics of dynamic components in Vue to create some highly dynamic, data-driven UIs, I encourage you to play around with this example code on GitHub, or experiment on CodeSandbox. And feel free to reach out if you have any questions or want to talk shop - Twitter, Github, or Contact Rangle.io."
+    }
+  ]
+}

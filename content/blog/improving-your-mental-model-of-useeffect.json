@@ -1,0 +1,133 @@
+{
+  "title": "Improving your mental model of useEffect",
+  "slug": "improving-your-mental-model-of-useeffect",
+  "date": "2019-08-20",
+  "author": "Evan Schultz",
+  "excerpt": "Learn how to think about React's useEffect hook in a more intuitive way by focusing on dependencies rather than lifecycle methods.",
+  "tags": ["React", "Hooks", "useEffect", "JavaScript"],
+  "category": "React",
+  "image": "/images/react-useeffect-lifecycle.png",
+  "content": [
+    {
+      "type": "paragraph",
+      "content": "Hooks landed in React a few months ago, and there has been a lot of excitement around them in terms of figuring out how to best use them, best practices, and how they map to current concepts in React and the lifecycle."
+    },
+    {
+      "type": "paragraph",
+      "content": "Many React developers are familiar with the React Component lifeCycle, and hooks like:"
+    },
+    {
+      "type": "list",
+      "items": ["componentDidMount", "componentDidUpdate", "shouldComponentUpdate", "Etc."]
+    },
+    {
+      "type": "paragraph",
+      "content": "When trying to understand the useEffect hook, it's natural to want to map it to the lifecycle methods we already know."
+    },
+    {
+      "type": "paragraph",
+      "content": "At first glance, useEffect seems to be like a combination of componentDidMount and componentDidUpdate. While this can be a useful way of looking at it at first, it may not be the most accurate. Instead of thinking in terms of 'what do I want to do when I mount, or when I update', its more useful to ask:"
+    },
+    {
+      "type": "paragraph",
+      "content": "What values does this effect depend on?"
+    },
+    {
+      "type": "paragraph",
+      "content": "To better understand where the the mental mapping of useEffect = componentDidMount + componentDidUpdate comes from, we will first look at a typical class based component that is doing some data fetching."
+    },
+    {
+      "type": "code",
+      "language": "jsx",
+      "content": "export default SearchComponent extends Component {\n  constructor(props) {\n    super(props);\n    this.state = {\n      results: []\n    }\n  }\n  componentDidMount() {\n    this.query(this.props.id)\n  }\n  componentDidUpdate(prevProps) {\n    if(this.prevProps.id !== this.props.id) {\n      this.query(this.props.id);\n    }\n  }\n  query(id) {\n    this.setState({isLoading: true})\n    fetch(`/some/url/${id}`)\n      .then(r=>r.json())\n      .then(r=>this.setState({\n        results: results\n      });\n    )\n  }\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "When the component first mounts, we fetch data for the id that has been passed down as a prop. When the component updates, since many things other than just the id prop changing can cause this method to run, we want to ensure that id has actually changed - or some poor server is going to get a DDoS attack with a bunch of API calls that we don't need."
+    },
+    {
+      "type": "paragraph",
+      "content": "While the lifecycle hooks of componentDidMount and componentDidUpdate with class based components are common places to make a request based on a property, the fact that the component is mounting or updating is not really the thing we are concerned with."
+    },
+    {
+      "type": "paragraph",
+      "content": "What we are concerned with: \"what data does the query depend on?\""
+    },
+    {
+      "type": "paragraph",
+      "content": "Before looking at how to handle this with useEffect, lets quickly review the API of useEffect:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "Accepts a function",
+        "If it returns a function, it will do cleanup when the component is unmounted",
+        "Has an optional 2nd argument to pass in the data it depends on"
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": "One of the key things to keep in mind is the importance of that second argument, the React Docs go into this in detail, but a summary is:"
+    },
+    {
+      "type": "list",
+      "items": [
+        "If we leave it blank - it will run on every single render.",
+        "If we pass in an empty array - it will execute only when the component mounts, and not on any updates",
+        "If we pass in a value - it will execute when any of those values change",
+        "If you are using the react-hooks eslint plugin (and you should) - not providing the dependencies to your useEffect will give you warnings."
+      ]
+    },
+    {
+      "type": "code",
+      "language": "jsx",
+      "content": "export default SomeComponent = ({id}) => {\n  let [results, setResults] = useState([]);\n  useEffect(()=>{\n    fetch(`/some/url/${id}`)\n      .then(r=>r.json())\n      .then(r=>setResults(r))\n  },[id])\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "In the class based version, making API calls feels very imperative - when this method is called, I want to check if/how a value has changed, and if it has changed - I want to call a method."
+    },
+    {
+      "type": "paragraph",
+      "content": "If the component is being created or updated often isn't the thing the matters. What we actually care about is \"has the values that I care about changed?\". Before hooks were introduced, componentDidMount and componentDidUpdate were the best tools for the job at the time."
+    },
+    {
+      "type": "paragraph",
+      "content": "With the hook based version, we are able to express this intent in a more declarative way: \"I want to fetch data when the id changes\""
+    },
+    {
+      "type": "paragraph",
+      "content": "The eslint plugin can guide you in the right direction, but the short version is, \"is there a variable that impacts how we run the effect?\" If so, add it to the dependencies."
+    },
+    {
+      "type": "paragraph",
+      "content": "To demonstrate this, lets add an extra query parameter to our search:"
+    },
+    {
+      "type": "code",
+      "language": "jsx",
+      "content": "export default SomeComponent = ({id, filter}) => {\n  let [results, setResults] = useState([]);\n\n  useEffect(()=>{\n    fetch(`/some/url/${id}?filter=${filter}`)\n      .then(r=>r.json())\n      .then(r=>setResults(r))\n  },[id])\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "Even though we have added filter to the fetch query string, we have not added it to the dependencies of useEffect. As we update the filter, we won't be calling the API on any of the other updates, and it will only run when the id has changed."
+    },
+    {
+      "type": "paragraph",
+      "content": "Fixing this is simple enough - just add the filter to the list of data dependencies for the useEffect."
+    },
+    {
+      "type": "code",
+      "language": "jsx",
+      "content": "export default SomeComponent = ({id, filter}) => {\n  let [results, setResults] = useState([]);\n\n  useEffect(()=>{\n    fetch(`/some/url/${id}?filter=${filter}`)\n      .then(r=>r.json())\n      .then(r=>setResults(r))\n  },[id, filter])\n}"
+    },
+    {
+      "type": "paragraph",
+      "content": "As you can see, to properly use useEffect in this case, we don't care if the component is mounting, or updating, or where it is in the life cycle - what we do care about is what data does this effect depend on."
+    },
+    {
+      "type": "paragraph",
+      "content": "useEffect is a very useful tool to add to our toolbox when working with React, but it can also be one of the more difficult hooks to fully understand. Hopefully this post can help clarify things a little bit better, but if you are curious for a deeper dive, be sure to check out Dan Abramovs' post, A Complete Guide to useEffect"
+    }
+  ]
+}
