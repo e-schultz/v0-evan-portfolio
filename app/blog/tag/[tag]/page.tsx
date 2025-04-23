@@ -8,17 +8,6 @@ import { Suspense } from "react"
 import { ErrorBoundary } from "@/components/error-boundary"
 import { BlogListSkeleton } from "@/components/skeletons/blog-list-skeleton"
 
-// Define params type
-type TagPageParams = {
-  tag: string
-}
-
-// Define the page props type
-type TagPageProps = {
-  params: TagPageParams
-  searchParams?: Record<string, string | string[] | undefined>
-}
-
 export async function generateStaticParams() {
   try {
     // Use direct server function instead of API route
@@ -30,7 +19,7 @@ export async function generateStaticParams() {
   }
 }
 
-export default function TagPage({ params }: TagPageProps) {
+export default function TagPage({ params }: { params: { tag: string } }) {
   return (
     <MainLayout>
       <PageHeader
@@ -52,7 +41,7 @@ export default function TagPage({ params }: TagPageProps) {
 }
 
 // Separate async component for tag content
-async function TagContent({ params }: { params: TagPageParams }) {
+async function TagContent({ params }: { params: { tag: string } }) {
   // Await params before accessing its properties
   const decodedTag = decodeURIComponent(params.tag)
   // Use direct server function instead of API route

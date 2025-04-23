@@ -8,18 +8,7 @@ import { formatContent } from "@/lib/format-content"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 
-// Define params type
-type ProjectPageParams = {
-  slug: string
-}
-
-// Define the page props type
-type ProjectPageProps = {
-  params: ProjectPageParams
-  searchParams?: Record<string, string | string[] | undefined>
-}
-
-export async function generateMetadata({ params }: ProjectPageProps) {
+export async function generateMetadata({ params }: { params: { slug: string } }) {
   const slug = params.slug
   const project = await getProject(slug)
 
@@ -49,7 +38,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
   }
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
+export default function ProjectPage({ params }: { params: { slug: string } }) {
   return (
     <Suspense fallback={<ProjectPageSkeleton />}>
       <ProjectContent params={params} />
@@ -81,7 +70,7 @@ function ProjectPageSkeleton() {
   )
 }
 
-async function ProjectContent({ params }: { params: ProjectPageParams }) {
+async function ProjectContent({ params }: { params: { slug: string } }) {
   const slug = params.slug
   const project = await getProject(slug)
 
