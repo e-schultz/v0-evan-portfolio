@@ -1,32 +1,14 @@
 "use client"
 
 import type React from "react"
+
 import { useState } from "react"
-import { useFormStatus } from "react-dom"
-import { submitContactFormAction } from "@/lib/server-actions"
+import { submitContactForm } from "@/lib/server-actions"
 import { PulseButton } from "@/components/ui/pulse-button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Mail, MessageSquare, Send } from "lucide-react"
-import { EnhancedErrorBoundary } from "@/components/enhanced-error-boundary"
-
-// Submit button with loading state
-function SubmitButton() {
-  const { pending } = useFormStatus()
-
-  return (
-    <PulseButton type="submit" className="w-full" pulseColor="blue" disabled={pending}>
-      {pending ? (
-        <>Sending...</>
-      ) : (
-        <>
-          Send Message <Send className="ml-2 h-4 w-4" />
-        </>
-      )}
-    </PulseButton>
-  )
-}
 
 export function ContactSection() {
   const [formState, setFormState] = useState({
@@ -35,8 +17,7 @@ export function ContactSection() {
     subject: "",
     message: "",
   })
-  const [submitSuccess, setSubmitSuccess] = useState(false)
-  const [submitError, setSubmitError] = useState("")
+  const [submitStatus, setSubmitStatus] = useState<{ success: boolean; message: string } | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -118,79 +99,48 @@ export function ContactSection() {
           <div className="bg-card p-6 md:p-8 rounded-lg border transition-all duration-300 hover:shadow-lg">
             <h3 className="text-xl font-bold mb-6">Send Me a Message</h3>
 
-            {submitSuccess ? (
-              <div className="bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300 p-4 rounded-lg mb-6">
-                Thank you for your message! I'll get back to you as soon as possible.
-              </div>
-            ) : null}
-
-            {submitError ? (
-              <div className="bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300 p-4 rounded-lg mb-6">
-                {submitError}
-              </div>
-            ) : null}
-
-            <EnhancedErrorBoundary>
-              <form
-                action={async (formData) => {
-                  try {
-                    const result = await submitContactFormAction(formData)
-                    if (result.success) {
-                      setSubmitSuccess(true)
-                      setSubmitError("")
-                      setFormState({
-                        name: "",
-                        email: "",
-                        subject: "",
-                        message: "",
-                      })
-                    } else {
-                      setSubmitSuccess(false)
-                      setSubmitError(result.message || "There was an error submitting your message. Please try again.")
-                    }
-                  } catch (error) {
-                    setSubmitSuccess(false)
-                    setSubmitError("There was an error submitting your message. Please try again.")
-                  }
-                }}
-                className="space-y-6"
+            {submitStatus && (
+              <div
+                className={`${
+                  submitStatus.success
+                    ? "bg-green-100 dark:bg-green-900/20 text-green-800 dark:text-green-300"
+                    : "bg-red-100 dark:bg-red-900/20 text-red-800 dark:text-red-300"
+                } p-4 rounded-lg mb-6`}
               >
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Name</Label>
-                    <Input
-                      id="name"
-                      name="name"
-                      placeholder="Your name"
-                      value={formState.name}
-                      onChange={handleChange}
-                      required
-                      className="transition-all duration-200 focus:ring-2 focus:ring-primary/50"
-                    />
-                  </div>
+                {submitStatus.message}
+              </div>
+            )}
 
-                  <div className="space-y-2">
-                    <Label htmlFor="email">Email</Label>
-                    <Input
-                      id="email"
-                      name="email"
-                      type="email"
-                      placeholder="Your email address"
-                      value={formState.email}
-                      onChange={handleChange}
-                      required
-                      className="transition-all duration-200 focus:ring-2 focus:ring-primary/50"
-                    />
-                  </div>
-                </div>
-
+            <form
+              action={async (formData) => {
+                try {
+                  const result = await submitContactForm(formData)
+                  setSubmitStatus(result)
+                  if (result.success) {
+                    setFormState({
+                      name: "",
+                      email: "",
+                      subject: "",
+                      message: "",
+                    })
+                  }
+                } catch (error) {
+                  setSubmitStatus({
+                    success: false,
+                    message: "There was an error submitting your message. Please try again.",
+                  })
+                }
+              }}
+              className="space-y-6"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="subject">Subject</Label>
+                  <Label htmlFor="name">Name</Label>
                   <Input
-                    id="subject"
-                    name="subject"
-                    placeholder="What is this regarding?"
-                    value={formState.subject}
+                    id="name"
+                    name="name"
+                    placeholder="Your name"
+                    value={formState.name}
                     onChange={handleChange}
                     required
                     className="transition-all duration-200 focus:ring-2 focus:ring-primary/50"
@@ -198,22 +148,51 @@ export function ContactSection() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="message">Message</Label>
-                  <Textarea
-                    id="message"
-                    name="message"
-                    placeholder="Your message"
-                    rows={5}
-                    value={formState.message}
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="Your email address"
+                    value={formState.email}
                     onChange={handleChange}
                     required
                     className="transition-all duration-200 focus:ring-2 focus:ring-primary/50"
                   />
                 </div>
+              </div>
 
-                <SubmitButton />
-              </form>
-            </EnhancedErrorBoundary>
+              <div className="space-y-2">
+                <Label htmlFor="subject">Subject</Label>
+                <Input
+                  id="subject"
+                  name="subject"
+                  placeholder="What is this regarding?"
+                  value={formState.subject}
+                  onChange={handleChange}
+                  required
+                  className="transition-all duration-200 focus:ring-2 focus:ring-primary/50"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="message">Message</Label>
+                <Textarea
+                  id="message"
+                  name="message"
+                  placeholder="Your message"
+                  rows={5}
+                  value={formState.message}
+                  onChange={handleChange}
+                  required
+                  className="transition-all duration-200 focus:ring-2 focus:ring-primary/50"
+                />
+              </div>
+
+              <PulseButton type="submit" className="w-full" pulseColor="blue">
+                <Send className="mr-2 h-4 w-4" /> Send Message
+              </PulseButton>
+            </form>
           </div>
         </div>
       </div>

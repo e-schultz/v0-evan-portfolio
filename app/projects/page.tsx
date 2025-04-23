@@ -1,4 +1,4 @@
-import Link from "next/link"
+import { Suspense } from "react"
 import { PageHeader } from "@/components/ui/page-header"
 import { ContentContainer } from "@/components/ui/content-container"
 import { SectionHeader } from "@/components/ui/section-header"
@@ -6,25 +6,8 @@ import { ProjectGrid } from "@/components/projects/project-grid"
 import { PulseButton } from "@/components/ui/pulse-button"
 import { ArrowRight, Github } from "lucide-react"
 import { getAllProjects } from "@/lib/content-api"
-import { Suspense } from "react"
-import { ProjectCardSkeleton } from "@/components/skeletons/project-card-skeleton"
-import { EnhancedErrorBoundary } from "@/components/enhanced-error-boundary"
-import { ContentErrorFallback } from "@/components/error-fallbacks/content-error-fallback"
-
-// Create separate components for featured and other projects
-async function FeaturedProjects() {
-  const projects = await getAllProjects()
-  const featuredProjects = projects.filter((project) => project.featured)
-
-  return <ProjectGrid projects={featuredProjects} columns={3} featured={true} />
-}
-
-async function OtherProjects() {
-  const projects = await getAllProjects()
-  const otherProjects = projects.filter((project) => !project.featured)
-
-  return <ProjectGrid projects={otherProjects} columns={3} />
-}
+import { ErrorBoundary } from "@/components/error-boundary"
+import Link from "next/link"
 
 export default function ProjectsPage() {
   return (
@@ -34,43 +17,11 @@ export default function ProjectsPage() {
         description="A collection of my work, including open source contributions, experiments, and educational resources."
       />
 
-      {/* Featured Projects */}
-      <section className="py-16 md:py-20">
-        <ContentContainer>
-          <SectionHeader title="Featured Projects" className="mb-8 md:mb-10" />
-          <EnhancedErrorBoundary
-            fallback={
-              <ContentErrorFallback
-                title="Failed to Load Featured Projects"
-                message="We're having trouble loading the featured projects. Please try again later."
-              />
-            }
-          >
-            <Suspense fallback={<ProjectCardSkeleton count={3} />}>
-              <FeaturedProjects />
-            </Suspense>
-          </EnhancedErrorBoundary>
-        </ContentContainer>
-      </section>
-
-      {/* Other Projects */}
-      <section className="py-16 md:py-20 bg-muted/50">
-        <ContentContainer>
-          <SectionHeader title="More Projects" className="mb-8 md:mb-10" />
-          <EnhancedErrorBoundary
-            fallback={
-              <ContentErrorFallback
-                title="Failed to Load Projects"
-                message="We're having trouble loading the projects. Please try again later."
-              />
-            }
-          >
-            <Suspense fallback={<ProjectCardSkeleton count={6} />}>
-              <OtherProjects />
-            </Suspense>
-          </EnhancedErrorBoundary>
-        </ContentContainer>
-      </section>
+      <ErrorBoundary fallback={<div className="p-4 text-red-500">Failed to load projects</div>}>
+        <Suspense fallback={<ProjectsPageSkeleton />}>
+          <ProjectsContent />
+        </Suspense>
+      </ErrorBoundary>
 
       {/* Open Source Contributions */}
       <section className="py-16 md:py-20">
@@ -88,6 +39,85 @@ export default function ProjectsPage() {
               </Link>
             </PulseButton>
           </div>
+        </ContentContainer>
+      </section>
+    </>
+  )
+}
+
+function ProjectsPageSkeleton() {
+  return (
+    <>
+      {/* Featured Projects Skeleton */}
+      <section className="py-16 md:py-20">
+        <ContentContainer>
+          <SectionHeader title="Featured Projects" className="mb-8 md:mb-10" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="bg-card border rounded-lg overflow-hidden animate-pulse">
+                <div className="h-48 bg-muted"></div>
+                <div className="p-6 space-y-4">
+                  <div className="h-6 bg-muted rounded-md w-3/4"></div>
+                  <div className="h-4 bg-muted rounded-md w-full"></div>
+                  <div className="h-4 bg-muted rounded-md w-2/3"></div>
+                  <div className="flex gap-2 pt-2">
+                    <div className="h-8 bg-muted rounded-md w-24"></div>
+                    <div className="h-8 bg-muted rounded-md w-24"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </ContentContainer>
+      </section>
+
+      {/* Other Projects Skeleton */}
+      <section className="py-16 md:py-20 bg-muted/50">
+        <ContentContainer>
+          <SectionHeader title="More Projects" className="mb-8 md:mb-10" />
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+            {[1, 2, 3].map((i) => (
+              <div key={i} className="bg-card border rounded-lg overflow-hidden animate-pulse">
+                <div className="h-48 bg-muted"></div>
+                <div className="p-6 space-y-4">
+                  <div className="h-6 bg-muted rounded-md w-3/4"></div>
+                  <div className="h-4 bg-muted rounded-md w-full"></div>
+                  <div className="h-4 bg-muted rounded-md w-2/3"></div>
+                  <div className="flex gap-2 pt-2">
+                    <div className="h-8 bg-muted rounded-md w-24"></div>
+                    <div className="h-8 bg-muted rounded-md w-24"></div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </ContentContainer>
+      </section>
+    </>
+  )
+}
+
+// Combined async component for projects to reduce duplicate data fetching
+async function ProjectsContent() {
+  const allProjects = await getAllProjects()
+  const featuredProjects = allProjects.filter((project) => project.featured)
+  const otherProjects = allProjects.filter((project) => !project.featured)
+
+  return (
+    <>
+      {/* Featured Projects */}
+      <section className="py-16 md:py-20">
+        <ContentContainer>
+          <SectionHeader title="Featured Projects" className="mb-8 md:mb-10" />
+          <ProjectGrid projects={featuredProjects} columns={3} featured={true} />
+        </ContentContainer>
+      </section>
+
+      {/* Other Projects */}
+      <section className="py-16 md:py-20 bg-muted/50">
+        <ContentContainer>
+          <SectionHeader title="More Projects" className="mb-8 md:mb-10" />
+          <ProjectGrid projects={otherProjects} columns={3} />
         </ContentContainer>
       </section>
     </>

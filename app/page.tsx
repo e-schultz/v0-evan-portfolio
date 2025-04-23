@@ -3,23 +3,60 @@ import { AboutSection } from "@/components/about-section"
 import { ProjectsSection } from "@/components/projects-section"
 import { BlogPreview } from "@/components/blog-preview"
 import { ContactSection } from "@/components/contact-section"
-import { getGenericContent, getFeaturedProjects, getLatestBlogPosts } from "@/lib/content-api"
-import type { HeroContent, AboutContent } from "@/lib/content-types"
+import { getHeroContent, getAboutContent, getFeaturedProjects, getLatestBlogPosts } from "@/lib/content-api"
+import { Suspense } from "react"
+import { LoadingSpinner } from "@/components/ui/loading-spinner"
+import { ErrorBoundary } from "@/components/error-boundary"
 
-export default async function Home() {
-  // Pre-fetch all data
-  const heroContent = (await getGenericContent("home/hero")) as HeroContent
-  const aboutContent = (await getGenericContent("home/about")) as AboutContent
-  const featuredProjects = await getFeaturedProjects()
-  const latestPosts = await getLatestBlogPosts(3)
-
+export default function Home() {
   return (
     <>
-      <HeroSection heroContent={heroContent} />
-      <AboutSection aboutContent={aboutContent} />
-      <ProjectsSection projects={featuredProjects} />
-      <BlogPreview posts={latestPosts} />
+      <ErrorBoundary fallback={<div className="p-4 text-red-500">Failed to load hero section</div>}>
+        <Suspense fallback={<LoadingSpinner />}>
+          <HeroSectionContent />
+        </Suspense>
+      </ErrorBoundary>
+
+      <ErrorBoundary fallback={<div className="p-4 text-red-500">Failed to load about section</div>}>
+        <Suspense fallback={<LoadingSpinner />}>
+          <AboutSectionContent />
+        </Suspense>
+      </ErrorBoundary>
+
+      <ErrorBoundary fallback={<div className="p-4 text-red-500">Failed to load projects section</div>}>
+        <Suspense fallback={<LoadingSpinner />}>
+          <ProjectsSectionContent />
+        </Suspense>
+      </ErrorBoundary>
+
+      <ErrorBoundary fallback={<div className="p-4 text-red-500">Failed to load blog preview</div>}>
+        <Suspense fallback={<LoadingSpinner />}>
+          <BlogPreviewContent />
+        </Suspense>
+      </ErrorBoundary>
+
       <ContactSection />
     </>
   )
+}
+
+// Separate async components for each section
+async function HeroSectionContent() {
+  const heroContent = await getHeroContent()
+  return <HeroSection heroContent={heroContent} />
+}
+
+async function AboutSectionContent() {
+  const aboutContent = await getAboutContent()
+  return <AboutSection aboutContent={aboutContent} />
+}
+
+async function ProjectsSectionContent() {
+  const projects = await getFeaturedProjects()
+  return <ProjectsSection projects={projects} />
+}
+
+async function BlogPreviewContent() {
+  const posts = await getLatestBlogPosts(3)
+  return <BlogPreview posts={posts} />
 }

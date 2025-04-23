@@ -32,7 +32,7 @@ export function SiteHeader() {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center gap-6">
           {routes.map((route) => (
-            <a
+            <Link
               key={route.href}
               href={route.href}
               className={`text-sm font-medium transition-colors hover:text-primary ${
@@ -40,7 +40,7 @@ export function SiteHeader() {
               }`}
             >
               {route.label}
-            </a>
+            </Link>
           ))}
           <div className="flex items-center gap-2">
             <ThemeSelector />
@@ -60,7 +60,7 @@ export function SiteHeader() {
           <div className="absolute top-16 left-0 right-0 border-b bg-background md:hidden">
             <nav className="container flex flex-col py-4">
               {routes.map((route) => (
-                <a
+                <Link
                   key={route.href}
                   href={route.href}
                   className={`py-2 text-sm font-medium transition-colors hover:text-primary ${
@@ -69,7 +69,7 @@ export function SiteHeader() {
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {route.label}
-                </a>
+                </Link>
               ))}
             </nav>
           </div>

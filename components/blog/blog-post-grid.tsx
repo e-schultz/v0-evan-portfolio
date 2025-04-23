@@ -16,10 +16,16 @@ export function BlogPostGrid({ posts, columns = 3, showCategory = false, classNa
     4: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4",
   }
 
+  // Prioritize only the first few posts for faster initial load
+  const prioritizedPosts = posts.map((post, index) => ({
+    ...post,
+    priority: index < 3, // Only prioritize the first 3 posts
+  }))
+
   return (
     <div className={`grid ${columnClasses[columns]} gap-6 ${className}`}>
-      {posts.map((post, index) => (
-        <BlogCard key={index} post={post} showCategory={showCategory} />
+      {prioritizedPosts.map((post, index) => (
+        <BlogCard key={post.slug} post={post} showCategory={showCategory} priority={post.priority} />
       ))}
     </div>
   )

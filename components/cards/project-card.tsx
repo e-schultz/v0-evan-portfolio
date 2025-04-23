@@ -1,4 +1,5 @@
 import Image from "next/image"
+import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Github, ExternalLink } from "lucide-react"
@@ -22,6 +23,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform hover:scale-105"
           priority={false}
+          loading="lazy"
         />
       </div>
       <CardHeader className="pb-2">
@@ -71,10 +73,11 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
           )}
         </div>
         {project.slug && (
-          <a
+          <Link
             href={`/projects/${project.slug}`}
             className="hero-button inline-flex items-center justify-center px-6 py-2 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
             aria-label={`View details for ${project.title}`}
+            prefetch={true}
           >
             Details
             <svg
@@ -92,7 +95,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
               <path d="M5 12h14" />
               <path d="m12 5 7 7-7 7" />
             </svg>
-          </a>
+          </Link>
         )}
       </CardFooter>
     </Card>

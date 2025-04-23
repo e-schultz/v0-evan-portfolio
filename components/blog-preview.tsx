@@ -2,6 +2,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from "@/components/ui/badge"
 import { Calendar } from "lucide-react"
 import type { BlogPost } from "@/lib/content-types"
+import Link from "next/link"
 
 interface BlogPreviewProps {
   posts: BlogPost[]
@@ -48,7 +49,7 @@ export function BlogPreview({ posts }: BlogPreviewProps) {
                 </div>
               </CardContent>
               <CardFooter>
-                <a
+                <Link
                   href={`/blog/${post.slug}`}
                   className="hero-button inline-flex items-center justify-center px-8 py-3 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
                   aria-label={`Read more about ${post.title}`}
@@ -69,14 +70,14 @@ export function BlogPreview({ posts }: BlogPreviewProps) {
                     <path d="M5 12h14"></path>
                     <path d="m12 5 7 7-7 7"></path>
                   </svg>
-                </a>
+                </Link>
               </CardFooter>
             </Card>
           ))}
         </div>
 
         <div className="flex justify-center mt-12">
-          <a
+          <Link
             href="/blog"
             className="hero-button inline-flex items-center justify-center px-8 py-3 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
             aria-label="View All Articles"
@@ -97,7 +98,7 @@ export function BlogPreview({ posts }: BlogPreviewProps) {
               <path d="M5 12h14"></path>
               <path d="m12 5 7 7-7 7"></path>
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

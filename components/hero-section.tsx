@@ -37,7 +37,7 @@ export function HeroSection({ heroContent }: HeroSectionProps) {
             <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground">{heroContent.subtitle}</p>
             <p className="text-base md:text-lg text-muted-foreground max-w-md">{heroContent.description}</p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <a
+              <Link
                 href={heroContent.primaryButton.url}
                 className="hero-button inline-flex items-center justify-center px-8 py-3 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
                 aria-label="View Projects Page"
@@ -58,14 +58,14 @@ export function HeroSection({ heroContent }: HeroSectionProps) {
                   <path d="M5 12h14"></path>
                   <path d="m12 5 7 7-7 7"></path>
                 </svg>
-              </a>
-              <a
+              </Link>
+              <Link
                 href={heroContent.secondaryButton.url}
                 className="inline-flex items-center justify-center px-8 py-3 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-sm font-medium w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
                 aria-label="Contact Me Page"
               >
                 {heroContent.secondaryButton.text}
-              </a>
+              </Link>
             </div>
             <div className="flex items-center gap-4 pt-2">
               {heroContent.socialLinks.map((link, index) => (

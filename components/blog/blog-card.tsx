@@ -19,17 +19,23 @@ interface BlogCardProps {
 // Add named export here
 export const BlogCard: React.FC<BlogCardProps> = ({ post, showCategory = false, priority = false }) => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
-      <Link href={`/blog/${post.slug}`} aria-label={`Read more about ${post.title}`}>
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-lg">
+      <Link
+        href={`/blog/${post.slug}`}
+        aria-label={`Read more about ${post.title}`}
+        prefetch={true}
+        className="block h-full"
+      >
         {post.image && (
           <div className="relative w-full aspect-video overflow-hidden rounded-lg mb-4">
             <Image
               src={getBlogImageUrl(post.image) || "/placeholder.svg"}
               alt={post.title}
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-500 hover:scale-105"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               priority={priority}
+              loading={priority ? "eager" : "lazy"}
             />
           </div>
         )}

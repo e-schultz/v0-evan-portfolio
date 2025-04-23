@@ -2,7 +2,7 @@ import type React from "react"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Inter, JetBrains_Mono } from "next/font/google"
 import type { Metadata } from "next"
-import { ErrorBoundaryProvider } from "@/components/error-boundary-provider"
+import { ErrorBoundary } from "@/components/error-boundary"
 import { SiteHeader } from "@/components/site-header"
 import { SiteFooter } from "@/components/site-footer"
 import "./globals.css"
@@ -46,13 +46,13 @@ export default function RootLayout({
           themes={["light", "dark", "system"]}
           defaultVariant=""
         >
-          <ErrorBoundaryProvider>
+          <ErrorBoundary fallback={<div className="p-4 text-red-500">Something went wrong with the application</div>}>
             <div className="flex min-h-screen flex-col">
               <SiteHeader />
               <main className="flex-1">{children}</main>
               <SiteFooter />
             </div>
-          </ErrorBoundaryProvider>
+          </ErrorBoundary>
         </ThemeProvider>
       </body>
     </html>

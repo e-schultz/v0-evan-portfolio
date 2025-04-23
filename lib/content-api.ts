@@ -1,7 +1,7 @@
 "use server"
 
 import { cache } from "react"
-import fs from "fs"
+import fs from "fs/promises"
 import path from "path"
 import { validateContent, validateBlogPost, validateProject } from "./content-validation"
 import type { BlogPost, Project } from "./content-types"
@@ -11,43 +11,6 @@ const contentDirectory = path.join(process.cwd(), "content")
 
 // Content types
 export type ContentType = "blog" | "project" | "home" | "page"
-
-// Content cache
-const contentCache = new Map<string, any>()
-const cacheTTL = 5 * 60 * 1000 // 5 minutes in milliseconds
-
-// Cache entry type
-type CacheEntry = {
-  data: any
-  timestamp: number
-}
-
-// Initialize content directories
-async function ensureContentDirectories() {
-  const directories = ["blog", "projects", "home", "pages"]
-
-  try {
-    await fs.promises.access(contentDirectory)
-  } catch {
-    await fs.promises.mkdir(contentDirectory, { recursive: true })
-  }
-
-  for (const dir of directories) {
-    const dirPath = path.join(contentDirectory, dir)
-    try {
-      await fs.promises.access(dirPath)
-    } catch {
-      await fs.promises.mkdir(dirPath, { recursive: true })
-    }
-  }
-}
-
-// Initialize directories in development mode
-if (process.env.NODE_ENV === "development") {
-  ensureContentDirectories().catch((error) => {
-    console.error("Error creating content directories:", error)
-  })
-}
 
 // Get content file path
 function getContentFilePath(contentType: ContentType, slug: string): string {
@@ -63,18 +26,10 @@ export const getContent = cache(async function getContent<T>(
   slug: string,
   validator?: (data: T) => any[],
 ): Promise<T | null> {
-  const cacheKey = `${contentType}:${slug}`
-
-  // Check cache first
-  const cachedEntry = contentCache.get(cacheKey) as CacheEntry | undefined
-  if (cachedEntry && Date.now() - cachedEntry.timestamp < cacheTTL) {
-    return cachedEntry.data as T
-  }
-
   const filePath = getContentFilePath(contentType, slug)
 
   try {
-    const fileContents = await fs.promises.readFile(filePath, "utf8")
+    const fileContents = await fs.readFile(filePath, "utf8")
     const data = JSON.parse(fileContents) as T
 
     // Validate content if validator is provided
@@ -82,15 +37,34 @@ export const getContent = cache(async function getContent<T>(
       console.warn(`Content validation failed for ${contentType}:${slug}`)
     }
 
-    // Cache the content
-    contentCache.set(cacheKey, {
-      data,
-      timestamp: Date.now(),
-    })
-
     return data
   } catch (error) {
     console.error(`Error reading content file: ${filePath}`, error)
+    return null
+  }
+})
+
+// Generic content function with caching
+export const getGenericContent = cache(async (contentPath: string): Promise<any | null> => {
+  try {
+    const [directory, ...slugParts] = contentPath.split("/")
+    const slug = slugParts.join("/")
+
+    let contentType: ContentType
+
+    if (directory === "blog") {
+      contentType = "blog"
+    } else if (directory === "projects") {
+      contentType = "project"
+    } else if (directory === "home") {
+      contentType = "home"
+    } else {
+      contentType = "page"
+    }
+
+    return await getContent(contentType, slug)
+  } catch (error) {
+    console.error(`Error in getGenericContent for path ${contentPath}:`, error)
     return null
   }
 })
@@ -103,7 +77,7 @@ export const getAllContentSlugs = cache(async function getAllContentSlugs(conten
   const dirPath = path.join(contentDirectory, directory)
 
   try {
-    const files = await fs.promises.readdir(dirPath)
+    const files = await fs.readdir(dirPath)
     return files.filter((file) => file.endsWith(".json")).map((file) => file.replace(/\.json$/, ""))
   } catch (error) {
     console.error(`Error reading directory: ${dirPath}`, error)
@@ -127,124 +101,182 @@ export const getAllContent = cache(async function getAllContent<T>(
   return contentItems.filter(Boolean) as T[]
 })
 
-// Find the getBlogPost function and add validation:
+// Get hero content
+export const getHeroContent = cache(async () => {
+  return await getContent("home", "hero")
+})
+
+// Get about content
+export const getAboutContent = cache(async () => {
+  return await getContent("home", "about")
+})
+
+// Get blog post by slug with better caching
 export const getBlogPost = cache(async (slug: string): Promise<BlogPost | null> => {
-  const post = await getContent<BlogPost>("blog", slug)
+  try {
+    const post = await getContent<BlogPost>("blog", slug)
 
-  if (post) {
-    // Validate the post and log any errors
-    const errors = validateBlogPost(post)
-    if (errors.length > 0) {
-      console.warn(`Validation issues in blog post ${slug}:`, errors)
+    if (post) {
+      // Validate the post and log any errors
+      const errors = validateBlogPost(post)
+      if (errors.length > 0) {
+        console.warn(`Validation issues in blog post ${slug}:`, errors)
+      }
     }
-  }
 
-  return post
+    return post
+  } catch (error) {
+    console.error(`Error fetching blog post ${slug}:`, error)
+    return null
+  }
 })
 
-// Add the missing getAllBlogSlugs function
+// Get all blog slugs with better caching
 export const getAllBlogSlugs = cache(async (): Promise<string[]> => {
-  return await getAllContentSlugs("blog")
+  try {
+    return await getAllContentSlugs("blog")
+  } catch (error) {
+    console.error("Error fetching blog slugs:", error)
+    return []
+  }
 })
 
-// Add this function to filter out duplicate blog posts by slug
-export const getUniqueBlogPosts = cache(async function getUniqueBlogPosts(posts: BlogPost[]): Promise<BlogPost[]> {
-  return Array.from(new Map(posts.map((post) => [post.slug, post])).values())
-})
-
-// Update the getAllBlogPosts function to use the new filter
-async function readBlogPosts(): Promise<BlogPost[]> {
-  return await getAllContent<BlogPost>("blog", validateBlogPost)
-}
-
+// Get all blog posts with better caching
 export const getAllBlogPosts = cache(async (): Promise<BlogPost[]> => {
-  const posts = await readBlogPosts()
-  const uniquePosts = await getUniqueBlogPosts(posts)
+  try {
+    const posts = await getAllContent<BlogPost>("blog", validateBlogPost)
 
-  // Sort by date, newest first
-  return uniquePosts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    // Sort by date, newest first
+    return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+  } catch (error) {
+    console.error("Error fetching all blog posts:", error)
+    return []
+  }
 })
 
+// Get latest blog posts
 export const getLatestBlogPosts = cache(async (count: number): Promise<BlogPost[]> => {
-  const allPosts = await getAllBlogPosts()
-  return allPosts.slice(0, count)
+  try {
+    const allPosts = await getAllBlogPosts()
+    return allPosts.slice(0, count)
+  } catch (error) {
+    console.error(`Error fetching latest ${count} blog posts:`, error)
+    return []
+  }
 })
 
+// Get posts by category
 export const getPostsByCategory = cache(async (category: string): Promise<BlogPost[]> => {
-  const allPosts = await getAllBlogPosts()
-  return allPosts.filter((post) => post.category.toLowerCase() === category.toLowerCase())
+  try {
+    const allPosts = await getAllBlogPosts()
+    return allPosts.filter((post) => post.category.toLowerCase() === category.toLowerCase())
+  } catch (error) {
+    console.error(`Error fetching posts by category ${category}:`, error)
+    return []
+  }
 })
 
+// Get posts by tag
 export const getPostsByTag = cache(async (tag: string): Promise<BlogPost[]> => {
-  const allPosts = await getAllBlogPosts()
-  return allPosts.filter((post) => post.tags.some((t) => t.toLowerCase() === tag.toLowerCase()))
+  try {
+    const allPosts = await getAllBlogPosts()
+    return allPosts.filter((post) => post.tags.some((t) => t.toLowerCase() === tag.toLowerCase()))
+  } catch (error) {
+    console.error(`Error fetching posts by tag ${tag}:`, error)
+    return []
+  }
 })
 
+// Get all categories
 export const getAllCategories = cache(async (): Promise<string[]> => {
-  const allPosts = await getAllBlogPosts()
-  const categoriesSet = new Set(allPosts.map((post) => post.category))
-  return Array.from(categoriesSet)
+  try {
+    const allPosts = await getAllBlogPosts()
+    const categoriesSet = new Set(allPosts.map((post) => post.category))
+    return Array.from(categoriesSet)
+  } catch (error) {
+    console.error("Error fetching all categories:", error)
+    return []
+  }
 })
 
+// Get all tags
 export const getAllTags = cache(async (): Promise<string[]> => {
-  const allPosts = await getAllBlogPosts()
-  const tagsSet = new Set(allPosts.flatMap((post) => post.tags))
-  return Array.from(tagsSet)
+  try {
+    const allPosts = await getAllBlogPosts()
+    const tagsSet = new Set(allPosts.flatMap((post) => post.tags))
+    return Array.from(tagsSet)
+  } catch (error) {
+    console.error("Error fetching all tags:", error)
+    return []
+  }
 })
 
+// Search posts
 export const searchPosts = cache(async (query: string): Promise<BlogPost[]> => {
-  const allPosts = await getAllBlogPosts()
-  const lowercaseQuery = query.toLowerCase()
+  try {
+    const allPosts = await getAllBlogPosts()
+    const lowercaseQuery = query.toLowerCase()
 
-  return allPosts.filter(
-    (post) =>
-      post.title.toLowerCase().includes(lowercaseQuery) ||
-      post.excerpt.toLowerCase().includes(lowercaseQuery) ||
-      post.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery)) ||
-      post.category.toLowerCase().includes(lowercaseQuery),
-  )
+    return allPosts.filter(
+      (post) =>
+        post.title.toLowerCase().includes(lowercaseQuery) ||
+        post.excerpt.toLowerCase().includes(lowercaseQuery) ||
+        post.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery)) ||
+        post.category.toLowerCase().includes(lowercaseQuery),
+    )
+  } catch (error) {
+    console.error(`Error searching posts for query "${query}":`, error)
+    return []
+  }
 })
 
-// Find the getProject function and add validation:
+// Get project by slug with better caching
 export const getProject = cache(async (slug: string): Promise<Project | null> => {
-  const project = await getContent<Project>("project", slug)
+  try {
+    const project = await getContent<Project>("project", slug)
 
-  if (project) {
-    // Validate the project and log any errors
-    const errors = validateProject(project)
-    if (errors.length > 0) {
-      console.warn(`Validation issues in project ${slug}:`, errors)
+    if (project) {
+      // Validate the project and log any errors
+      const errors = validateProject(project)
+      if (errors.length > 0) {
+        console.warn(`Validation issues in project ${slug}:`, errors)
+      }
     }
-  }
 
-  return project
+    return project
+  } catch (error) {
+    console.error(`Error fetching project ${slug}:`, error)
+    return null
+  }
 })
 
+// Get all projects with better caching
 export const getAllProjects = cache(async (): Promise<Project[]> => {
-  return await getAllContent<Project>("project", validateProject)
-})
-
-export const getFeaturedProjects = cache(async (): Promise<Project[]> => {
-  const allProjects = await getAllProjects()
-  return allProjects.filter((project) => project.featured)
-})
-
-// Generic content function with caching
-export const getGenericContent = cache(async (contentPath: string): Promise<any | null> => {
-  const [directory, ...slugParts] = contentPath.split("/")
-  const slug = slugParts.join("/")
-
-  let contentType: ContentType
-
-  if (directory === "blog") {
-    contentType = "blog"
-  } else if (directory === "projects") {
-    contentType = "project"
-  } else if (directory === "home") {
-    contentType = "home"
-  } else {
-    contentType = "page"
+  try {
+    return await getAllContent<Project>("project", validateProject)
+  } catch (error) {
+    console.error("Error fetching all projects:", error)
+    return []
   }
+})
 
-  return await getContent(contentType, slug)
+// Get featured projects
+export const getFeaturedProjects = cache(async (): Promise<Project[]> => {
+  try {
+    const allProjects = await getAllProjects()
+    return allProjects.filter((project) => project.featured)
+  } catch (error) {
+    console.error("Error fetching featured projects:", error)
+    return []
+  }
+})
+
+// Get contact content
+export const getContactContent = cache(async () => {
+  return await getContent("page", "contact")
+})
+
+// Get about page content
+export const getAboutPageContent = cache(async () => {
+  return await getContent("page", "about")
 })

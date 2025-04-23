@@ -34,11 +34,25 @@ export function formatText(text: string): React.ReactNode {
   )
 }
 
+// Parse content blocks into a standardized format
+export function parseContentBlocks(blocks: ContentBlock[]): ContentBlock[] {
+  if (!blocks || !Array.isArray(blocks)) return []
+
+  return blocks.map((block) => {
+    // Perform any necessary transformations here
+    return { ...block }
+  })
+}
+
 // Function to render content blocks from JSON
 export function renderContentBlocks(content: ContentBlock[]): React.ReactNode {
   if (!content || !Array.isArray(content)) return null
 
-  return content.map((block, index) => {
+  // First parse the content blocks
+  const parsedBlocks = parseContentBlocks(content)
+
+  // Then render them
+  return parsedBlocks.map((block, index) => {
     switch (block.type) {
       case "heading":
         return block.level === 2 ? (

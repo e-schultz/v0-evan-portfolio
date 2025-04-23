@@ -1,9 +1,9 @@
 "use server"
 
 import { revalidatePath } from "next/cache"
-import { searchPosts as searchPostsContent } from "./content-api"
+import { getAllBlogPosts } from "./content-api"
 
-export async function submitContactFormAction(formData: FormData) {
+export async function submitContactForm(formData: FormData) {
   try {
     // Simulate an API call or database operation
     await new Promise((resolve) => setTimeout(resolve, 1000))
@@ -30,15 +30,19 @@ export async function submitContactFormAction(formData: FormData) {
   }
 }
 
-export async function searchPosts(query: string) {
-  if (!query.trim()) {
-    return []
-  }
+export async function submitContactFormAction(formData: FormData) {
+  return await submitContactForm(formData)
+}
 
-  try {
-    return await searchPostsContent(query)
-  } catch (error) {
-    console.error("Error searching posts:", error)
-    return []
-  }
+export async function searchPosts(query: string): Promise<any[]> {
+  const allPosts = await getAllBlogPosts()
+  const lowercaseQuery = query.toLowerCase()
+
+  return allPosts.filter(
+    (post) =>
+      post.title.toLowerCase().includes(lowercaseQuery) ||
+      post.excerpt.toLowerCase().includes(lowercaseQuery) ||
+      post.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery)) ||
+      post.category.toLowerCase().includes(lowercaseQuery),
+  )
 }
