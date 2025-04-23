@@ -17,7 +17,9 @@ export async function generateStaticParams() {
 }
 
 export default async function CategoryPage({ params }: { params: { category: string } }) {
-  const decodedCategory = decodeURIComponent(params.category)
+  // Await params before accessing its properties
+  const resolvedParams = await params
+  const decodedCategory = decodeURIComponent(resolvedParams.category)
   // Use direct server function instead of API route
   const posts = await getPostsByCategory(decodedCategory)
 

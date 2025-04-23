@@ -7,11 +7,14 @@ import { Suspense } from "react"
 import { BlogPostSkeleton } from "@/components/skeletons/blog-post-skeleton"
 
 export default function ClientBlogPostPage({ params }: { params: { slug: string } }) {
-  // Fetch data in the Server Component
-  const blogPostPromise = getBlogPost(params.slug)
+  // Await params before accessing its properties (in an async function)
+  const fetchBlogPost = async () => {
+    const resolvedParams = await params
+    return getBlogPost(resolvedParams.slug)
+  }
 
-  // Use server component for static content
-  // Only use client component if needed for interactive elements
+  // Use the async function to create the promise
+  const blogPostPromise = fetchBlogPost()
 
   return (
     <Suspense fallback={<BlogPostSkeleton />}>

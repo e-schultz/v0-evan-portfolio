@@ -13,6 +13,7 @@ const nextConfig = {
     domains: [
       'hebbkx1anhila5yf.public.blob.vercel-storage.com', 
       'public.blob.vercel-storage.com',
+      '9yxzsogx6jrkcrnz.public.blob.vercel-storage.com',
       'sjc.microlink.io'
     ],
     unoptimized: false,

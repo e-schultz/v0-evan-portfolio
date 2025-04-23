@@ -17,7 +17,9 @@ export async function generateStaticParams() {
 }
 
 export default async function TagPage({ params }: { params: { tag: string } }) {
-  const decodedTag = decodeURIComponent(params.tag)
+  // Await params before accessing its properties
+  const resolvedParams = await params
+  const decodedTag = decodeURIComponent(resolvedParams.tag)
   // Use direct server function instead of API route
   const posts = await getPostsByTag(decodedTag)
 

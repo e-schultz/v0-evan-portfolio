@@ -3,7 +3,9 @@ import { getBlogPost } from "@/lib/content-api"
 import { ClientBlogContent } from "@/components/blog/client-blog-content"
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const post = await getBlogPost(params.slug)
+  // Await params before accessing its properties
+  const resolvedParams = await params
+  const post = await getBlogPost(resolvedParams.slug)
 
   if (!post) {
     return {
@@ -27,8 +29,10 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+  // Await params before accessing its properties
+  const resolvedParams = await params
   // Fetch data in the Server Component
-  const blogPost = await getBlogPost(params.slug)
+  const blogPost = await getBlogPost(resolvedParams.slug)
 
   // Pass data as props to the Client Component
   return (

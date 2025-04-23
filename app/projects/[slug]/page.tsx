@@ -4,7 +4,9 @@ import { ContentError } from "@/components/content-error"
 import { formatContent } from "@/lib/format-content"
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
-  const project = await getProject(params.slug)
+  // Await params before accessing its properties
+  const resolvedParams = await params
+  const project = await getProject(resolvedParams.slug)
 
   if (!project) {
     return {
@@ -33,7 +35,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 }
 
 export default async function ProjectPage({ params }: { params: { slug: string } }) {
-  const project = await getProject(params.slug)
+  // Await params before accessing its properties
+  const resolvedParams = await params
+  const project = await getProject(resolvedParams.slug)
 
   if (!project) {
     return (
