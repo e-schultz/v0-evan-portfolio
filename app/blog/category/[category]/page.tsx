@@ -8,6 +8,13 @@ import { Suspense } from "react"
 import { ErrorBoundary } from "@/components/error-boundary"
 import { BlogListSkeleton } from "@/components/skeletons/blog-list-skeleton"
 
+// Define the correct type for the page props
+type CategoryPageProps = {
+  params: {
+    category: string
+  }
+}
+
 export async function generateStaticParams() {
   try {
     // Use direct server function instead of API route
@@ -19,7 +26,7 @@ export async function generateStaticParams() {
   }
 }
 
-export default function CategoryPage({ params }: { params: { category: string } }) {
+export default function CategoryPage({ params }: CategoryPageProps) {
   return (
     <MainLayout>
       <PageHeader
