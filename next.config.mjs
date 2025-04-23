@@ -11,7 +11,6 @@ const nextConfig = {
   },
   images: {
     domains: [
-      '9yxzsogx6jrkcrnz.public.blob.vercel-storage.com', // Your Blob domain
       'hebbkx1anhila5yf.public.blob.vercel-storage.com', 
       'public.blob.vercel-storage.com',
       'sjc.microlink.io'
