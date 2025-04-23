@@ -1,7 +1,7 @@
-import Link from "next/link"
-import { Badge } from "@/components/ui/badge"
-import { BlogSearch } from "@/components/blog/blog-search"
-import type { BlogPost } from "@/lib/content-types"
+import Link from 'next/link'
+import { Badge } from '@/components/ui/badge'
+import { BlogSearch } from '@/components/blog/blog-search'
+import type { BlogPost } from '@/lib/content-types'
 
 interface BlogSidebarProps {
   tags: string[]

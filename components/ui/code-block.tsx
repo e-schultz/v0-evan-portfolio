@@ -1,8 +1,8 @@
-"use client"
+'use client'
 
-import { useTheme } from "next-themes"
-import { Highlight, themes } from "prism-react-renderer"
-import { useEffect, useState } from "react"
+import { useTheme } from 'next-themes'
+import { Highlight, themes } from 'prism-react-renderer'
+import { useEffect, useState } from 'react'
 
 interface CodeBlockProps {
   code: string
@@ -10,7 +10,7 @@ interface CodeBlockProps {
   filename?: string
 }
 
-export function CodeBlock({ code, language = "typescript", filename }: CodeBlockProps) {
+export function CodeBlock({ code, language = 'typescript', filename }: CodeBlockProps) {
   const { theme: currentTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
@@ -20,7 +20,7 @@ export function CodeBlock({ code, language = "typescript", filename }: CodeBlock
   }, [])
 
   // Determine which theme to use based on the current site theme
-  const prismTheme = currentTheme === "dark" ? themes.vsDark : themes.vsLight
+  const prismTheme = currentTheme === 'dark' ? themes.vsDark : themes.vsLight
 
   if (!mounted) {
     return (
@@ -35,7 +35,9 @@ export function CodeBlock({ code, language = "typescript", filename }: CodeBlock
   return (
     <div className="my-6 overflow-hidden rounded-md border">
       {filename && (
-        <div className="bg-muted px-4 py-2 border-b text-sm font-mono text-muted-foreground">{filename}</div>
+        <div className="bg-muted px-4 py-2 border-b text-sm font-mono text-muted-foreground">
+          {filename}
+        </div>
       )}
       <Highlight theme={prismTheme} code={code.trim()} language={language as any}>
         {({ className, style, tokens, getLineProps, getTokenProps }) => (

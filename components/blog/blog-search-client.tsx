@@ -1,14 +1,14 @@
-"use client"
+'use client'
 
-import { useState } from "react"
-import { useCachedFetch } from "@/lib/use-cached-fetch"
-import { useDebounce } from "@/lib/use-debounce"
-import type { BlogPost } from "@/lib/content-types"
-import { BlogCard } from "@/components/blog/blog-card"
-import { NoResults } from "@/components/ui/no-results"
+import { useState } from 'react'
+import { useCachedFetch } from '@/lib/use-cached-fetch'
+import { useDebounce } from '@/lib/use-debounce'
+import type { BlogPost } from '@/lib/content-types'
+import { BlogCard } from '@/components/blog/blog-card'
+import { NoResults } from '@/components/ui/no-results'
 
 export function BlogSearchClient() {
-  const [searchQuery, setSearchQuery] = useState("")
+  const [searchQuery, setSearchQuery] = useState('')
   const debouncedSearch = useDebounce(searchQuery, 300)
 
   const {

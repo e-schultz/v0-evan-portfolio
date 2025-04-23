@@ -1,13 +1,13 @@
 interface LoadingSpinnerProps {
-  size?: "small" | "default" | "large"
+  size?: 'small' | 'default' | 'large'
   message?: string | null
 }
 
-export function LoadingSpinner({ size = "default", message = "Loading..." }: LoadingSpinnerProps) {
+export function LoadingSpinner({ size = 'default', message = 'Loading...' }: LoadingSpinnerProps) {
   const sizeClasses = {
-    small: "h-4 w-4",
-    default: "h-8 w-8",
-    large: "h-12 w-12",
+    small: 'h-4 w-4',
+    default: 'h-8 w-8',
+    large: 'h-12 w-12',
   }
 
   return (

@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
-import { LoadingSpinner } from "@/components/loading-spinner"
+import { useState, useEffect } from 'react'
+import { LoadingSpinner } from '@/components/loading-spinner'
 
 export function FixedComponent() {
   const [data, setData] = useState(null)
@@ -14,7 +14,7 @@ export function FixedComponent() {
     const fetchData = async () => {
       try {
         setLoading(true)
-        const result = await fetch("/api/some-data")
+        const result = await fetch('/api/some-data')
         const json = await result.json()
 
         if (isMounted) {

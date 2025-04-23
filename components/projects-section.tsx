@@ -1,9 +1,16 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Github, ExternalLink } from "lucide-react"
-import type { Project } from "@/lib/content-types"
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { ArrowRight, Github, ExternalLink } from 'lucide-react'
+import type { Project } from '@/lib/content-types'
 
 interface ProjectsSectionProps {
   projects: Project[]
@@ -14,10 +21,13 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
     <section className="py-16 md:py-24 bg-muted/50" id="projects">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-4">Featured Projects</h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-4">
+            Featured Projects
+          </h2>
           <div className="w-20 h-1 bg-primary mb-8"></div>
           <p className="text-base md:text-lg text-muted-foreground max-w-3xl">
-            A selection of my work, including open source contributions, training materials, and more.
+            A selection of my work, including open source contributions, training materials, and
+            more.
           </p>
         </div>
 
@@ -26,7 +36,7 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
             <Card key={index} className="overflow-hidden flex flex-col h-full">
               <div className="h-48 overflow-hidden">
                 <img
-                  src={project.image || "/placeholder.svg"}
+                  src={project.image || '/placeholder.svg'}
                   alt={project.title}
                   className="w-full h-full object-cover transition-transform hover:scale-105"
                 />
@@ -42,7 +52,9 @@ export function ProjectsSection({ projects }: ProjectsSectionProps) {
                       {tag}
                     </Badge>
                   ))}
-                  {project.tags.length > 3 && <Badge variant="outline">+{project.tags.length - 3}</Badge>}
+                  {project.tags.length > 3 && (
+                    <Badge variant="outline">+{project.tags.length - 3}</Badge>
+                  )}
                 </div>
               </CardContent>
               <CardFooter className="flex flex-col sm:flex-row gap-2 sm:justify-between">

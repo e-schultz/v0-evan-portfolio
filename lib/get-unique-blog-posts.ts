@@ -1,4 +1,4 @@
-import type { BlogPost } from "@/types"
+import type { BlogPost } from '@/types'
 
 /**
  * Filters an array of blog posts to ensure there are no duplicates by slug

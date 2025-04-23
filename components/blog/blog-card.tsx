@@ -1,7 +1,7 @@
-import type React from "react"
-import Image from "next/image"
-import Link from "next/link"
-import { getBlogImageUrl } from "@/lib/image-utils"
+import type React from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { getBlogImageUrl } from '@/lib/image-utils'
 
 interface BlogCardProps {
   post: {
@@ -17,14 +17,18 @@ interface BlogCardProps {
 }
 
 // Add named export here
-export const BlogCard: React.FC<BlogCardProps> = ({ post, showCategory = false, priority = false }) => {
+export const BlogCard: React.FC<BlogCardProps> = ({
+  post,
+  showCategory = false,
+  priority = false,
+}) => {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden">
       <Link href={`/blog/${post.slug}`} aria-label={`Read more about ${post.title}`}>
         {post.image && (
           <div className="relative w-full aspect-video overflow-hidden rounded-lg mb-4">
             <Image
-              src={getBlogImageUrl(post.image) || "/placeholder.svg"}
+              src={getBlogImageUrl(post.image) || '/placeholder.svg'}
               alt={post.title}
               fill
               className="object-cover"
@@ -39,7 +43,9 @@ export const BlogCard: React.FC<BlogCardProps> = ({ post, showCategory = false, 
             {post.title}
           </h2>
           <p className="text-gray-600 dark:text-gray-300 text-sm mt-2">{post.excerpt}</p>
-          <p className="text-gray-500 dark:text-gray-400 text-xs mt-2">{new Date(post.date).toLocaleDateString()}</p>
+          <p className="text-gray-500 dark:text-gray-400 text-xs mt-2">
+            {new Date(post.date).toLocaleDateString()}
+          </p>
         </div>
       </Link>
     </div>

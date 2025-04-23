@@ -5,12 +5,12 @@
  */
 export function getBlogImageUrl(imagePath: string): string {
   // If the image path is a full URL (including Blob URLs), return it as is
-  if (imagePath.startsWith("http")) {
+  if (imagePath.startsWith('http')) {
     return imagePath
   }
 
   // For local images that haven't been migrated yet, ensure they start with a slash
-  return imagePath.startsWith("/") ? imagePath : `/${imagePath}`
+  return imagePath.startsWith('/') ? imagePath : `/${imagePath}`
 }
 
 /**
@@ -18,13 +18,13 @@ export function getBlogImageUrl(imagePath: string): string {
  * @param type The type of image (thumbnail, card, hero, etc.)
  * @returns The width and height for the image
  */
-export function getBlogImageDimensions(type: "thumbnail" | "card" | "hero" = "card") {
+export function getBlogImageDimensions(type: 'thumbnail' | 'card' | 'hero' = 'card') {
   switch (type) {
-    case "thumbnail":
+    case 'thumbnail':
       return { width: 100, height: 100 }
-    case "hero":
+    case 'hero':
       return { width: 1200, height: 630 }
-    case "card":
+    case 'card':
     default:
       return { width: 600, height: 400 }
   }
@@ -35,16 +35,16 @@ export function getBlogImageDimensions(type: "thumbnail" | "card" | "hero" = "ca
  * @param type The type of image (thumbnail, card, hero, etc.)
  * @returns The sizes attribute string for the Image component
  */
-export function getImageSizes(type: "thumbnail" | "card" | "hero" | "project" = "card"): string {
+export function getImageSizes(type: 'thumbnail' | 'card' | 'hero' | 'project' = 'card'): string {
   switch (type) {
-    case "thumbnail":
-      return "100px"
-    case "hero":
-      return "100vw"
-    case "project":
-      return "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-    case "card":
+    case 'thumbnail':
+      return '100px'
+    case 'hero':
+      return '100vw'
+    case 'project':
+      return '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
+    case 'card':
     default:
-      return "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+      return '(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
   }
 }

@@ -4,7 +4,7 @@ interface SectionHeaderProps {
   className?: string
 }
 
-export function SectionHeader({ title, description, className = "" }: SectionHeaderProps) {
+export function SectionHeader({ title, description, className = '' }: SectionHeaderProps) {
   return (
     <div className={`mb-6 ${className}`}>
       <h2 className="text-2xl md:text-3xl font-bold relative inline-block">

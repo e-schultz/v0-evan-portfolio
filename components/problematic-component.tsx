@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from 'react'
 
 // Wrong way - causing "uncached promise" errors
 export function ProblematicComponent() {
@@ -8,7 +8,7 @@ export function ProblematicComponent() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await fetch("/api/some-data")
+      const result = await fetch('/api/some-data')
       const json = await result.json()
       setData(json)
     }

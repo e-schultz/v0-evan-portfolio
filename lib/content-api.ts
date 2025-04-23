@@ -1,16 +1,16 @@
-"use server"
+'use server'
 
-import { cache } from "react"
-import fs from "fs"
-import path from "path"
-import { validateContent, validateBlogPost, validateProject } from "./content-validation"
-import type { BlogPost, Project } from "./content-types"
+import { cache } from 'react'
+import fs from 'fs'
+import path from 'path'
+import { validateContent, validateBlogPost, validateProject } from './content-validation'
+import type { BlogPost, Project } from './content-types'
 
 // Base directory for content
-const contentDirectory = path.join(process.cwd(), "content")
+const contentDirectory = path.join(process.cwd(), 'content')
 
 // Content types
-export type ContentType = "blog" | "project" | "home" | "page"
+export type ContentType = 'blog' | 'project' | 'home' | 'page'
 
 // Content cache
 const contentCache = new Map<string, any>()
@@ -24,7 +24,7 @@ type CacheEntry = {
 
 // Initialize content directories
 async function ensureContentDirectories() {
-  const directories = ["blog", "projects", "home", "pages"]
+  const directories = ['blog', 'projects', 'home', 'pages']
 
   try {
     await fs.promises.access(contentDirectory)
@@ -43,16 +43,22 @@ async function ensureContentDirectories() {
 }
 
 // Initialize directories in development mode
-if (process.env.NODE_ENV === "development") {
+if (process.env.NODE_ENV === 'development') {
   ensureContentDirectories().catch((error) => {
-    console.error("Error creating content directories:", error)
+    console.error('Error creating content directories:', error)
   })
 }
 
 // Get content file path
 function getContentFilePath(contentType: ContentType, slug: string): string {
   const directory =
-    contentType === "blog" ? "blog" : contentType === "project" ? "projects" : contentType === "home" ? "home" : "pages"
+    contentType === 'blog'
+      ? 'blog'
+      : contentType === 'project'
+        ? 'projects'
+        : contentType === 'home'
+          ? 'home'
+          : 'pages'
 
   return path.join(contentDirectory, directory, `${slug}.json`)
 }
@@ -74,7 +80,7 @@ export const getContent = cache(async function getContent<T>(
   const filePath = getContentFilePath(contentType, slug)
 
   try {
-    const fileContents = await fs.promises.readFile(filePath, "utf8")
+    const fileContents = await fs.promises.readFile(filePath, 'utf8')
     const data = JSON.parse(fileContents) as T
 
     // Validate content if validator is provided
@@ -96,15 +102,23 @@ export const getContent = cache(async function getContent<T>(
 })
 
 // Get all content slugs of a specific type - wrapped with cache
-export const getAllContentSlugs = cache(async function getAllContentSlugs(contentType: ContentType): Promise<string[]> {
+export const getAllContentSlugs = cache(async function getAllContentSlugs(
+  contentType: ContentType,
+): Promise<string[]> {
   const directory =
-    contentType === "blog" ? "blog" : contentType === "project" ? "projects" : contentType === "home" ? "home" : "pages"
+    contentType === 'blog'
+      ? 'blog'
+      : contentType === 'project'
+        ? 'projects'
+        : contentType === 'home'
+          ? 'home'
+          : 'pages'
 
   const dirPath = path.join(contentDirectory, directory)
 
   try {
     const files = await fs.promises.readdir(dirPath)
-    return files.filter((file) => file.endsWith(".json")).map((file) => file.replace(/\.json$/, ""))
+    return files.filter((file) => file.endsWith('.json')).map((file) => file.replace(/\.json$/, ''))
   } catch (error) {
     console.error(`Error reading directory: ${dirPath}`, error)
     return []
@@ -129,7 +143,7 @@ export const getAllContent = cache(async function getAllContent<T>(
 
 // Find the getBlogPost function and add validation:
 export const getBlogPost = cache(async (slug: string): Promise<BlogPost | null> => {
-  const post = await getContent<BlogPost>("blog", slug)
+  const post = await getContent<BlogPost>('blog', slug)
 
   if (post) {
     // Validate the post and log any errors
@@ -144,17 +158,19 @@ export const getBlogPost = cache(async (slug: string): Promise<BlogPost | null> 
 
 // Add the missing getAllBlogSlugs function
 export const getAllBlogSlugs = cache(async (): Promise<string[]> => {
-  return await getAllContentSlugs("blog")
+  return await getAllContentSlugs('blog')
 })
 
 // Add this function to filter out duplicate blog posts by slug
-export const getUniqueBlogPosts = cache(async function getUniqueBlogPosts(posts: BlogPost[]): Promise<BlogPost[]> {
+export const getUniqueBlogPosts = cache(async function getUniqueBlogPosts(
+  posts: BlogPost[],
+): Promise<BlogPost[]> {
   return Array.from(new Map(posts.map((post) => [post.slug, post])).values())
 })
 
 // Update the getAllBlogPosts function to use the new filter
 async function readBlogPosts(): Promise<BlogPost[]> {
-  return await getAllContent<BlogPost>("blog", validateBlogPost)
+  return await getAllContent<BlogPost>('blog', validateBlogPost)
 }
 
 export const getAllBlogPosts = cache(async (): Promise<BlogPost[]> => {
@@ -207,7 +223,7 @@ export const searchPosts = cache(async (query: string): Promise<BlogPost[]> => {
 
 // Find the getProject function and add validation:
 export const getProject = cache(async (slug: string): Promise<Project | null> => {
-  const project = await getContent<Project>("project", slug)
+  const project = await getContent<Project>('project', slug)
 
   if (project) {
     // Validate the project and log any errors
@@ -221,7 +237,7 @@ export const getProject = cache(async (slug: string): Promise<Project | null> =>
 })
 
 export const getAllProjects = cache(async (): Promise<Project[]> => {
-  return await getAllContent<Project>("project", validateProject)
+  return await getAllContent<Project>('project', validateProject)
 })
 
 export const getFeaturedProjects = cache(async (): Promise<Project[]> => {
@@ -231,19 +247,19 @@ export const getFeaturedProjects = cache(async (): Promise<Project[]> => {
 
 // Generic content function with caching
 export const getGenericContent = cache(async (contentPath: string): Promise<any | null> => {
-  const [directory, ...slugParts] = contentPath.split("/")
-  const slug = slugParts.join("/")
+  const [directory, ...slugParts] = contentPath.split('/')
+  const slug = slugParts.join('/')
 
   let contentType: ContentType
 
-  if (directory === "blog") {
-    contentType = "blog"
-  } else if (directory === "projects") {
-    contentType = "project"
-  } else if (directory === "home") {
-    contentType = "home"
+  if (directory === 'blog') {
+    contentType = 'blog'
+  } else if (directory === 'projects') {
+    contentType = 'project'
+  } else if (directory === 'home') {
+    contentType = 'home'
   } else {
-    contentType = "page"
+    contentType = 'page'
   }
 
   return await getContent(contentType, slug)

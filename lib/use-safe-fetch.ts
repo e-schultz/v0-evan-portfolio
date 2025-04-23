@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
+import { useState, useEffect } from 'react'
 
 export function useSafeFetch<T>(url: string, options?: RequestInit) {
   const [data, setData] = useState<T | null>(null)
@@ -28,7 +28,7 @@ export function useSafeFetch<T>(url: string, options?: RequestInit) {
           setError(null)
         }
       } catch (err) {
-        if (isMounted && err instanceof Error && err.name !== "AbortError") {
+        if (isMounted && err instanceof Error && err.name !== 'AbortError') {
           setError(err)
           setData(null)
         }
