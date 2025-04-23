@@ -9,8 +9,7 @@ import { BlogPostSkeleton } from "@/components/skeletons/blog-post-skeleton"
 export default function ClientBlogPostPage({ params }: { params: { slug: string } }) {
   // Await params before accessing its properties (in an async function)
   const fetchBlogPost = async () => {
-    const resolvedParams = await params
-    return getBlogPost(resolvedParams.slug)
+    return getBlogPost(params.slug)
   }
 
   // Use the async function to create the promise
@@ -32,7 +31,7 @@ async function BlogPostContent({ blogPostPromise }: { blogPostPromise: Promise<a
 
   // Check if the post has interactive elements that require client rendering
   const hasInteractiveElements = blogPost.content.some(
-    (block) => block.type === "interactive" || block.type === "embed",
+    (block: any) => block.type === "interactive" || block.type === "embed",
   )
 
   return <>{hasInteractiveElements ? <ClientBlogContent blogPost={blogPost} /> : <BlogContent blogPost={blogPost} />}</>

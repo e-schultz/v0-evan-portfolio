@@ -5,20 +5,13 @@ import { ArrowLeft } from "lucide-react"
 import { EnhancedErrorBoundary } from "@/components/enhanced-error-boundary"
 import { ContentErrorFallback } from "@/components/error-fallbacks/content-error-fallback"
 
-// Define the correct type for the page props
-type BlogPostPageProps = {
-  params: {
-    slug: string
-  }
-}
-
 // Generate static params for all blog posts
 export async function generateStaticParams() {
   const slugs = await getAllBlogSlugs()
   return slugs.map((slug) => ({ slug }))
 }
 
-export async function generateMetadata({ params }: BlogPostPageProps) {
+export async function generateMetadata({ params }: { params: { slug: string } }) {
   const slug = params.slug
   const post = await getBlogPost(slug)
 
@@ -51,7 +44,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   }
 }
 
-export default async function BlogPostPage({ params }: BlogPostPageProps) {
+export default async function BlogPostPage({ params }: { params: { slug: string } }) {
   // Create a promise that will be resolved in the client component
   const blogPostPromise = getBlogPost(params.slug)
 

@@ -8,14 +8,7 @@ import { formatContent } from "@/lib/format-content"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
 
-// Define the correct type for the page props
-type ProjectPageProps = {
-  params: {
-    slug: string
-  }
-}
-
-export async function generateMetadata({ params }: ProjectPageProps) {
+export async function generateMetadata({ params }: { params: { slug: string } }) {
   const slug = params.slug
   const project = await getProject(slug)
 
@@ -45,7 +38,7 @@ export async function generateMetadata({ params }: ProjectPageProps) {
   }
 }
 
-export default function ProjectPage({ params }: ProjectPageProps) {
+export default function ProjectPage({ params }: { params: { slug: string } }) {
   return (
     <Suspense fallback={<ProjectPageSkeleton />}>
       <ProjectContent params={params} />
