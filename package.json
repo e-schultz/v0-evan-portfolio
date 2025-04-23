@@ -63,7 +63,8 @@
     "path": "latest",
     "util": "latest",
     "@vercel/blob": "latest",
-    "glob": "latest"
+    "glob": "latest",
+    "child_process": "latest"
   },
   "devDependencies": {
     "@types/node": "^22",

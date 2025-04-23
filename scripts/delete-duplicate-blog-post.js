@@ -2,7 +2,7 @@ import fs from "fs"
 import path from "path"
 
 const contentDir = path.join(process.cwd(), "content/blog")
-const fileToDelete = "simplifying-controlled-inputs-with-hooks.json"
+const fileToDelete = "simplifying-controlled-inputs-with-hooks.json" // Replace with the actual duplicate file
 const filePath = path.join(contentDir, fileToDelete)
 
 try {

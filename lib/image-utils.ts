@@ -1,24 +1,29 @@
 /**
- * Get the full URL for a blog post image
- * @param imagePath The image path from the blog post data
+ * Get the full URL for an image
+ * @param imagePath The image path from the content data
  * @returns The full URL for the image
  */
-export function getBlogImageUrl(imagePath: string): string {
+export function getBlogImageUrl(imagePath?: string): string {
   // If the image path is a full URL (including Blob URLs), return it as is
-  if (imagePath.startsWith("http")) {
+  if (imagePath && (imagePath.startsWith("http") || imagePath.startsWith("https"))) {
     return imagePath
   }
 
   // For local images that haven't been migrated yet, ensure they start with a slash
-  return imagePath.startsWith("/") ? imagePath : `/${imagePath}`
+  if (imagePath) {
+    return imagePath.startsWith("/") ? imagePath : `/${imagePath}`
+  }
+
+  // Return a fallback image if no image path is provided
+  return "/images/fallback-image.png"
 }
 
 /**
- * Get the appropriate image dimensions for a blog post image
+ * Get the appropriate image dimensions for different types of images
  * @param type The type of image (thumbnail, card, hero, etc.)
  * @returns The width and height for the image
  */
-export function getBlogImageDimensions(type: "thumbnail" | "card" | "hero" = "card") {
+export function getImageDimensions(type: "thumbnail" | "card" | "hero" = "card") {
   switch (type) {
     case "thumbnail":
       return { width: 100, height: 100 }

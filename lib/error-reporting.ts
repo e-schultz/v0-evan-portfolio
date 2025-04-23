@@ -35,4 +35,9 @@ export function reportError({ error, componentStack, additionalInfo }: ErrorDeta
   //   }
   //   Sentry.captureException(error);
   // });
+
+  // TODO: Post-v0 - Integrate Sentry for production error reporting
+  // 1. Install @sentry/nextjs: npm install @sentry/nextjs
+  // 2. Initialize Sentry in next.config.mjs and error.tsx
+  // 3. Replace console.error with Sentry.captureException(error, { extra: info })
 }

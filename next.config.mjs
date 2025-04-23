@@ -1,14 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Add any necessary configuration here
-  eslint: {
-    // Comment out or remove this line to enable ESLint during builds
-    ignoreDuringBuilds: true,
-  },
-  typescript: {
-    // Comment out or remove this line to enable TypeScript checks during builds
-    ignoreBuildErrors: true,
-  },
+  // Enable image optimization
   images: {
     domains: [
       'hebbkx1anhila5yf.public.blob.vercel-storage.com', 
@@ -18,8 +10,15 @@ const nextConfig = {
     ],
     unoptimized: false,
   },
+  // Enable ESLint and TypeScript checks during builds
+  eslint: {
+    ignoreDuringBuilds: false,
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
   // Explicitly set the output to be standalone to avoid issues with sharp
   output: 'standalone',
-}
+};
 
-export default nextConfig
+export default nextConfig;

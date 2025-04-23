@@ -4,9 +4,9 @@ import path from "path"
 import { existsSync } from "fs"
 
 // Map to store original paths and their new Blob URLs
-const migrationMap: Record<string, string> = {}
+const migrationMap = {}
 
-async function uploadFile(filePath: string): Promise<string | null> {
+async function uploadFile(filePath) {
   try {
     const fileBuffer = await fs.readFile(filePath)
     const fileName = path.basename(filePath)
@@ -17,7 +17,7 @@ async function uploadFile(filePath: string): Promise<string | null> {
     const blob = await put(fileName, fileBuffer, {
       access: "public",
       contentType,
-      token: process.env.BLOB_READ_WRITE_TOKEN as string,
+      token: process.env.BLOB_READ_WRITE_TOKEN,
     })
 
     console.log(`✅ Uploaded ${filePath} to ${blob.url}`)
@@ -28,9 +28,9 @@ async function uploadFile(filePath: string): Promise<string | null> {
   }
 }
 
-function getContentType(filename: string): string {
+function getContentType(filename) {
   const ext = path.extname(filename).toLowerCase()
-  const contentTypes: Record<string, string> = {
+  const contentTypes = {
     ".jpg": "image/jpeg",
     ".jpeg": "image/jpeg",
     ".png": "image/png",
@@ -42,7 +42,7 @@ function getContentType(filename: string): string {
   return contentTypes[ext] || "application/octet-stream"
 }
 
-async function scanDirectory(directory: string) {
+async function scanDirectory(directory) {
   if (!existsSync(directory)) {
     console.warn(`⚠️ Directory does not exist: ${directory}`)
     return
@@ -67,7 +67,7 @@ async function scanDirectory(directory: string) {
   }
 }
 
-function isImageFile(filename: string): boolean {
+function isImageFile(filename) {
   const ext = path.extname(filename).toLowerCase()
   return [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"].includes(ext)
 }
