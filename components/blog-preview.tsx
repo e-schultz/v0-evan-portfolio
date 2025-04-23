@@ -1,8 +1,6 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ArrowRight, Calendar } from "lucide-react"
+import { Calendar } from "lucide-react"
 import type { BlogPost } from "@/lib/content-types"
 
 interface BlogPreviewProps {
@@ -23,12 +21,12 @@ export function BlogPreview({ posts }: BlogPreviewProps) {
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {posts.map((post, index) => (
-            <Card key={index} className="flex flex-col h-full">
+            <Card key={index} className="flex flex-col h-full transition-all duration-300 hover:shadow-lg">
               <div className="h-48 overflow-hidden">
                 <img
                   src={post.image || "/placeholder.svg"}
                   alt={post.title}
-                  className="w-full h-full object-cover transition-transform hover:scale-105"
+                  className="w-full h-full object-cover transition-transform hover:scale-105 duration-500"
                 />
               </div>
               <CardHeader>
@@ -50,22 +48,56 @@ export function BlogPreview({ posts }: BlogPreviewProps) {
                 </div>
               </CardContent>
               <CardFooter>
-                <Button variant="ghost" asChild className="w-full">
-                  <Link href={`/blog/${post.slug}`}>
-                    Read More <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
+                <a
+                  href={`/blog/${post.slug}`}
+                  className="hero-button inline-flex items-center justify-center px-8 py-3 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+                  aria-label={`Read more about ${post.title}`}
+                >
+                  Read More
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-arrow-right ml-2 h-4 w-4"
+                  >
+                    <path d="M5 12h14"></path>
+                    <path d="m12 5 7 7-7 7"></path>
+                  </svg>
+                </a>
               </CardFooter>
             </Card>
           ))}
         </div>
 
         <div className="flex justify-center mt-12">
-          <Button asChild>
-            <Link href="/blog">
-              View All Articles <ArrowRight className="ml-2 h-4 w-4" />
-            </Link>
-          </Button>
+          <a
+            href="/blog"
+            className="hero-button inline-flex items-center justify-center px-8 py-3 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+            aria-label="View All Articles"
+          >
+            View All Articles
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="lucide lucide-arrow-right ml-2 h-4 w-4"
+            >
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
         </div>
       </div>
     </section>

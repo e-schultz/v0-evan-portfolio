@@ -2,7 +2,6 @@
 
 import { PageHeader } from "@/components/ui/page-header"
 import { ContentContainer } from "@/components/ui/content-container"
-import { Button } from "@/components/ui/button"
 import { Download, Mail } from "lucide-react"
 import { SocialLinks } from "@/components/ui/social-links"
 
@@ -29,9 +28,28 @@ export default function ResumePage() {
     <>
       <PageHeader title="Resume" description="My professional experience and qualifications">
         <div className="mt-6">
-          <Button>
+          <a
+            href="/resume.pdf"
+            className="hero-button inline-flex items-center justify-center px-8 py-3 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+            aria-label="Download Resume PDF"
+          >
             <Download className="mr-2 h-4 w-4" /> Download PDF
-          </Button>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="lucide lucide-arrow-right ml-2 h-4 w-4"
+            >
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
         </div>
       </PageHeader>
 
@@ -47,7 +65,7 @@ export default function ResumePage() {
             <div className="flex flex-wrap gap-4">
               <div className="flex items-center">
                 <Mail className="h-5 w-5 mr-2 text-muted-foreground" />
-                <a href="mailto:evan@schultz.codes" className="hover:text-primary">
+                <a href="mailto:evan@schultz.codes" className="hover:text-primary transition-colors duration-200">
                   evan@schultz.codes
                 </a>
               </div>
@@ -160,7 +178,7 @@ export default function ResumePage() {
                         href="http://bit.ly/vue-jscamp-2018"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-primary hover:underline"
+                        className="text-primary hover:underline transition-colors duration-200"
                       >
                         Video
                       </a>{" "}
@@ -169,7 +187,7 @@ export default function ResumePage() {
                         href="http://bit.ly/vue-jscamp-2018-slides"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-primary hover:underline ml-1"
+                        className="text-primary hover:underline transition-colors duration-200 ml-1"
                       >
                         Slides
                       </a>
@@ -182,7 +200,7 @@ export default function ResumePage() {
                         href="http://bit.ly/angular-camp-redux-video"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-primary hover:underline"
+                        className="text-primary hover:underline transition-colors duration-200"
                       >
                         Video
                       </a>{" "}
@@ -191,7 +209,7 @@ export default function ResumePage() {
                         href="http://bit.ly/angular-camp-redux-slides"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-primary hover:underline ml-1"
+                        className="text-primary hover:underline transition-colors duration-200 ml-1"
                       >
                         Slides
                       </a>
@@ -204,7 +222,7 @@ export default function ResumePage() {
                         href="http://bit.ly/react-redux-analytics"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-primary hover:underline"
+                        className="text-primary hover:underline transition-colors duration-200"
                       >
                         Video
                       </a>
@@ -221,7 +239,7 @@ export default function ResumePage() {
                       href="https://rangle.io/blog/refactor-to-react-hooks-not-classes"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary hover:underline"
+                      className="text-primary hover:underline transition-colors duration-200"
                     >
                       Refactor to Hooks, not Classes
                     </a>
@@ -231,7 +249,7 @@ export default function ResumePage() {
                       href="https://rangle.io/blog/simplifying-controlled-inputs-with-hooks"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary hover:underline"
+                      className="text-primary hover:underline transition-colors duration-200"
                     >
                       Simplifying React Forms with Hooks
                     </a>
@@ -241,7 +259,7 @@ export default function ResumePage() {
                       href="https://rangle.io/blog/improving-your-mental-model-of-useeffect"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary hover:underline"
+                      className="text-primary hover:underline transition-colors duration-200"
                     >
                       Improving Your Mental Model of useEffect
                     </a>
@@ -251,7 +269,7 @@ export default function ResumePage() {
                       href="https://rangle.io/blog/how-to-create-data-driven-user-interfaces-in-vue"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary hover:underline"
+                      className="text-primary hover:underline transition-colors duration-200"
                     >
                       How to Create Data-Driven User Interfaces with Vue
                     </a>
@@ -261,7 +279,7 @@ export default function ResumePage() {
                       href="https://rangle.io/blog/are-your-unit-tests-failing-for-the-expected-reasons"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-primary hover:underline"
+                      className="text-primary hover:underline transition-colors duration-200"
                     >
                       Are Your Unit Tests Failing for the Expected Reasons?
                     </a>

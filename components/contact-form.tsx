@@ -4,7 +4,6 @@ import type React from "react"
 import { useState } from "react"
 import { useFormStatus } from "react-dom"
 import { submitContactFormAction } from "@/lib/server-actions"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
@@ -19,7 +18,12 @@ function SubmitButton() {
   const { pending } = useFormStatus()
 
   return (
-    <Button type="submit" className="w-full" disabled={pending}>
+    <button
+      type="submit"
+      className="hero-button inline-flex items-center justify-center px-8 py-3 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+      disabled={pending}
+      aria-label="Send Message"
+    >
       {pending ? (
         <>Sending...</>
       ) : (
@@ -27,7 +31,7 @@ function SubmitButton() {
           Send Message <Send className="ml-2 h-4 w-4" />
         </>
       )}
-    </Button>
+    </button>
   )
 }
 
@@ -92,7 +96,7 @@ export function ContactForm({ formContent }: ContactFormProps) {
   }
 
   return (
-    <Card className="border-primary/10">
+    <Card className="border-primary/10 transition-all duration-300 hover:shadow-lg">
       <CardHeader className="space-y-1">
         <CardTitle className="text-xl md:text-2xl">{content.title}</CardTitle>
         <CardDescription>{content.description}</CardDescription>
@@ -155,6 +159,7 @@ export function ContactForm({ formContent }: ContactFormProps) {
                     value={formState[field.name as keyof typeof formState] || ""}
                     onChange={handleChange}
                     required={field.required}
+                    className="transition-all duration-200 focus:ring-2 focus:ring-primary/50"
                   />
                 </div>
               ))}
@@ -172,7 +177,7 @@ export function ContactForm({ formContent }: ContactFormProps) {
                     value={formState[field.name as keyof typeof formState] || ""}
                     onChange={handleChange}
                     required={field.required}
-                    className="resize-none"
+                    className="resize-none transition-all duration-200 focus:ring-2 focus:ring-primary/50"
                   />
                 ) : (
                   <Input
@@ -183,6 +188,7 @@ export function ContactForm({ formContent }: ContactFormProps) {
                     value={formState[field.name as keyof typeof formState] || ""}
                     onChange={handleChange}
                     required={field.required}
+                    className="transition-all duration-200 focus:ring-2 focus:ring-primary/50"
                   />
                 )}
               </div>

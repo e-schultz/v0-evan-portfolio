@@ -1,7 +1,5 @@
-import Link from "next/link"
 import Image from "next/image"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Github, ExternalLink } from "lucide-react"
 import type { Project } from "@/lib/content-types"
@@ -42,31 +40,59 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
       <CardFooter className="flex justify-between pt-2 border-t">
         <div className="flex gap-2">
           {project.github && (
-            <Button variant="ghost" size="sm" className="hover:bg-primary/10" asChild>
-              <Link href={project.github} target="_blank" rel="noopener noreferrer">
-                <Github className="mr-2 h-4 w-4" /> GitHub
-              </Link>
-            </Button>
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-4 py-2 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-sm font-medium text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+            >
+              <Github className="mr-2 h-4 w-4" /> GitHub
+            </a>
           )}
           {project.link && (
-            <Button variant="ghost" size="sm" className="hover:bg-primary/10" asChild>
-              <Link href={project.link} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="mr-2 h-4 w-4" /> Visit
-              </Link>
-            </Button>
+            <a
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-4 py-2 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-sm font-medium text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+            >
+              <ExternalLink className="mr-2 h-4 w-4" /> Visit
+            </a>
           )}
           {project.v0Link && (
-            <Button variant="ghost" size="sm" className="hover:bg-primary/10" asChild>
-              <Link href={project.v0Link} target="_blank" rel="noopener noreferrer">
-                <ExternalLink className="mr-2 h-4 w-4" /> v0
-              </Link>
-            </Button>
+            <a
+              href={project.v0Link}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center px-4 py-2 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-sm font-medium text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+            >
+              <ExternalLink className="mr-2 h-4 w-4" /> v0
+            </a>
           )}
         </div>
         {project.slug && (
-          <Button variant="outline" size="sm" className="ml-auto hover:bg-primary/10 hover:text-primary" asChild>
-            <Link href={`/projects/${project.slug}`}>Details</Link>
-          </Button>
+          <a
+            href={`/projects/${project.slug}`}
+            className="hero-button inline-flex items-center justify-center px-6 py-2 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+            aria-label={`View details for ${project.title}`}
+          >
+            Details
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="lucide lucide-arrow-right ml-2 h-4 w-4"
+            >
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </a>
         )}
       </CardFooter>
     </Card>

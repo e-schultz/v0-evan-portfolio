@@ -75,7 +75,7 @@ export default async function ContactPage() {
                   <div>
                     <h3 className="text-xl font-bold mb-2">{email.title}</h3>
                     <p className="text-muted-foreground">
-                      <a href={`mailto:${email.address}`} className="hover:text-primary">
+                      <a href={`mailto:${email.address}`} className="hover:text-primary transition-colors duration-200">
                         {email.address}
                       </a>
                     </p>
@@ -98,11 +98,11 @@ export default async function ContactPage() {
                   </div>
                 </div>
 
-                <div className="relative overflow-hidden rounded-lg border aspect-square md:aspect-auto md:h-[400px]">
+                <div className="relative overflow-hidden rounded-lg border aspect-square md:aspect-auto md:h-[400px] transition-all duration-500 hover:shadow-lg">
                   <img
                     src={image.src || "/placeholder.svg"}
                     alt={image.alt || "Contact image"}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent flex items-end">
                     <div className="p-6">

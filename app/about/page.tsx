@@ -1,8 +1,6 @@
-import Link from "next/link"
 import { PageHeader } from "@/components/ui/page-header"
 import { ContentContainer } from "@/components/ui/content-container"
 import { SectionHeader } from "@/components/ui/section-header"
-import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Calendar, Briefcase, GraduationCap, Mic, User, ArrowRight } from "lucide-react"
@@ -31,11 +29,11 @@ export default async function AboutPage() {
                 </p>
               ))}
             </div>
-            <div className="relative rounded-lg overflow-hidden border border-primary/10">
+            <div className="relative rounded-lg overflow-hidden border border-primary/10 transition-all duration-500 hover:shadow-xl">
               <img
                 src={aboutContent.image.src || "/placeholder.svg"}
                 alt={aboutContent.image.alt}
-                className="w-full h-auto"
+                className="w-full h-auto transition-transform duration-700 hover:scale-105"
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background/90 to-transparent p-4">
                 <p className="text-sm font-medium text-primary">{aboutContent.image.caption}</p>
@@ -45,7 +43,6 @@ export default async function AboutPage() {
         </ContentContainer>
       </section>
 
-      {/* Rest of the content remains the same */}
       {/* Philosophy Section */}
       <section className="py-12 md:py-16 bg-muted/30">
         <ContentContainer maxWidth="3xl" className="px-4 md:px-6">
@@ -91,7 +88,10 @@ export default async function AboutPage() {
           <SectionHeader title={aboutContent.skills.title} centered />
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
             {aboutContent.skills.categories.map((category, index) => (
-              <Card key={index} className="overflow-hidden border-primary/10">
+              <Card
+                key={index}
+                className="overflow-hidden border-primary/10 transition-all duration-300 hover:shadow-md"
+              >
                 <CardContent className="p-4 md:p-6">
                   <h3 className="text-lg md:text-xl font-bold mb-4">{category.name}</h3>
                   <div className="flex flex-wrap gap-2">
@@ -152,7 +152,10 @@ export default async function AboutPage() {
           <p className="text-muted-foreground text-center mb-8 md:mb-10">{aboutContent.speaking.content}</p>
           <div className="space-y-4 md:space-y-6">
             {aboutContent.speaking.highlights.map((highlight, index) => (
-              <div key={index} className="flex items-start space-x-4 p-4 rounded-lg bg-background border">
+              <div
+                key={index}
+                className="flex items-start space-x-4 p-4 rounded-lg bg-background border transition-all duration-300 hover:shadow-md"
+              >
                 <div className="bg-primary/10 p-2 rounded-full">
                   <Mic className="h-5 w-5 text-primary" />
                 </div>
@@ -166,7 +169,7 @@ export default async function AboutPage() {
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-sm text-primary hover:underline"
+                        className="text-sm text-primary hover:underline transition-colors duration-200"
                       >
                         {link.text}
                       </a>
@@ -196,13 +199,43 @@ export default async function AboutPage() {
             <h2 className="text-2xl md:text-3xl font-bold">{aboutContent.cta.title}</h2>
             <p className="text-muted-foreground">{aboutContent.cta.content}</p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
-              {aboutContent.cta.buttons.map((button, index) => (
-                <Button key={index} variant={button.variant as any} asChild className="w-full sm:w-auto">
-                  <Link href={button.url}>
-                    {button.text} <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              ))}
+              {aboutContent.cta.buttons.map((button, index) =>
+                button.variant === "default" ? (
+                  <a
+                    key={index}
+                    href={button.url}
+                    className="hero-button inline-flex items-center justify-center px-8 py-3 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+                    aria-label={button.text}
+                  >
+                    {button.text}
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-arrow-right ml-2 h-4 w-4"
+                    >
+                      <path d="M5 12h14"></path>
+                      <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+                  </a>
+                ) : (
+                  <a
+                    key={index}
+                    href={button.url}
+                    className="inline-flex items-center justify-center px-8 py-3 rounded-md border border-input bg-background hover:bg-accent hover:text-accent-foreground transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-sm font-medium w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+                    aria-label={button.text}
+                  >
+                    {button.text}
+                    <ArrowRight className="ml-2 h-4 w-4" />
+                  </a>
+                ),
+              )}
             </div>
           </div>
         </ContentContainer>

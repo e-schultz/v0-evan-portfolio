@@ -2,8 +2,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Calendar } from "lucide-react"
+import { Calendar } from "lucide-react"
 import type { BlogPost } from "@/lib/content-types"
 
 interface BlogCardProps {
@@ -47,11 +46,28 @@ export function BlogCard({ post, showCategory = false }: BlogCardProps) {
         </div>
       </CardContent>
       <CardFooter>
-        <Button variant="ghost" asChild className="w-full">
-          <Link href={`/blog/${post.slug}`}>
-            Read More <ArrowRight className="ml-2 h-4 w-4" />
-          </Link>
-        </Button>
+        <a
+          href={`/blog/${post.slug}`}
+          className="hero-button inline-flex items-center justify-center px-8 py-3 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+          aria-label={`Read more about ${post.title}`}
+        >
+          Read More
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="lucide lucide-arrow-right ml-2 h-4 w-4"
+          >
+            <path d="M5 12h14"></path>
+            <path d="m12 5 7 7-7 7"></path>
+          </svg>
+        </a>
       </CardFooter>
     </Card>
   )

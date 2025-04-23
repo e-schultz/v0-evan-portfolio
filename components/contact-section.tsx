@@ -4,7 +4,7 @@ import type React from "react"
 import { useState } from "react"
 import { useFormStatus } from "react-dom"
 import { submitContactFormAction } from "@/lib/server-actions"
-import { Button } from "@/components/ui/button"
+import { PulseButton } from "@/components/ui/pulse-button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
@@ -16,7 +16,7 @@ function SubmitButton() {
   const { pending } = useFormStatus()
 
   return (
-    <Button type="submit" className="w-full" disabled={pending}>
+    <PulseButton type="submit" className="w-full" pulseColor="blue" disabled={pending}>
       {pending ? (
         <>Sending...</>
       ) : (
@@ -24,7 +24,7 @@ function SubmitButton() {
           Send Message <Send className="ml-2 h-4 w-4" />
         </>
       )}
-    </Button>
+    </PulseButton>
   )
 }
 
@@ -63,7 +63,7 @@ export function ContactSection() {
               <div>
                 <h3 className="text-xl font-bold mb-2">Email</h3>
                 <p className="text-muted-foreground">
-                  <a href="mailto:evan@schultz.codes" className="hover:text-primary">
+                  <a href="mailto:evan@schultz.codes" className="hover:text-primary transition-colors duration-200">
                     evan@schultz.codes
                   </a>
                 </p>
@@ -82,7 +82,7 @@ export function ContactSection() {
                     href="https://www.linkedin.com/in/evanschultz1/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-primary hover:underline"
+                    className="text-primary hover:underline transition-colors duration-200"
                   >
                     LinkedIn
                   </a>{" "}
@@ -91,7 +91,7 @@ export function ContactSection() {
                     href="http://twitter.com/e_p82"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-primary hover:underline"
+                    className="text-primary hover:underline transition-colors duration-200"
                   >
                     Twitter
                   </a>
@@ -100,7 +100,7 @@ export function ContactSection() {
               </div>
             </div>
 
-            <div className="bg-card p-6 rounded-lg border">
+            <div className="bg-card p-6 rounded-lg border transition-all duration-300 hover:shadow-md">
               <h3 className="text-xl font-bold mb-4">Let's Work Together</h3>
               <p className="text-muted-foreground mb-4">
                 I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
@@ -115,7 +115,7 @@ export function ContactSection() {
             </div>
           </div>
 
-          <div className="bg-card p-6 md:p-8 rounded-lg border">
+          <div className="bg-card p-6 md:p-8 rounded-lg border transition-all duration-300 hover:shadow-lg">
             <h3 className="text-xl font-bold mb-6">Send Me a Message</h3>
 
             {submitSuccess ? (
@@ -165,6 +165,7 @@ export function ContactSection() {
                       value={formState.name}
                       onChange={handleChange}
                       required
+                      className="transition-all duration-200 focus:ring-2 focus:ring-primary/50"
                     />
                   </div>
 
@@ -178,6 +179,7 @@ export function ContactSection() {
                       value={formState.email}
                       onChange={handleChange}
                       required
+                      className="transition-all duration-200 focus:ring-2 focus:ring-primary/50"
                     />
                   </div>
                 </div>
@@ -191,6 +193,7 @@ export function ContactSection() {
                     value={formState.subject}
                     onChange={handleChange}
                     required
+                    className="transition-all duration-200 focus:ring-2 focus:ring-primary/50"
                   />
                 </div>
 
@@ -204,6 +207,7 @@ export function ContactSection() {
                     value={formState.message}
                     onChange={handleChange}
                     required
+                    className="transition-all duration-200 focus:ring-2 focus:ring-primary/50"
                   />
                 </div>
 

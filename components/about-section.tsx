@@ -1,6 +1,3 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowRight } from "lucide-react"
 import type { AboutContent } from "@/lib/content-types"
 import Image from "next/image"
 
@@ -43,21 +40,38 @@ export function AboutSection({ aboutContent }: AboutSectionProps) {
               </div>
             ))}
 
-            <Button asChild className="w-full sm:w-auto">
-              <Link href={aboutContent.resumeButton.url}>
-                {aboutContent.resumeButton.text} <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
+            <a
+              href={aboutContent.resumeButton.url}
+              className="hero-button inline-flex items-center justify-center px-8 py-3 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+              aria-label="View Full Resume"
+            >
+              {aboutContent.resumeButton.text}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="lucide lucide-arrow-right ml-2 h-4 w-4"
+              >
+                <path d="M5 12h14"></path>
+                <path d="m12 5 7 7-7 7"></path>
+              </svg>
+            </a>
           </div>
 
           {aboutContent.image && (
-            <div className="relative w-full h-[300px] md:w-[300px] md:h-[300px] overflow-hidden rounded-full mx-auto">
+            <div className="relative w-full h-[300px] md:w-[300px] md:h-[300px] overflow-hidden rounded-full mx-auto shadow-lg transition-all duration-500 hover:shadow-xl">
               <Image
                 src={aboutContent.image || "/placeholder.svg"}
                 alt={aboutContent.name || "Profile image"}
                 fill
                 sizes="(max-width: 768px) 100vw, 300px"
-                className="object-cover"
+                className="object-cover transition-transform duration-700 hover:scale-105"
                 priority={true}
               />
             </div>
@@ -66,7 +80,7 @@ export function AboutSection({ aboutContent }: AboutSectionProps) {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8 md:mt-0">
             <div className="space-y-4">
               {aboutContent.experience.slice(0, 2).map((exp, index) => (
-                <div key={index} className="bg-muted p-4 sm:p-6 rounded-lg">
+                <div key={index} className="bg-muted p-4 sm:p-6 rounded-lg hover:shadow-md transition-all duration-300">
                   <h4 className="font-bold mb-2">{exp.title}</h4>
                   <p className="text-sm text-muted-foreground">{exp.company}</p>
                   <p className="text-sm text-muted-foreground">{exp.period}</p>
@@ -76,7 +90,7 @@ export function AboutSection({ aboutContent }: AboutSectionProps) {
 
             <div className="space-y-4 mt-4 sm:mt-8">
               {aboutContent.experience.slice(2).map((exp, index) => (
-                <div key={index} className="bg-muted p-4 sm:p-6 rounded-lg">
+                <div key={index} className="bg-muted p-4 sm:p-6 rounded-lg hover:shadow-md transition-all duration-300">
                   <h4 className="font-bold mb-2">{exp.title}</h4>
                   <p className="text-sm text-muted-foreground">{exp.company}</p>
                   <p className="text-sm text-muted-foreground">{exp.period}</p>
