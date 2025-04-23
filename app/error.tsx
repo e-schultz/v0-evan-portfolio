@@ -1,9 +1,9 @@
-'use client'
+"use client"
 
-import { useEffect } from 'react'
-import { Button } from '@/components/ui/button'
-import { ContentContainer } from '@/components/ui/content-container'
-import { reportError } from '@/lib/error-reporting'
+import { useEffect } from "react"
+import { Button } from "@/components/ui/button"
+import { ContentContainer } from "@/components/ui/content-container"
+import { reportError } from "@/lib/error-reporting"
 
 export default function ErrorPage({
   error,
@@ -26,11 +26,11 @@ export default function ErrorPage({
         </p>
         <div className="flex gap-4">
           <Button onClick={() => reset()}>Try again</Button>
-          <Button variant="outline" onClick={() => (window.location.href = '/')}>
+          <Button variant="outline" onClick={() => (window.location.href = "/")}>
             Return Home
           </Button>
         </div>
-        {process.env.NODE_ENV === 'development' && (
+        {process.env.NODE_ENV === "development" && (
           <div className="mt-8 p-4 bg-muted rounded-md text-left w-full max-w-2xl overflow-auto">
             <p className="font-mono text-sm mb-2">{error.message}</p>
             <p className="font-mono text-xs text-muted-foreground">{error.stack}</p>

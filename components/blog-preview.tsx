@@ -1,16 +1,9 @@
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { ArrowRight, Calendar } from 'lucide-react'
-import type { BlogPost } from '@/lib/content-types'
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Badge } from "@/components/ui/badge"
+import { ArrowRight, Calendar } from "lucide-react"
+import type { BlogPost } from "@/lib/content-types"
 
 interface BlogPreviewProps {
   posts: BlogPost[]
@@ -21,9 +14,7 @@ export function BlogPreview({ posts }: BlogPreviewProps) {
     <section className="py-16 md:py-24 bg-background" id="blog">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            Latest Articles
-          </h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-4">Latest Articles</h2>
           <div className="w-20 h-1 bg-primary mb-8"></div>
           <p className="text-base md:text-lg text-muted-foreground max-w-3xl">
             Thoughts, tutorials, and insights on web development, team leadership, and technology.
@@ -35,7 +26,7 @@ export function BlogPreview({ posts }: BlogPreviewProps) {
             <Card key={index} className="flex flex-col h-full">
               <div className="h-48 overflow-hidden">
                 <img
-                  src={post.image || '/placeholder.svg'}
+                  src={post.image || "/placeholder.svg"}
                   alt={post.title}
                   className="w-full h-full object-cover transition-transform hover:scale-105"
                 />

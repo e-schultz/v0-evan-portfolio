@@ -1,6 +1,6 @@
-import type { BlogPost } from '@/lib/content-types'
-import { renderContentBlocks } from '@/lib/format-content'
-import Image from 'next/image'
+import type { BlogPost } from "@/lib/content-types"
+import { renderContentBlocks } from "@/lib/format-content"
+import Image from "next/image"
 
 // Server component for static blog content
 export function BlogContent({ blogPost }: { blogPost: BlogPost }) {
@@ -9,7 +9,7 @@ export function BlogContent({ blogPost }: { blogPost: BlogPost }) {
       {blogPost.image && (
         <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] mb-8 overflow-hidden rounded-lg">
           <Image
-            src={blogPost.image || '/placeholder.svg'}
+            src={blogPost.image || "/placeholder.svg"}
             alt={blogPost.title}
             fill
             sizes="(max-width: 768px) 100vw, 1200px"

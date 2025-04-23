@@ -1,15 +1,15 @@
-import { LoadingSpinner } from '@/components/loading-spinner'
+import { LoadingSpinner } from "@/components/loading-spinner"
 
 interface LoadingLayoutProps {
   minHeight?: string
-  spinnerSize?: 'small' | 'default' | 'large'
+  spinnerSize?: "small" | "default" | "large"
   message?: string
 }
 
 export function LoadingLayout({
-  minHeight = '400px',
-  spinnerSize = 'large',
-  message = 'Loading...',
+  minHeight = "400px",
+  spinnerSize = "large",
+  message = "Loading...",
 }: LoadingLayoutProps) {
   return (
     <div className="container py-12">

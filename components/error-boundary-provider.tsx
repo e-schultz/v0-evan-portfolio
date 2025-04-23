@@ -1,8 +1,8 @@
-'use client'
+"use client"
 
-import type React from 'react'
-import { EnhancedErrorBoundary } from './enhanced-error-boundary'
-import { reportError } from '@/lib/error-reporting'
+import type React from "react"
+import { EnhancedErrorBoundary } from "./enhanced-error-boundary"
+import { reportError } from "@/lib/error-reporting"
 
 interface ErrorBoundaryProviderProps {
   children: React.ReactNode
@@ -15,7 +15,7 @@ export function ErrorBoundaryProvider({ children }: ErrorBoundaryProviderProps) 
       componentStack: errorInfo.componentStack,
       additionalInfo: {
         timestamp: new Date().toISOString(),
-        url: typeof window !== 'undefined' ? window.location.href : null,
+        url: typeof window !== "undefined" ? window.location.href : null,
       },
     })
   }

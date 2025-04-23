@@ -1,8 +1,8 @@
-'use client'
+"use client"
 
-import React from 'react'
-import { Button } from '@/components/ui/button'
-import { AlertTriangle, RefreshCw } from 'lucide-react'
+import React from "react"
+import { Button } from "@/components/ui/button"
+import { AlertTriangle, RefreshCw } from "lucide-react"
 
 interface ErrorBoundaryProps {
   children: React.ReactNode
@@ -29,7 +29,7 @@ export class EnhancedErrorBoundary extends React.Component<ErrorBoundaryProps, E
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // Log error to an error reporting service
-    console.error('Error caught by boundary:', error, errorInfo)
+    console.error("Error caught by boundary:", error, errorInfo)
 
     // Call onError callback if provided
     if (this.props.onError) {
@@ -42,10 +42,7 @@ export class EnhancedErrorBoundary extends React.Component<ErrorBoundaryProps, E
   componentDidUpdate(prevProps: ErrorBoundaryProps) {
     // Reset the error boundary when resetKeys change
     if (this.state.hasError && this.props.resetKeys) {
-      if (
-        !prevProps.resetKeys ||
-        JSON.stringify(prevProps.resetKeys) !== JSON.stringify(this.props.resetKeys)
-      ) {
+      if (!prevProps.resetKeys || JSON.stringify(prevProps.resetKeys) !== JSON.stringify(this.props.resetKeys)) {
         this.resetErrorBoundary()
       }
     }
@@ -58,7 +55,7 @@ export class EnhancedErrorBoundary extends React.Component<ErrorBoundaryProps, E
   render() {
     if (this.state.hasError) {
       if (this.props.fallback) {
-        if (typeof this.props.fallback === 'function') {
+        if (typeof this.props.fallback === "function") {
           return this.props.fallback({
             error: this.state.error,
             resetErrorBoundary: this.resetErrorBoundary,
@@ -74,10 +71,10 @@ export class EnhancedErrorBoundary extends React.Component<ErrorBoundaryProps, E
           </div>
           <h2 className="text-2xl font-bold mb-2">Something went wrong</h2>
           <p className="text-muted-foreground mb-6 max-w-md">
-            We're sorry, but we encountered an error while loading this content. Please try again or
-            contact support if the problem persists.
+            We're sorry, but we encountered an error while loading this content. Please try again or contact support if
+            the problem persists.
           </p>
-          {process.env.NODE_ENV !== 'production' && this.state.error && (
+          {process.env.NODE_ENV !== "production" && this.state.error && (
             <div className="mb-6 p-4 bg-muted/50 rounded-md overflow-auto max-w-full text-left">
               <p className="font-mono text-sm text-destructive">{this.state.error.toString()}</p>
               {this.state.errorInfo && (

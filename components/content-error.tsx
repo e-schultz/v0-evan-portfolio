@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/button'
-import { AlertCircle } from 'lucide-react'
-import Link from 'next/link'
+import { Button } from "@/components/ui/button"
+import { AlertCircle } from "lucide-react"
+import Link from "next/link"
 
 interface ContentErrorProps {
   title?: string
@@ -10,10 +10,10 @@ interface ContentErrorProps {
 }
 
 export function ContentError({
-  title = 'Content Not Found',
+  title = "Content Not Found",
   message = "The content you're looking for couldn't be loaded.",
-  backLink = '/',
-  backText = 'Go back home',
+  backLink = "/",
+  backText = "Go back home",
 }: ContentErrorProps) {
   return (
     <div className="flex flex-col items-center justify-center min-h-[300px] p-6 text-center">

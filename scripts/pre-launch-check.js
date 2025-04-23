@@ -1,24 +1,24 @@
 // This is a Node.js script you can run before launch
 // Run with: node scripts/pre-launch-check.js
 
-const fs = require('fs')
-const path = require('path')
-const { promisify } = require('util')
+const fs = require("fs")
+const path = require("path")
+const { promisify } = require("util")
 const readdir = promisify(fs.readdir)
 const readFile = promisify(fs.readFile)
 
-const contentDir = path.join(process.cwd(), 'content')
+const contentDir = path.join(process.cwd(), "content")
 
 async function checkBlogPosts() {
-  console.log('\n🔍 Checking blog posts...')
-  const blogDir = path.join(contentDir, 'blog')
+  console.log("\n🔍 Checking blog posts...")
+  const blogDir = path.join(contentDir, "blog")
   const files = await readdir(blogDir)
 
   for (const file of files) {
-    if (!file.endsWith('.json')) continue
+    if (!file.endsWith(".json")) continue
 
     try {
-      const content = await readFile(path.join(blogDir, file), 'utf8')
+      const content = await readFile(path.join(blogDir, file), "utf8")
       const post = JSON.parse(content)
 
       // Basic validation
@@ -35,15 +35,15 @@ async function checkBlogPosts() {
 }
 
 async function checkProjects() {
-  console.log('\n🔍 Checking projects...')
-  const projectsDir = path.join(contentDir, 'projects')
+  console.log("\n🔍 Checking projects...")
+  const projectsDir = path.join(contentDir, "projects")
   const files = await readdir(projectsDir)
 
   for (const file of files) {
-    if (!file.endsWith('.json')) continue
+    if (!file.endsWith(".json")) continue
 
     try {
-      const content = await readFile(path.join(projectsDir, file), 'utf8')
+      const content = await readFile(path.join(projectsDir, file), "utf8")
       const project = JSON.parse(content)
 
       // Basic validation
@@ -60,12 +60,12 @@ async function checkProjects() {
 }
 
 async function main() {
-  console.log('🚀 Running pre-launch checks...')
+  console.log("🚀 Running pre-launch checks...")
 
   await checkBlogPosts()
   await checkProjects()
 
-  console.log('\n✨ Pre-launch check complete!')
+  console.log("\n✨ Pre-launch check complete!")
 }
 
 main().catch(console.error)

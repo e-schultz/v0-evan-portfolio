@@ -64,12 +64,7 @@
       },
       {
         "name": "Leadership",
-        "items": [
-          "Team Management",
-          "Technical Mentoring",
-          "Project Planning",
-          "Agile Methodologies"
-        ]
+        "items": ["Team Management", "Technical Mentoring", "Project Planning", "Agile Methodologies"]
       }
     ]
   },

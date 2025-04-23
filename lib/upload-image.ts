@@ -1,4 +1,4 @@
-import { put } from '@vercel/blob'
+import { put } from "@vercel/blob"
 
 /**
  * Upload an image to Vercel Blob storage
@@ -13,21 +13,20 @@ export async function uploadImage(
     folder?: string
   },
 ) {
-  const filename =
-    options?.filename || (file instanceof File ? file.name : `image-${Date.now()}.jpg`)
+  const filename = options?.filename || (file instanceof File ? file.name : `image-${Date.now()}.jpg`)
 
-  const folder = options?.folder || 'uploads'
+  const folder = options?.folder || "uploads"
   const fullFilename = `${folder}/${filename}`
 
   try {
     const blob = await put(fullFilename, file, {
-      access: 'public',
+      access: "public",
       token: process.env.BLOB_READ_WRITE_TOKEN as string,
     })
 
     return blob.url
   } catch (error) {
-    console.error('Error uploading image to Blob:', error)
+    console.error("Error uploading image to Blob:", error)
     throw error
   }
 }

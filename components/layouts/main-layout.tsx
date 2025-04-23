@@ -1,5 +1,5 @@
-import type React from 'react'
-import { ClientLayout } from './client-layout'
+import type React from "react"
+import { ClientLayout } from "./client-layout"
 
 interface MainLayoutProps {
   children: React.ReactNode

@@ -9,14 +9,14 @@ interface ErrorDetails {
 
 export function reportError({ error, componentStack, additionalInfo }: ErrorDetails) {
   // In development, just log to console
-  if (process.env.NODE_ENV !== 'production') {
-    console.group('Error Report')
-    console.error('Error:', error)
+  if (process.env.NODE_ENV !== "production") {
+    console.group("Error Report")
+    console.error("Error:", error)
     if (componentStack) {
-      console.error('Component Stack:', componentStack)
+      console.error("Component Stack:", componentStack)
     }
     if (additionalInfo) {
-      console.error('Additional Info:', additionalInfo)
+      console.error("Additional Info:", additionalInfo)
     }
     console.groupEnd()
     return

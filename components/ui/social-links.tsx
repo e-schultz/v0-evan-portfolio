@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import { Github, Linkedin, Twitter, ExternalLink } from 'lucide-react'
+import Link from "next/link"
+import { Github, Linkedin, Twitter, ExternalLink } from "lucide-react"
 
 interface SocialLink {
   platform: string
@@ -9,27 +9,27 @@ interface SocialLink {
 
 interface SocialLinksProps {
   links: SocialLink[]
-  size?: 'sm' | 'md' | 'lg'
+  size?: "sm" | "md" | "lg"
   className?: string
 }
 
-export function SocialLinks({ links = [], size = 'md', className = '' }: SocialLinksProps) {
+export function SocialLinks({ links = [], size = "md", className = "" }: SocialLinksProps) {
   const sizeClasses = {
-    sm: 'h-4 w-4',
-    md: 'h-5 w-5',
-    lg: 'h-6 w-6',
+    sm: "h-4 w-4",
+    md: "h-5 w-5",
+    lg: "h-6 w-6",
   }
 
-  const getSocialIcon = (platform = '') => {
+  const getSocialIcon = (platform = "") => {
     // Ensure platform is a string before calling toLowerCase
-    const platformName = typeof platform === 'string' ? platform.toLowerCase() : ''
+    const platformName = typeof platform === "string" ? platform.toLowerCase() : ""
 
     switch (platformName) {
-      case 'github':
+      case "github":
         return <Github className={sizeClasses[size]} />
-      case 'linkedin':
+      case "linkedin":
         return <Linkedin className={sizeClasses[size]} />
-      case 'twitter':
+      case "twitter":
         return <Twitter className={sizeClasses[size]} />
       default:
         return <ExternalLink className={sizeClasses[size]} />
@@ -44,14 +44,14 @@ export function SocialLinks({ links = [], size = 'md', className = '' }: SocialL
       {safeLinks.map((link, index) => (
         <Link
           key={index}
-          href={link.url || '#'}
+          href={link.url || "#"}
           target="_blank"
           rel="noopener noreferrer"
           className="text-muted-foreground hover:text-primary"
-          aria-label={link.label || 'Social link'}
+          aria-label={link.label || "Social link"}
         >
           {getSocialIcon(link.platform)}
-          <span className="sr-only">{link.label || 'Social link'}</span>
+          <span className="sr-only">{link.label || "Social link"}</span>
         </Link>
       ))}
     </div>

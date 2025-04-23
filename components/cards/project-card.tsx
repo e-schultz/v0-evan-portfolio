@@ -1,17 +1,10 @@
-import Link from 'next/link'
-import Image from 'next/image'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card'
-import { Github, ExternalLink } from 'lucide-react'
-import type { Project } from '@/lib/content-types'
+import Link from "next/link"
+import Image from "next/image"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Github, ExternalLink } from "lucide-react"
+import type { Project } from "@/lib/content-types"
 
 interface ProjectCardProps {
   project: Project
@@ -21,11 +14,11 @@ interface ProjectCardProps {
 export function ProjectCard({ project, featured = false }: ProjectCardProps) {
   return (
     <Card
-      className={`overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-lg ${featured ? 'border-primary/30 bg-primary/5' : ''}`}
+      className={`overflow-hidden h-full flex flex-col transition-all duration-300 hover:shadow-lg ${featured ? "border-primary/30 bg-primary/5" : ""}`}
     >
       <div className="relative h-48 overflow-hidden">
         <Image
-          src={project.image || '/placeholder.svg'}
+          src={project.image || "/placeholder.svg"}
           alt={project.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -40,7 +33,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
       <CardContent className="flex-grow pt-0">
         <div className="flex flex-wrap gap-2 mt-2">
           {project.tags.map((tag, index) => (
-            <Badge key={index} variant={featured ? 'default' : 'secondary'} className="font-medium">
+            <Badge key={index} variant={featured ? "default" : "secondary"} className="font-medium">
               {tag}
             </Badge>
           ))}
@@ -71,12 +64,7 @@ export function ProjectCard({ project, featured = false }: ProjectCardProps) {
           )}
         </div>
         {project.slug && (
-          <Button
-            variant="outline"
-            size="sm"
-            className="ml-auto hover:bg-primary/10 hover:text-primary"
-            asChild
-          >
+          <Button variant="outline" size="sm" className="ml-auto hover:bg-primary/10 hover:text-primary" asChild>
             <Link href={`/projects/${project.slug}`}>Details</Link>
           </Button>
         )}

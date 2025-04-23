@@ -1,10 +1,10 @@
-'use client'
+"use client"
 
-import type React from 'react'
+import type React from "react"
 
-import { useState, useEffect } from 'react'
-import { AlertTriangle, RefreshCw } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { useState, useEffect } from "react"
+import { AlertTriangle, RefreshCw } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 interface ErrorBoundaryWrapperProps {
   children: React.ReactNode
@@ -16,14 +16,14 @@ export function ErrorBoundaryWrapper({ children, fallback }: ErrorBoundaryWrappe
 
   useEffect(() => {
     const errorHandler = (event: ErrorEvent) => {
-      console.error('Error caught by error boundary:', event.error)
+      console.error("Error caught by error boundary:", event.error)
       setHasError(true)
       // Prevent the error from bubbling up
       event.preventDefault()
     }
 
-    window.addEventListener('error', errorHandler)
-    return () => window.removeEventListener('error', errorHandler)
+    window.addEventListener("error", errorHandler)
+    return () => window.removeEventListener("error", errorHandler)
   }, [])
 
   if (hasError) {
@@ -35,12 +35,7 @@ export function ErrorBoundaryWrapper({ children, fallback }: ErrorBoundaryWrappe
           </div>
           <h3 className="text-xl font-bold mb-2">Something went wrong</h3>
           <p className="text-muted-foreground mb-4">There was an error loading this content.</p>
-          <Button
-            onClick={() => setHasError(false)}
-            variant="outline"
-            size="sm"
-            className="flex items-center"
-          >
+          <Button onClick={() => setHasError(false)} variant="outline" size="sm" className="flex items-center">
             <RefreshCw className="mr-2 h-4 w-4" /> Try again
           </Button>
         </div>

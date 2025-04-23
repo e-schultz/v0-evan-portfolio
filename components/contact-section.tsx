@@ -1,15 +1,15 @@
-'use client'
+"use client"
 
-import type React from 'react'
-import { useState } from 'react'
-import { useFormStatus } from 'react-dom'
-import { submitContactFormAction } from '@/lib/server-actions'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
-import { Mail, MessageSquare, Send } from 'lucide-react'
-import { EnhancedErrorBoundary } from '@/components/enhanced-error-boundary'
+import type React from "react"
+import { useState } from "react"
+import { useFormStatus } from "react-dom"
+import { submitContactFormAction } from "@/lib/server-actions"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
+import { Mail, MessageSquare, Send } from "lucide-react"
+import { EnhancedErrorBoundary } from "@/components/enhanced-error-boundary"
 
 // Submit button with loading state
 function SubmitButton() {
@@ -30,13 +30,13 @@ function SubmitButton() {
 
 export function ContactSection() {
   const [formState, setFormState] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   })
   const [submitSuccess, setSubmitSuccess] = useState(false)
-  const [submitError, setSubmitError] = useState('')
+  const [submitError, setSubmitError] = useState("")
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -47,9 +47,7 @@ export function ContactSection() {
     <section className="py-16 md:py-24 bg-muted/50" id="contact">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            Get In Touch
-          </h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-4">Get In Touch</h2>
           <div className="w-20 h-1 bg-primary mb-8"></div>
           <p className="text-base md:text-lg text-muted-foreground max-w-3xl">
             Have a question or want to work together? Feel free to reach out!
@@ -79,7 +77,7 @@ export function ContactSection() {
               <div>
                 <h3 className="text-xl font-bold mb-2">Social Media</h3>
                 <p className="text-muted-foreground">
-                  Connect with me on{' '}
+                  Connect with me on{" "}
                   <a
                     href="https://www.linkedin.com/in/evanschultz1/"
                     target="_blank"
@@ -87,8 +85,8 @@ export function ContactSection() {
                     className="text-primary hover:underline"
                   >
                     LinkedIn
-                  </a>{' '}
-                  or{' '}
+                  </a>{" "}
+                  or{" "}
                   <a
                     href="http://twitter.com/e_p82"
                     target="_blank"
@@ -105,8 +103,7 @@ export function ContactSection() {
             <div className="bg-card p-6 rounded-lg border">
               <h3 className="text-xl font-bold mb-4">Let's Work Together</h3>
               <p className="text-muted-foreground mb-4">
-                I'm always open to discussing new projects, creative ideas, or opportunities to be
-                part of your vision.
+                I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.
               </p>
               <ul className="space-y-2 text-muted-foreground">
                 <li>• Technical consulting</li>
@@ -140,23 +137,20 @@ export function ContactSection() {
                     const result = await submitContactFormAction(formData)
                     if (result.success) {
                       setSubmitSuccess(true)
-                      setSubmitError('')
+                      setSubmitError("")
                       setFormState({
-                        name: '',
-                        email: '',
-                        subject: '',
-                        message: '',
+                        name: "",
+                        email: "",
+                        subject: "",
+                        message: "",
                       })
                     } else {
                       setSubmitSuccess(false)
-                      setSubmitError(
-                        result.message ||
-                          'There was an error submitting your message. Please try again.',
-                      )
+                      setSubmitError(result.message || "There was an error submitting your message. Please try again.")
                     }
                   } catch (error) {
                     setSubmitSuccess(false)
-                    setSubmitError('There was an error submitting your message. Please try again.')
+                    setSubmitError("There was an error submitting your message. Please try again.")
                   }
                 }}
                 className="space-y-6"

@@ -1,18 +1,18 @@
-'use client'
+"use client"
 
-import type React from 'react'
-import { useState } from 'react'
-import { useFormStatus } from 'react-dom'
-import { submitContactFormAction } from '@/lib/server-actions'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Send } from 'lucide-react'
-import type { ContactFormContent } from '@/lib/content-types'
-import { EnhancedErrorBoundary } from '@/components/enhanced-error-boundary'
-import { FormErrorFallback } from '@/components/error-fallbacks/form-error-fallback'
+import type React from "react"
+import { useState } from "react"
+import { useFormStatus } from "react-dom"
+import { submitContactFormAction } from "@/lib/server-actions"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Send } from "lucide-react"
+import type { ContactFormContent } from "@/lib/content-types"
+import { EnhancedErrorBoundary } from "@/components/enhanced-error-boundary"
+import { FormErrorFallback } from "@/components/error-fallbacks/form-error-fallback"
 
 // Submit button with loading state
 function SubmitButton() {
@@ -37,13 +37,13 @@ interface ContactFormProps {
 
 export function ContactForm({ formContent }: ContactFormProps) {
   const [formState, setFormState] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
   })
   const [submitSuccess, setSubmitSuccess] = useState(false)
-  const [submitError, setSubmitError] = useState('')
+  const [submitError, setSubmitError] = useState("")
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -52,42 +52,42 @@ export function ContactForm({ formContent }: ContactFormProps) {
 
   // Default content if none is provided
   const content = formContent || {
-    title: 'Send Me a Message',
+    title: "Send Me a Message",
     description: "Fill out the form below and I'll get back to you as soon as possible.",
     fields: [
       {
-        name: 'name',
-        label: 'Name',
-        type: 'text',
-        placeholder: 'Your name',
+        name: "name",
+        label: "Name",
+        type: "text",
+        placeholder: "Your name",
         required: true,
       },
       {
-        name: 'email',
-        label: 'Email',
-        type: 'email',
-        placeholder: 'Your email address',
+        name: "email",
+        label: "Email",
+        type: "email",
+        placeholder: "Your email address",
         required: true,
       },
       {
-        name: 'subject',
-        label: 'Subject',
-        type: 'text',
-        placeholder: 'What is this regarding?',
+        name: "subject",
+        label: "Subject",
+        type: "text",
+        placeholder: "What is this regarding?",
         required: true,
       },
       {
-        name: 'message',
-        label: 'Message',
-        type: 'textarea',
-        placeholder: 'Your message',
+        name: "message",
+        label: "Message",
+        type: "textarea",
+        placeholder: "Your message",
         required: true,
         rows: 5,
       },
     ],
     submitButton: {
-      text: 'Send Message',
-      icon: 'send',
+      text: "Send Message",
+      icon: "send",
     },
   }
 
@@ -125,23 +125,20 @@ export function ContactForm({ formContent }: ContactFormProps) {
                 const result = await submitContactFormAction(formData)
                 if (result.success) {
                   setSubmitSuccess(true)
-                  setSubmitError('')
+                  setSubmitError("")
                   setFormState({
-                    name: '',
-                    email: '',
-                    subject: '',
-                    message: '',
+                    name: "",
+                    email: "",
+                    subject: "",
+                    message: "",
                   })
                 } else {
                   setSubmitSuccess(false)
-                  setSubmitError(
-                    result.message ||
-                      'There was an error submitting your message. Please try again.',
-                  )
+                  setSubmitError(result.message || "There was an error submitting your message. Please try again.")
                 }
               } catch (error) {
                 setSubmitSuccess(false)
-                setSubmitError('There was an error submitting your message. Please try again.')
+                setSubmitError("There was an error submitting your message. Please try again.")
               }
             }}
             className="space-y-4 md:space-y-6"
@@ -155,7 +152,7 @@ export function ContactForm({ formContent }: ContactFormProps) {
                     name={field.name}
                     type={field.type}
                     placeholder={field.placeholder}
-                    value={formState[field.name as keyof typeof formState] || ''}
+                    value={formState[field.name as keyof typeof formState] || ""}
                     onChange={handleChange}
                     required={field.required}
                   />
@@ -166,13 +163,13 @@ export function ContactForm({ formContent }: ContactFormProps) {
             {content.fields.slice(2).map((field) => (
               <div key={field.name} className="space-y-2">
                 <Label htmlFor={field.name}>{field.label}</Label>
-                {field.type === 'textarea' ? (
+                {field.type === "textarea" ? (
                   <Textarea
                     id={field.name}
                     name={field.name}
                     placeholder={field.placeholder}
                     rows={field.rows || 5}
-                    value={formState[field.name as keyof typeof formState] || ''}
+                    value={formState[field.name as keyof typeof formState] || ""}
                     onChange={handleChange}
                     required={field.required}
                     className="resize-none"
@@ -183,7 +180,7 @@ export function ContactForm({ formContent }: ContactFormProps) {
                     name={field.name}
                     type={field.type}
                     placeholder={field.placeholder}
-                    value={formState[field.name as keyof typeof formState] || ''}
+                    value={formState[field.name as keyof typeof formState] || ""}
                     onChange={handleChange}
                     required={field.required}
                   />

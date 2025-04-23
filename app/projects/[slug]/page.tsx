@@ -1,7 +1,7 @@
-import { getProject } from '@/lib/content-api'
-import { ContentContainer } from '@/components/ui/content-container'
-import { ContentError } from '@/components/content-error'
-import { formatContent } from '@/lib/format-content'
+import { getProject } from "@/lib/content-api"
+import { ContentContainer } from "@/components/ui/content-container"
+import { ContentError } from "@/components/content-error"
+import { formatContent } from "@/lib/format-content"
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   // Await params before accessing its properties
@@ -10,8 +10,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
   if (!project) {
     return {
-      title: 'Project Not Found',
-      description: 'The requested project could not be found.',
+      title: "Project Not Found",
+      description: "The requested project could not be found.",
     }
   }
 
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     openGraph: {
       title: project.title,
       description: project.description,
-      type: 'article',
+      type: "article",
       images: [
         {
           url: project.image,
@@ -63,16 +63,10 @@ export default async function ProjectPage({ params }: { params: { slug: string }
         </header>
 
         <div className="relative aspect-video overflow-hidden rounded-lg border mb-8">
-          <img
-            src={project.image || '/placeholder.svg'}
-            alt={project.title}
-            className="w-full h-full object-cover"
-          />
+          <img src={project.image || "/placeholder.svg"} alt={project.title} className="w-full h-full object-cover" />
         </div>
 
-        <div className="prose prose-lg dark:prose-invert max-w-none">
-          {formatContent(project.content)}
-        </div>
+        <div className="prose prose-lg dark:prose-invert max-w-none">{formatContent(project.content)}</div>
       </article>
     </div>
   )

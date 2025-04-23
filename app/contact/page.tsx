@@ -1,14 +1,14 @@
-import { PageHeader } from '@/components/ui/page-header'
-import { ContentContainer } from '@/components/ui/content-container'
-import { ContactForm } from '@/components/contact-form'
-import { Mail, MessageSquare } from 'lucide-react'
-import { SocialLinks } from '@/components/ui/social-links'
-import { getGenericContent } from '@/lib/content-api'
-import { ContentError } from '@/components/content-error'
+import { PageHeader } from "@/components/ui/page-header"
+import { ContentContainer } from "@/components/ui/content-container"
+import { ContactForm } from "@/components/contact-form"
+import { Mail, MessageSquare } from "lucide-react"
+import { SocialLinks } from "@/components/ui/social-links"
+import { getGenericContent } from "@/lib/content-api"
+import { ContentError } from "@/components/content-error"
 
 export default async function ContactPage() {
   try {
-    const contactContent = await getGenericContent('pages/contact')
+    const contactContent = await getGenericContent("pages/contact")
 
     // If content is missing, provide default values
     if (!contactContent) {
@@ -27,38 +27,37 @@ export default async function ContactPage() {
     }
 
     // Default values for missing content sections
-    const title = contactContent.title || 'Get In Touch'
+    const title = contactContent.title || "Get In Touch"
     const description =
-      contactContent.description ||
-      'Have a question or want to work together? Feel free to reach out!'
+      contactContent.description || "Have a question or want to work together? Feel free to reach out!"
 
     // Default email section
     const email = contactContent.email || {
-      title: 'Email',
-      address: 'evan@schultz.codes',
+      title: "Email",
+      address: "evan@schultz.codes",
     }
 
     // Default social section with empty platforms if missing
     const social = contactContent.social || {
-      title: 'Social Media',
+      title: "Social Media",
       platforms: [],
     }
 
     // Ensure platforms is an array and map to the expected format
     const platforms = Array.isArray(social?.platforms)
       ? social.platforms.map((platform) => ({
-          platform: platform?.icon || platform?.name || 'external',
-          url: platform?.url || '#',
-          label: platform?.name || 'Social link',
+          platform: platform?.icon || platform?.name || "external",
+          url: platform?.url || "#",
+          label: platform?.name || "Social link",
         }))
       : []
 
     // Default image
     const image = contactContent.image || {
-      src: '/hands-reaching.png',
-      alt: 'Contact image',
-      caption: 'Get in touch',
-      description: 'Ready to connect',
+      src: "/hands-reaching.png",
+      alt: "Contact image",
+      caption: "Get in touch",
+      description: "Ready to connect",
     }
 
     return (
@@ -101,16 +100,14 @@ export default async function ContactPage() {
 
                 <div className="relative overflow-hidden rounded-lg border aspect-square md:aspect-auto md:h-[400px]">
                   <img
-                    src={image.src || '/placeholder.svg'}
-                    alt={image.alt || 'Contact image'}
+                    src={image.src || "/placeholder.svg"}
+                    alt={image.alt || "Contact image"}
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent flex items-end">
                     <div className="p-6">
-                      <h3 className="text-xl font-bold mb-2 text-white">
-                        {image.caption || 'Get in touch'}
-                      </h3>
-                      <p className="text-white/80">{image.description || 'Ready to connect'}</p>
+                      <h3 className="text-xl font-bold mb-2 text-white">{image.caption || "Get in touch"}</h3>
+                      <p className="text-white/80">{image.description || "Ready to connect"}</p>
                     </div>
                   </div>
                 </div>
@@ -125,7 +122,7 @@ export default async function ContactPage() {
       </>
     )
   } catch (error) {
-    console.error('Error rendering contact page:', error)
+    console.error("Error rendering contact page:", error)
     return (
       <ContentContainer>
         <div className="py-12">

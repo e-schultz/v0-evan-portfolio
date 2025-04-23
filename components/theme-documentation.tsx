@@ -1,20 +1,20 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Button } from '@/components/ui/button'
-import { useTheme } from 'next-themes'
+import { useState } from "react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Button } from "@/components/ui/button"
+import { useTheme } from "next-themes"
 
 export function ThemeDocumentation() {
   const { theme, setTheme } = useTheme()
-  const [themeVariant, setThemeVariant] = useState('')
+  const [themeVariant, setThemeVariant] = useState("")
 
   const applyThemeVariant = (variant: string) => {
     if (variant) {
-      document.documentElement.setAttribute('data-theme', variant)
+      document.documentElement.setAttribute("data-theme", variant)
     } else {
-      document.documentElement.removeAttribute('data-theme')
+      document.documentElement.removeAttribute("data-theme")
     }
     setThemeVariant(variant)
   }
@@ -24,8 +24,7 @@ export function ThemeDocumentation() {
       <CardHeader>
         <CardTitle>Theme Documentation</CardTitle>
         <CardDescription>
-          This portfolio uses a flexible theming system with support for light/dark modes and color
-          variants.
+          This portfolio uses a flexible theming system with support for light/dark modes and color variants.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
@@ -46,13 +45,13 @@ export function ThemeDocumentation() {
             </ul>
 
             <div className="flex flex-wrap gap-2 pt-4">
-              <Button variant="outline" size="sm" onClick={() => setTheme('light')}>
+              <Button variant="outline" size="sm" onClick={() => setTheme("light")}>
                 Light Mode
               </Button>
-              <Button variant="outline" size="sm" onClick={() => setTheme('dark')}>
+              <Button variant="outline" size="sm" onClick={() => setTheme("dark")}>
                 Dark Mode
               </Button>
-              <Button variant="outline" size="sm" onClick={() => setTheme('system')}>
+              <Button variant="outline" size="sm" onClick={() => setTheme("system")}>
                 System Mode
               </Button>
             </div>
@@ -63,32 +62,32 @@ export function ThemeDocumentation() {
 
             <div className="flex flex-wrap gap-2">
               <Button
-                variant={themeVariant === '' ? 'default' : 'outline'}
+                variant={themeVariant === "" ? "default" : "outline"}
                 size="sm"
-                onClick={() => applyThemeVariant('')}
+                onClick={() => applyThemeVariant("")}
               >
                 Default Blue
               </Button>
               <Button
-                variant={themeVariant === 'purple' ? 'default' : 'outline'}
+                variant={themeVariant === "purple" ? "default" : "outline"}
                 size="sm"
-                onClick={() => applyThemeVariant('purple')}
+                onClick={() => applyThemeVariant("purple")}
                 className="bg-purple-600 hover:bg-purple-700 text-white"
               >
                 Purple
               </Button>
               <Button
-                variant={themeVariant === 'green' ? 'default' : 'outline'}
+                variant={themeVariant === "green" ? "default" : "outline"}
                 size="sm"
-                onClick={() => applyThemeVariant('green')}
+                onClick={() => applyThemeVariant("green")}
                 className="bg-green-600 hover:bg-green-700 text-white"
               >
                 Green
               </Button>
               <Button
-                variant={themeVariant === 'high-contrast' ? 'default' : 'outline'}
+                variant={themeVariant === "high-contrast" ? "default" : "outline"}
                 size="sm"
-                onClick={() => applyThemeVariant('high-contrast')}
+                onClick={() => applyThemeVariant("high-contrast")}
                 className="bg-black text-white dark:bg-white dark:text-black"
               >
                 High Contrast
@@ -98,18 +97,12 @@ export function ThemeDocumentation() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 pt-4">
               <div className="p-4 bg-background border rounded-md">Background</div>
               <div className="p-4 bg-foreground text-background border rounded-md">Foreground</div>
-              <div className="p-4 bg-primary text-primary-foreground border rounded-md">
-                Primary
-              </div>
-              <div className="p-4 bg-secondary text-secondary-foreground border rounded-md">
-                Secondary
-              </div>
+              <div className="p-4 bg-primary text-primary-foreground border rounded-md">Primary</div>
+              <div className="p-4 bg-secondary text-secondary-foreground border rounded-md">Secondary</div>
               <div className="p-4 bg-muted text-muted-foreground border rounded-md">Muted</div>
               <div className="p-4 bg-accent text-accent-foreground border rounded-md">Accent</div>
               <div className="p-4 bg-card text-card-foreground border rounded-md">Card</div>
-              <div className="p-4 bg-destructive text-destructive-foreground border rounded-md">
-                Destructive
-              </div>
+              <div className="p-4 bg-destructive text-destructive-foreground border rounded-md">Destructive</div>
             </div>
           </TabsContent>
 

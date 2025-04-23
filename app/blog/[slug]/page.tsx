@@ -1,6 +1,6 @@
 // This is a Server Component
-import { getBlogPost } from '@/lib/content-api'
-import { ClientBlogContent } from '@/components/blog/client-blog-content'
+import { getBlogPost } from "@/lib/content-api"
+import { ClientBlogContent } from "@/components/blog/client-blog-content"
 
 export async function generateMetadata({ params }: { params: { slug: string } }) {
   // Await params before accessing its properties
@@ -9,8 +9,8 @@ export async function generateMetadata({ params }: { params: { slug: string } })
 
   if (!post) {
     return {
-      title: 'Post Not Found',
-      description: 'The requested post could not be found.',
+      title: "Post Not Found",
+      description: "The requested post could not be found.",
     }
   }
 
@@ -20,9 +20,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
     openGraph: {
       title: post.title,
       description: post.excerpt,
-      type: 'article',
+      type: "article",
       publishedTime: post.date,
-      authors: ['Evan Schultz'],
+      authors: ["Evan Schultz"],
       tags: post.tags,
     },
   }
@@ -40,10 +40,10 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       <article className="max-w-4xl mx-auto">
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">{blogPost.title}</h1>
         <div className="text-muted-foreground mb-8">
-          {new Date(blogPost.date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
+          {new Date(blogPost.date).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
           })}
           {blogPost.category && (
             <span className="ml-4">

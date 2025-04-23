@@ -1,8 +1,8 @@
-'use client'
-import { use } from 'react'
-import { searchPosts } from '@/lib/server-actions'
-import { BlogCard } from '@/components/cards/blog-card'
-import { NoResults } from '@/components/ui/no-results'
+"use client"
+import { use } from "react"
+import { searchPosts } from "@/lib/server-actions"
+import { BlogCard } from "@/components/cards/blog-card"
+import { NoResults } from "@/components/ui/no-results"
 
 // This component uses a proper suspense-compatible pattern
 export function SearchResults({ query }: { query: string }) {

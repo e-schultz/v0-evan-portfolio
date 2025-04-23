@@ -1,8 +1,8 @@
-'use client'
+"use client"
 
-import { Button } from '@/components/ui/button'
-import { AlertCircle } from 'lucide-react'
-import Link from 'next/link'
+import { Button } from "@/components/ui/button"
+import { AlertCircle } from "lucide-react"
+import Link from "next/link"
 
 interface ContentErrorFallbackProps {
   error?: Error
@@ -16,10 +16,10 @@ interface ContentErrorFallbackProps {
 export function ContentErrorFallback({
   error,
   resetErrorBoundary,
-  title = 'Content Not Available',
+  title = "Content Not Available",
   message = "We're having trouble loading this content.",
-  backLink = '/',
-  backText = 'Go back home',
+  backLink = "/",
+  backText = "Go back home",
 }: ContentErrorFallbackProps) {
   return (
     <div className="flex flex-col items-center justify-center min-h-[300px] p-6 text-center">
@@ -40,7 +40,7 @@ export function ContentErrorFallback({
         </Button>
       </div>
 
-      {process.env.NODE_ENV !== 'production' && error && (
+      {process.env.NODE_ENV !== "production" && error && (
         <div className="mt-6 p-4 bg-muted/50 rounded-md overflow-auto max-w-full text-left">
           <p className="font-mono text-xs text-destructive">{error.toString()}</p>
         </div>

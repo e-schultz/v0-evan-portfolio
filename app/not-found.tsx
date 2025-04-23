@@ -1,8 +1,8 @@
-import Link from 'next/link'
-import { MainLayout } from '@/components/layouts/main-layout'
-import { ContentContainer } from '@/components/ui/content-container'
-import { Button } from '@/components/ui/button'
-import { FileQuestion } from 'lucide-react'
+import Link from "next/link"
+import { MainLayout } from "@/components/layouts/main-layout"
+import { ContentContainer } from "@/components/ui/content-container"
+import { Button } from "@/components/ui/button"
+import { FileQuestion } from "lucide-react"
 
 export default function NotFound() {
   return (

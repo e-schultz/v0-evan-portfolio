@@ -1,15 +1,15 @@
-import Link from 'next/link'
-import { PageHeader } from '@/components/ui/page-header'
-import { ContentContainer } from '@/components/ui/content-container'
-import { SectionHeader } from '@/components/ui/section-header'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent } from '@/components/ui/card'
-import { Calendar, Briefcase, GraduationCap, Mic, User, ArrowRight } from 'lucide-react'
-import { getGenericContent } from '@/lib/content-api'
+import Link from "next/link"
+import { PageHeader } from "@/components/ui/page-header"
+import { ContentContainer } from "@/components/ui/content-container"
+import { SectionHeader } from "@/components/ui/section-header"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Card, CardContent } from "@/components/ui/card"
+import { Calendar, Briefcase, GraduationCap, Mic, User, ArrowRight } from "lucide-react"
+import { getGenericContent } from "@/lib/content-api"
 
 export default async function AboutPage() {
-  const aboutContent = await getGenericContent('pages/about')
+  const aboutContent = await getGenericContent("pages/about")
 
   if (!aboutContent) {
     return <div>Loading about content...</div>
@@ -33,7 +33,7 @@ export default async function AboutPage() {
             </div>
             <div className="relative rounded-lg overflow-hidden border border-primary/10">
               <img
-                src={aboutContent.image.src || '/placeholder.svg'}
+                src={aboutContent.image.src || "/placeholder.svg"}
                 alt={aboutContent.image.alt}
                 className="w-full h-auto"
               />
@@ -149,15 +149,10 @@ export default async function AboutPage() {
       <section className="py-12 md:py-16 bg-muted/30">
         <ContentContainer maxWidth="3xl" className="px-4 md:px-6">
           <SectionHeader title={aboutContent.speaking.title} centered />
-          <p className="text-muted-foreground text-center mb-8 md:mb-10">
-            {aboutContent.speaking.content}
-          </p>
+          <p className="text-muted-foreground text-center mb-8 md:mb-10">{aboutContent.speaking.content}</p>
           <div className="space-y-4 md:space-y-6">
             {aboutContent.speaking.highlights.map((highlight, index) => (
-              <div
-                key={index}
-                className="flex items-start space-x-4 p-4 rounded-lg bg-background border"
-              >
+              <div key={index} className="flex items-start space-x-4 p-4 rounded-lg bg-background border">
                 <div className="bg-primary/10 p-2 rounded-full">
                   <Mic className="h-5 w-5 text-primary" />
                 </div>
@@ -202,12 +197,7 @@ export default async function AboutPage() {
             <p className="text-muted-foreground">{aboutContent.cta.content}</p>
             <div className="flex flex-col sm:flex-row justify-center gap-4 pt-4">
               {aboutContent.cta.buttons.map((button, index) => (
-                <Button
-                  key={index}
-                  variant={button.variant as any}
-                  asChild
-                  className="w-full sm:w-auto"
-                >
+                <Button key={index} variant={button.variant as any} asChild className="w-full sm:w-auto">
                   <Link href={button.url}>
                     {button.text} <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>

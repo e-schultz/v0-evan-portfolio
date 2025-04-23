@@ -29,7 +29,7 @@ export interface Project {
 
 // Update the ContentBlock type to include language and filename for code blocks
 export type ContentBlock = {
-  type: 'heading' | 'paragraph' | 'list' | 'code' | 'blockquote' | 'image'
+  type: "heading" | "paragraph" | "list" | "code" | "blockquote" | "image"
   level?: number
   content?: string
   items?: string[] | ListItem[]
@@ -41,7 +41,7 @@ export type ContentBlock = {
 }
 
 export type ListItem = {
-  type: 'listItem'
+  type: "listItem"
   title?: string
   content?: string
 }

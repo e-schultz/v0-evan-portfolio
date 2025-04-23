@@ -1,4 +1,4 @@
-import type { PutBlobResult } from '@vercel/blob'
+import type { PutBlobResult } from "@vercel/blob"
 
 export type BlobUploadResult = PutBlobResult
 

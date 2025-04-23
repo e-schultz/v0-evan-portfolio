@@ -1,0 +1,8 @@
+.button-primary {
+  background-color: #4f46e5 !important; /* Indigo-600 */
+  color: white !important;
+}
+
+.button-primary:hover {
+  background-color: #4338ca !important; /* Indigo-700 */
+}

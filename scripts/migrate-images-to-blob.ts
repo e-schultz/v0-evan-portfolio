@@ -1,7 +1,7 @@
-import { put } from '@vercel/blob'
-import fs from 'fs/promises'
-import path from 'path'
-import { existsSync } from 'fs'
+import { put } from "@vercel/blob"
+import fs from "fs/promises"
+import path from "path"
+import { existsSync } from "fs"
 
 // Map to store original paths and their new Blob URLs
 const migrationMap: Record<string, string> = {}
@@ -15,7 +15,7 @@ async function uploadFile(filePath: string): Promise<string | null> {
     console.log(`Uploading ${filePath}...`)
 
     const blob = await put(fileName, fileBuffer, {
-      access: 'public',
+      access: "public",
       contentType,
       token: process.env.BLOB_READ_WRITE_TOKEN as string,
     })
@@ -31,15 +31,15 @@ async function uploadFile(filePath: string): Promise<string | null> {
 function getContentType(filename: string): string {
   const ext = path.extname(filename).toLowerCase()
   const contentTypes: Record<string, string> = {
-    '.jpg': 'image/jpeg',
-    '.jpeg': 'image/jpeg',
-    '.png': 'image/png',
-    '.gif': 'image/gif',
-    '.webp': 'image/webp',
-    '.svg': 'image/svg+xml',
+    ".jpg": "image/jpeg",
+    ".jpeg": "image/jpeg",
+    ".png": "image/png",
+    ".gif": "image/gif",
+    ".webp": "image/webp",
+    ".svg": "image/svg+xml",
   }
 
-  return contentTypes[ext] || 'application/octet-stream'
+  return contentTypes[ext] || "application/octet-stream"
 }
 
 async function scanDirectory(directory: string) {
@@ -57,7 +57,7 @@ async function scanDirectory(directory: string) {
     if (entry.isDirectory()) {
       await scanDirectory(fullPath)
     } else if (isImageFile(entry.name)) {
-      const relativePath = fullPath.replace(process.cwd(), '').replace(/\\/g, '/')
+      const relativePath = fullPath.replace(process.cwd(), "").replace(/\\/g, "/")
       const blobUrl = await uploadFile(fullPath)
 
       if (blobUrl) {
@@ -69,30 +69,30 @@ async function scanDirectory(directory: string) {
 
 function isImageFile(filename: string): boolean {
   const ext = path.extname(filename).toLowerCase()
-  return ['.jpg', '.jpeg', '.png', '.gif', '.webp', '.svg'].includes(ext)
+  return [".jpg", ".jpeg", ".png", ".gif", ".webp", ".svg"].includes(ext)
 }
 
 async function saveMapToFile() {
-  await fs.writeFile('image-migration-map.json', JSON.stringify(migrationMap, null, 2))
-  console.log('📝 Migration map saved to image-migration-map.json')
+  await fs.writeFile("image-migration-map.json", JSON.stringify(migrationMap, null, 2))
+  console.log("📝 Migration map saved to image-migration-map.json")
 }
 
 async function main() {
   if (!process.env.BLOB_READ_WRITE_TOKEN) {
-    console.error('❌ BLOB_READ_WRITE_TOKEN environment variable is not set')
+    console.error("❌ BLOB_READ_WRITE_TOKEN environment variable is not set")
     process.exit(1)
   }
 
   try {
     // Migrate images from public directory
-    await scanDirectory(path.join(process.cwd(), 'public'))
+    await scanDirectory(path.join(process.cwd(), "public"))
 
     // Save the migration map
     await saveMapToFile()
 
-    console.log('🎉 Migration completed successfully!')
+    console.log("🎉 Migration completed successfully!")
   } catch (error) {
-    console.error('❌ Migration failed:', error)
+    console.error("❌ Migration failed:", error)
   }
 }
 

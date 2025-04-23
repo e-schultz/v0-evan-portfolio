@@ -1,8 +1,8 @@
-'use client'
+"use client"
 
-import { useEffect } from 'react'
-import { Button } from '@/components/ui/button'
-import { AlertTriangle, RefreshCw } from 'lucide-react'
+import { useEffect } from "react"
+import { Button } from "@/components/ui/button"
+import { AlertTriangle, RefreshCw } from "lucide-react"
 
 interface ErrorBoundaryProps {
   error: Error & { digest?: string }
@@ -12,7 +12,7 @@ interface ErrorBoundaryProps {
 export function ErrorBoundary({ error, reset }: ErrorBoundaryProps) {
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error('Error boundary caught error:', error)
+    console.error("Error boundary caught error:", error)
   }, [error])
 
   return (
@@ -22,8 +22,8 @@ export function ErrorBoundary({ error, reset }: ErrorBoundaryProps) {
       </div>
       <h2 className="text-2xl font-bold mb-2">Something went wrong</h2>
       <p className="text-muted-foreground mb-6 max-w-md">
-        We're sorry, but we encountered an error while loading this content. Please try again or
-        contact support if the problem persists.
+        We're sorry, but we encountered an error while loading this content. Please try again or contact support if the
+        problem persists.
       </p>
       <Button onClick={reset} className="flex items-center">
         <RefreshCw className="mr-2 h-4 w-4" /> Try again

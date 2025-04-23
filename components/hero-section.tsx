@@ -1,8 +1,8 @@
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { ArrowRight, Github, Linkedin, Twitter } from 'lucide-react'
-import type { HeroContent } from '@/lib/content-types'
-import Image from 'next/image'
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { ArrowRight, Github, Linkedin, Twitter } from "lucide-react"
+import type { HeroContent } from "@/lib/content-types"
+import Image from "next/image"
 
 interface HeroSectionProps {
   heroContent: HeroContent
@@ -16,11 +16,11 @@ export function HeroSection({ heroContent }: HeroSectionProps) {
   // Map platform names to their respective icons
   const getSocialIcon = (platform: string) => {
     switch (platform) {
-      case 'github':
+      case "github":
         return <Github className="h-6 w-6" />
-      case 'linkedin':
+      case "linkedin":
         return <Linkedin className="h-6 w-6" />
-      case 'twitter':
+      case "twitter":
         return <Twitter className="h-6 w-6" />
       default:
         return null
@@ -35,22 +35,16 @@ export function HeroSection({ heroContent }: HeroSectionProps) {
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter">
               {heroContent.title}
             </h1>
-            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground">
-              {heroContent.subtitle}
-            </p>
-            <p className="text-base md:text-lg text-muted-foreground max-w-md">
-              {heroContent.description}
-            </p>
+            <p className="text-lg sm:text-xl md:text-2xl text-muted-foreground">{heroContent.subtitle}</p>
+            <p className="text-base md:text-lg text-muted-foreground max-w-md">{heroContent.description}</p>
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg" className="w-full sm:w-auto">
+              <Button asChild size="lg" className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white">
                 <Link href={heroContent.primaryButton.url}>
                   {heroContent.primaryButton.text} <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-                <Link href={heroContent.secondaryButton.url}>
-                  {heroContent.secondaryButton.text}
-                </Link>
+                <Link href={heroContent.secondaryButton.url}>{heroContent.secondaryButton.text}</Link>
               </Button>
             </div>
             <div className="flex items-center gap-4 pt-2">
@@ -71,8 +65,8 @@ export function HeroSection({ heroContent }: HeroSectionProps) {
           {heroContent.image && (
             <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] overflow-hidden rounded-lg">
               <Image
-                src={heroContent.image || '/placeholder.svg'}
-                alt={heroContent.title || 'Hero image'}
+                src={heroContent.image || "/placeholder.svg"}
+                alt={heroContent.title || "Hero image"}
                 fill
                 sizes="100vw"
                 className="object-cover"

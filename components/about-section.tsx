@@ -1,8 +1,8 @@
-import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { ArrowRight } from 'lucide-react'
-import type { AboutContent } from '@/lib/content-types'
-import Image from 'next/image'
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { ArrowRight } from "lucide-react"
+import type { AboutContent } from "@/lib/content-types"
+import Image from "next/image"
 
 interface AboutSectionProps {
   aboutContent: AboutContent
@@ -17,13 +17,9 @@ export function AboutSection({ aboutContent }: AboutSectionProps) {
     <section className="py-16 md:py-24 bg-background" id="about">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col items-center text-center mb-12">
-          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-4">
-            {aboutContent.title}
-          </h2>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight mb-4">{aboutContent.title}</h2>
           <div className="w-20 h-1 bg-primary mb-8"></div>
-          <p className="text-base md:text-lg text-muted-foreground max-w-3xl">
-            {aboutContent.description}
-          </p>
+          <p className="text-base md:text-lg text-muted-foreground max-w-3xl">{aboutContent.description}</p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
@@ -57,8 +53,8 @@ export function AboutSection({ aboutContent }: AboutSectionProps) {
           {aboutContent.image && (
             <div className="relative w-full h-[300px] md:w-[300px] md:h-[300px] overflow-hidden rounded-full mx-auto">
               <Image
-                src={aboutContent.image || '/placeholder.svg'}
-                alt={aboutContent.name || 'Profile image'}
+                src={aboutContent.image || "/placeholder.svg"}
+                alt={aboutContent.name || "Profile image"}
                 fill
                 sizes="(max-width: 768px) 100vw, 300px"
                 className="object-cover"

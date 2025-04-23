@@ -1,9 +1,9 @@
-'use client'
+"use client"
 
-import type React from 'react'
-import { Suspense } from 'react'
-import { EnhancedErrorBoundary } from './enhanced-error-boundary'
-import { LoadingSpinner } from './loading-spinner'
+import type React from "react"
+import { Suspense } from "react"
+import { EnhancedErrorBoundary } from "./enhanced-error-boundary"
+import { LoadingSpinner } from "./loading-spinner"
 
 interface AsyncBoundaryProps {
   children: React.ReactNode

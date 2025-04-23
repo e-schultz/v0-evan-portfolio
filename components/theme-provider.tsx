@@ -1,8 +1,8 @@
-'use client'
+"use client"
 
-import * as React from 'react'
-import { ThemeProvider as NextThemesProvider } from 'next-themes'
-import type { ThemeProviderProps } from 'next-themes'
+import * as React from "react"
+import { ThemeProvider as NextThemesProvider } from "next-themes"
+import type { ThemeProviderProps } from "next-themes"
 
 export interface ExtendedThemeProviderProps extends ThemeProviderProps {
   /** Whether to enable theme transitions */
@@ -17,26 +17,26 @@ export function ThemeProvider({
   children,
   enableTransitions = true,
   transitionDuration = 200,
-  defaultVariant = '',
+  defaultVariant = "",
   ...props
 }: ExtendedThemeProviderProps) {
   // Add a class to the document element when the theme is ready
   // This prevents flash of unstyled content
   React.useEffect(() => {
-    document.documentElement.classList.add('theme-ready')
+    document.documentElement.classList.add("theme-ready")
 
     // Apply default theme variant if provided
     if (defaultVariant) {
-      const savedVariant = localStorage.getItem('theme-variant')
+      const savedVariant = localStorage.getItem("theme-variant")
       if (!savedVariant) {
-        document.documentElement.setAttribute('data-theme', defaultVariant)
-        localStorage.setItem('theme-variant', defaultVariant)
+        document.documentElement.setAttribute("data-theme", defaultVariant)
+        localStorage.setItem("theme-variant", defaultVariant)
       }
     }
 
     // Apply transition styles if enabled
     if (enableTransitions) {
-      const style = document.createElement('style')
+      const style = document.createElement("style")
       style.appendChild(
         document.createTextNode(`
           .theme-ready * {
