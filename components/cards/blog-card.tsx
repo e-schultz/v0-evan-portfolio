@@ -1,10 +1,17 @@
-import Image from "next/image"
-import Link from "next/link"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, Calendar } from "lucide-react"
-import type { BlogPost } from "@/lib/content-types"
+import Image from 'next/image'
+import Link from 'next/link'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { ArrowRight, Calendar } from 'lucide-react'
+import type { BlogPost } from '@/lib/content-types'
 
 interface BlogCardProps {
   post: BlogPost
@@ -16,7 +23,7 @@ export function BlogCard({ post, showCategory = false }: BlogCardProps) {
     <Card className="flex flex-col h-full">
       <div className="h-48 overflow-hidden relative">
         <Image
-          src={post.image || "/placeholder.svg"}
+          src={post.image || '/placeholder.svg'}
           alt={post.title}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -35,7 +42,9 @@ export function BlogCard({ post, showCategory = false }: BlogCardProps) {
       <CardContent className="flex-grow">
         {showCategory && (
           <Badge variant="outline" className="mb-2">
-            <Link href={`/blog/category/${encodeURIComponent(post.category.toLowerCase())}`}>{post.category}</Link>
+            <Link href={`/blog/category/${encodeURIComponent(post.category.toLowerCase())}`}>
+              {post.category}
+            </Link>
           </Badge>
         )}
         <div className="flex flex-wrap gap-2">

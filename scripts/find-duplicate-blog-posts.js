@@ -1,8 +1,8 @@
 // This script helps identify duplicate blog posts by title or slug
-import fs from "fs"
-import path from "path"
+import fs from 'fs'
+import path from 'path'
 
-const contentDir = path.join(process.cwd(), "content/blog")
+const contentDir = path.join(process.cwd(), 'content/blog')
 const files = fs.readdirSync(contentDir)
 
 // Maps to track duplicates
@@ -11,10 +11,10 @@ const slugMap = new Map()
 
 // Process each file
 files.forEach((file) => {
-  if (!file.endsWith(".json")) return
+  if (!file.endsWith('.json')) return
 
   try {
-    const content = JSON.parse(fs.readFileSync(path.join(contentDir, file), "utf8"))
+    const content = JSON.parse(fs.readFileSync(path.join(contentDir, file), 'utf8'))
 
     // Check for title duplicates
     if (titleMap.has(content.title)) {
@@ -38,4 +38,4 @@ files.forEach((file) => {
   }
 })
 
-console.log("Scan complete.")
+console.log('Scan complete.')

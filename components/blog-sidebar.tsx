@@ -1,1 +1,1 @@
-import { BlogSearch } from "@/components/blog/blog-search"
+import { BlogSearch } from '@/components/blog/blog-search'

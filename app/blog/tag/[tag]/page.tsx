@@ -1,9 +1,9 @@
-import { MainLayout } from "@/components/layouts/main-layout"
-import { PageHeader } from "@/components/ui/page-header"
-import { ContentContainer } from "@/components/ui/content-container"
-import { BlogPostGrid } from "@/components/blog/blog-post-grid"
-import { NoResults } from "@/components/ui/no-results"
-import { getPostsByTag, getAllTags } from "@/lib/content-api"
+import { MainLayout } from '@/components/layouts/main-layout'
+import { PageHeader } from '@/components/ui/page-header'
+import { ContentContainer } from '@/components/ui/content-container'
+import { BlogPostGrid } from '@/components/blog/blog-post-grid'
+import { NoResults } from '@/components/ui/no-results'
+import { getPostsByTag, getAllTags } from '@/lib/content-api'
 
 export async function generateStaticParams() {
   try {
@@ -11,7 +11,7 @@ export async function generateStaticParams() {
     const tags = await getAllTags()
     return tags.map((tag) => ({ tag: tag.toLowerCase() }))
   } catch (error) {
-    console.error("Error generating static params for tags:", error)
+    console.error('Error generating static params for tags:', error)
     return []
   }
 }
@@ -25,7 +25,10 @@ export default async function TagPage({ params }: { params: { tag: string } }) {
 
   return (
     <MainLayout>
-      <PageHeader title={`Tag: ${decodedTag}`} description={`Browse all articles tagged with ${decodedTag}`} />
+      <PageHeader
+        title={`Tag: ${decodedTag}`}
+        description={`Browse all articles tagged with ${decodedTag}`}
+      />
 
       <section className="py-12">
         <ContentContainer>

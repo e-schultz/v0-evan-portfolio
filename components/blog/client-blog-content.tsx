@@ -1,7 +1,7 @@
-"use client"
-import type { BlogPost } from "@/lib/content-types"
-import { renderContentBlocks } from "@/lib/format-content"
-import Image from "next/image"
+'use client'
+import type { BlogPost } from '@/lib/content-types'
+import { renderContentBlocks } from '@/lib/format-content'
+import Image from 'next/image'
 
 // Client component receives pre-fetched data
 export function ClientBlogContent({ blogPost }: { blogPost: BlogPost }) {
@@ -10,7 +10,7 @@ export function ClientBlogContent({ blogPost }: { blogPost: BlogPost }) {
       {blogPost.image && (
         <div className="relative w-full h-[300px] md:h-[400px] lg:h-[500px] mb-8 overflow-hidden rounded-lg">
           <Image
-            src={blogPost.image || "/placeholder.svg"}
+            src={blogPost.image || '/placeholder.svg'}
             alt={blogPost.title}
             fill
             sizes="(max-width: 768px) 100vw, 1200px"
@@ -26,13 +26,13 @@ export function ClientBlogContent({ blogPost }: { blogPost: BlogPost }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "BlogPosting",
+            '@context': 'https://schema.org',
+            '@type': 'BlogPosting',
             headline: blogPost.title,
             datePublished: blogPost.date,
             author: {
-              "@type": "Person",
-              name: "Evan Schultz",
+              '@type': 'Person',
+              name: 'Evan Schultz',
             },
           }),
         }}

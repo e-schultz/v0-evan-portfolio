@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import { Button } from "@/components/ui/button"
-import { AlertOctagon } from "lucide-react"
+import { Button } from '@/components/ui/button'
+import { AlertOctagon } from 'lucide-react'
 
 interface FormErrorFallbackProps {
   error?: Error
@@ -13,8 +13,8 @@ interface FormErrorFallbackProps {
 export function FormErrorFallback({
   error,
   resetErrorBoundary,
-  title = "Form Error",
-  message = "We encountered an error while processing your request.",
+  title = 'Form Error',
+  message = 'We encountered an error while processing your request.',
 }: FormErrorFallbackProps) {
   return (
     <div className="rounded-lg border border-destructive/20 bg-destructive/5 p-6 text-center">

@@ -1,23 +1,23 @@
-"use client"
+'use client'
 
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useState } from "react"
-import { Menu, X } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { ThemeSelector } from "@/components/theme-selector"
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import { useState } from 'react'
+import { Menu, X } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { ThemeSelector } from '@/components/theme-selector'
 
 export function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
 
   const routes = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/projects", label: "Projects" },
-    { href: "/blog", label: "Blog" },
-    { href: "/resume", label: "Resume" },
-    { href: "/contact", label: "Contact" },
+    { href: '/', label: 'Home' },
+    { href: '/about', label: 'About' },
+    { href: '/projects', label: 'Projects' },
+    { href: '/blog', label: 'Blog' },
+    { href: '/resume', label: 'Resume' },
+    { href: '/contact', label: 'Contact' },
   ]
 
   return (
@@ -36,7 +36,7 @@ export function SiteHeader() {
               key={route.href}
               href={route.href}
               className={`text-sm font-medium transition-colors hover:text-primary ${
-                pathname === route.href ? "text-foreground" : "text-muted-foreground"
+                pathname === route.href ? 'text-foreground' : 'text-muted-foreground'
               }`}
             >
               {route.label}
@@ -50,7 +50,12 @@ export function SiteHeader() {
         {/* Mobile Navigation Toggle */}
         <div className="flex items-center gap-2 md:hidden">
           <ThemeSelector />
-          <Button variant="ghost" size="icon" aria-label="Toggle Menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Toggle Menu"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>
         </div>
@@ -64,7 +69,7 @@ export function SiteHeader() {
                   key={route.href}
                   href={route.href}
                   className={`py-2 text-sm font-medium transition-colors hover:text-primary ${
-                    pathname === route.href ? "text-foreground" : "text-muted-foreground"
+                    pathname === route.href ? 'text-foreground' : 'text-muted-foreground'
                   }`}
                   onClick={() => setIsMenuOpen(false)}
                 >

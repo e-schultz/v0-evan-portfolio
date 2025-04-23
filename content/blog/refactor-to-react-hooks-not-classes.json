@@ -147,7 +147,10 @@
     },
     {
       "type": "list",
-      "items": ["Keeping track of something means adding state", "Responding to events requires a subscription"]
+      "items": [
+        "Keeping track of something means adding state",
+        "Responding to events requires a subscription"
+      ]
     },
     {
       "type": "paragraph",

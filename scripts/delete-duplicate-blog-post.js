@@ -1,8 +1,8 @@
-import fs from "fs"
-import path from "path"
+import fs from 'fs'
+import path from 'path'
 
-const contentDir = path.join(process.cwd(), "content/blog")
-const fileToDelete = "simplifying-controlled-inputs-with-hooks.json"
+const contentDir = path.join(process.cwd(), 'content/blog')
+const fileToDelete = 'simplifying-controlled-inputs-with-hooks.json'
 const filePath = path.join(contentDir, fileToDelete)
 
 try {
@@ -15,5 +15,5 @@ try {
     console.log(`File ${fileToDelete} does not exist`)
   }
 } catch (error) {
-  console.error("Error deleting file:", error.message)
+  console.error('Error deleting file:', error.message)
 }

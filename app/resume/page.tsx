@@ -1,27 +1,27 @@
-"use client"
+'use client'
 
-import { PageHeader } from "@/components/ui/page-header"
-import { ContentContainer } from "@/components/ui/content-container"
-import { Button } from "@/components/ui/button"
-import { Download, Mail } from "lucide-react"
-import { SocialLinks } from "@/components/ui/social-links"
+import { PageHeader } from '@/components/ui/page-header'
+import { ContentContainer } from '@/components/ui/content-container'
+import { Button } from '@/components/ui/button'
+import { Download, Mail } from 'lucide-react'
+import { SocialLinks } from '@/components/ui/social-links'
 
 export default function ResumePage() {
   const socialLinks = [
     {
-      platform: "linkedin",
-      url: "https://www.linkedin.com/in/evanschultz1/",
-      label: "LinkedIn",
+      platform: 'linkedin',
+      url: 'https://www.linkedin.com/in/evanschultz1/',
+      label: 'LinkedIn',
     },
     {
-      platform: "twitter",
-      url: "http://twitter.com/e_p82",
-      label: "Twitter",
+      platform: 'twitter',
+      url: 'http://twitter.com/e_p82',
+      label: 'Twitter',
     },
     {
-      platform: "github",
-      url: "https://github.com/e-schultz",
-      label: "GitHub",
+      platform: 'github',
+      url: 'https://github.com/e-schultz',
+      label: 'GitHub',
     },
   ]
 
@@ -115,7 +115,8 @@ export default function ResumePage() {
                 <div>
                   <h3 className="text-lg md:text-xl font-bold">Technical Director</h3>
                   <p className="mt-2 mb-4">
-                    Served in multiple roles including manager, full-stack developer, consultant, and educator.
+                    Served in multiple roles including manager, full-stack developer, consultant,
+                    and educator.
                   </p>
 
                   <h4 className="font-bold mb-2">Manager:</h4>
@@ -151,10 +152,14 @@ export default function ResumePage() {
 
             <div className="space-y-6">
               <div>
-                <h3 className="text-lg md:text-xl font-bold mb-4">Public Speaking / Presentations</h3>
+                <h3 className="text-lg md:text-xl font-bold mb-4">
+                  Public Speaking / Presentations
+                </h3>
                 <ul className="space-y-3 text-muted-foreground">
                   <li>
-                    <strong>How to create "Vuetiful" Data-Driven User Interface @ JSCamp 2018</strong>
+                    <strong>
+                      How to create "Vuetiful" Data-Driven User Interface @ JSCamp 2018
+                    </strong>
                     <div className="mt-1">
                       <a
                         href="http://bit.ly/vue-jscamp-2018"
@@ -163,7 +168,7 @@ export default function ResumePage() {
                         className="text-primary hover:underline"
                       >
                         Video
-                      </a>{" "}
+                      </a>{' '}
                       |
                       <a
                         href="http://bit.ly/vue-jscamp-2018-slides"
@@ -185,7 +190,7 @@ export default function ResumePage() {
                         className="text-primary hover:underline"
                       >
                         Video
-                      </a>{" "}
+                      </a>{' '}
                       |
                       <a
                         href="http://bit.ly/angular-camp-redux-slides"

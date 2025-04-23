@@ -1,9 +1,9 @@
-import { MainLayout } from "@/components/layouts/main-layout"
-import { PageHeader } from "@/components/ui/page-header"
-import { ContentContainer } from "@/components/ui/content-container"
-import { BlogPostGrid } from "@/components/blog/blog-post-grid"
-import { BlogSidebar } from "@/components/blog/blog-sidebar"
-import { getAllBlogPosts, getAllTags } from "@/lib/content-api"
+import { MainLayout } from '@/components/layouts/main-layout'
+import { PageHeader } from '@/components/ui/page-header'
+import { ContentContainer } from '@/components/ui/content-container'
+import { BlogPostGrid } from '@/components/blog/blog-post-grid'
+import { BlogSidebar } from '@/components/blog/blog-sidebar'
+import { getAllBlogPosts, getAllTags } from '@/lib/content-api'
 
 export default async function BlogPage() {
   // Direct server data access - no actions needed
@@ -32,7 +32,12 @@ export default async function BlogPage() {
 
             {/* Blog Posts */}
             <div className="order-1 lg:order-2 lg:col-span-3 space-y-8">
-              <BlogPostGrid posts={uniquePosts} columns={1} showCategory={true} className="sm:hidden" />
+              <BlogPostGrid
+                posts={uniquePosts}
+                columns={1}
+                showCategory={true}
+                className="sm:hidden"
+              />
               <BlogPostGrid
                 posts={uniquePosts}
                 columns={2}

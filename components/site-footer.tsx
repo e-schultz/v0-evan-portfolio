@@ -1,7 +1,7 @@
-"use client"
+'use client'
 
-import Link from "next/link"
-import { Github, Linkedin, Twitter } from "lucide-react"
+import Link from 'next/link'
+import { Github, Linkedin, Twitter } from 'lucide-react'
 
 export function SiteFooter() {
   return (
@@ -71,7 +71,10 @@ export function SiteFooter() {
               </Link>
             </div>
             <div className="mt-4">
-              <a href="mailto:evan@schultz.codes" className="text-muted-foreground hover:text-primary">
+              <a
+                href="mailto:evan@schultz.codes"
+                className="text-muted-foreground hover:text-primary"
+              >
                 evan@schultz.codes
               </a>
             </div>

@@ -1,31 +1,31 @@
-import fs from "fs/promises"
-import path from "path"
-import { globSync } from "glob"
-import { existsSync } from "fs"
+import fs from 'fs/promises'
+import path from 'path'
+import { globSync } from 'glob'
+import { existsSync } from 'fs'
 
 async function updateContentFiles() {
   try {
     // Check if migration map exists
-    const mapPath = path.join(process.cwd(), "image-migration-map.json")
+    const mapPath = path.join(process.cwd(), 'image-migration-map.json')
     if (!existsSync(mapPath)) {
-      console.error("❌ Migration map not found. Run the migration script first.")
+      console.error('❌ Migration map not found. Run the migration script first.')
       process.exit(1)
     }
 
     // Load the migration map
-    const migrationMapText = await fs.readFile(mapPath, "utf-8")
+    const migrationMapText = await fs.readFile(mapPath, 'utf-8')
     const migrationMap = JSON.parse(migrationMapText)
 
     console.log(`Found ${Object.keys(migrationMap).length} migrated images in the map`)
 
     // Get all JSON content files
-    const contentFiles = globSync("content/**/*.json")
+    const contentFiles = globSync('content/**/*.json')
     console.log(`Found ${contentFiles.length} content files to process`)
 
     let totalUpdates = 0
 
     for (const filePath of contentFiles) {
-      let content = await fs.readFile(filePath, "utf-8")
+      let content = await fs.readFile(filePath, 'utf-8')
       let modified = false
       let fileUpdates = 0
 
@@ -34,13 +34,13 @@ async function updateContentFiles() {
         // Handle both absolute and relative paths
         const searchPaths = [
           originalPath,
-          originalPath.startsWith("/") ? originalPath.substring(1) : `/${originalPath}`,
+          originalPath.startsWith('/') ? originalPath.substring(1) : `/${originalPath}`,
         ]
 
         for (const searchPath of searchPaths) {
           // Escape special characters for regex
-          const escapedPath = searchPath.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
-          const regex = new RegExp(escapedPath, "g")
+          const escapedPath = searchPath.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+          const regex = new RegExp(escapedPath, 'g')
 
           if (content.includes(searchPath)) {
             const newContent = content.replace(regex, blobUrl)
@@ -63,7 +63,7 @@ async function updateContentFiles() {
 
     console.log(`🎉 Content references updated successfully! Total updates: ${totalUpdates}`)
   } catch (error) {
-    console.error("❌ Error updating content references:", error)
+    console.error('❌ Error updating content references:', error)
   }
 }
 
