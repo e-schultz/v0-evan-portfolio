@@ -155,9 +155,3 @@ export function validateContent<T>(data: T, validator: Validator<T>, contentType
 
   return true
 }
-
-// Simple string array error format for backward compatibility
-export function getValidationErrors<T>(data: T, validator: Validator<T>): string[] {
-  const errors = validator(data)
-  return errors.map((error) => `${error.field}: ${error.message}`)
-}

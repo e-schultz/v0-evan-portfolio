@@ -1,9 +1,7 @@
 "use client"
 
 import type React from "react"
-
 import { useState } from "react"
-import { submitContactForm } from "@/lib/server-actions"
 
 export function useContactForm() {
   const [formState, setFormState] = useState({
@@ -20,19 +18,27 @@ export function useContactForm() {
     setFormState((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = async (formData: FormData) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
     setIsSubmitting(true)
+
     try {
-      const result = await submitContactForm(formData)
-      setSubmitStatus(result)
-      if (result.success) {
-        setFormState({
-          name: "",
-          email: "",
-          subject: "",
-          message: "",
-        })
-      }
+      // This is a placeholder for the actual form submission
+      // In a real app, you would send the form data to your server or a form service
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+
+      setSubmitStatus({
+        success: true,
+        message: "Thank you for your message! I'll get back to you soon.",
+      })
+
+      // Reset the form
+      setFormState({
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      })
     } catch (error) {
       setSubmitStatus({
         success: false,

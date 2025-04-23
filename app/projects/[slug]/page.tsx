@@ -2,10 +2,17 @@ import Link from "next/link"
 import Image from "next/image"
 import { getProject, getAllContentSlugs } from "@/lib/content-api"
 import { ContentContainer } from "@/components/ui/content-container"
-import { ContentError } from "@/components/content-error"
 import { Button } from "@/components/ui/button"
 import { ArrowLeft } from "lucide-react"
-import type { Project } from "@/lib/content-types"
+import { renderContentBlocks } from "@/lib/format-content"
+import type { Metadata } from "next"
+
+// Define proper types for the params
+type PageParams = {
+  params: {
+    slug: string
+  }
+}
 
 // Generate static params for all projects
 export async function generateStaticParams() {
@@ -14,7 +21,7 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: any) {
+export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
   const project = await getProject(params.slug)
 
   if (!project) {
@@ -33,7 +40,7 @@ export async function generateMetadata({ params }: any) {
       type: "article",
       images: [
         {
-          url: project.image,
+          url: project.image || "/placeholder.svg",
           width: 1200,
           height: 630,
           alt: project.title,
@@ -44,20 +51,22 @@ export async function generateMetadata({ params }: any) {
 }
 
 // The page component
-export default async function Page({ params }: any) {
-  const slug = params.slug
-  const project = await getProject(slug)
+export default async function Page({ params }: PageParams) {
+  const project = await getProject(params.slug)
 
   if (!project) {
     return (
       <ContentContainer>
         <div className="py-12">
-          <ContentError
-            title="Project Not Found"
-            message="The requested project could not be found."
-            backLink="/projects"
-            backText="Back to Projects"
-          />
+          <div className="text-center">
+            <h1 className="text-2xl font-bold mb-4">Project Not Found</h1>
+            <p className="text-muted-foreground mb-6">
+              Sorry, the project you're looking for doesn't exist or has been moved.
+            </p>
+            <Button asChild>
+              <Link href="/projects">Browse All Projects</Link>
+            </Button>
+          </div>
         </div>
       </ContentContainer>
     )
@@ -90,66 +99,9 @@ export default async function Page({ params }: any) {
         </div>
 
         <div className="prose prose-lg dark:prose-invert max-w-none">
-          <ProjectContent project={project} />
+          {project.fullDescription && renderContentBlocks(project.fullDescription)}
         </div>
       </article>
     </ContentContainer>
-  )
-}
-
-// Simple server component to render the project content
-function ProjectContent({ project }: { project: Project }) {
-  if (!project.fullDescription || project.fullDescription.length === 0) {
-    return null
-  }
-
-  return (
-    <>
-      {project.fullDescription.map((block, index) => {
-        switch (block.type) {
-          case "heading":
-            return block.level === 2 ? (
-              <h2 key={index} className="text-2xl font-bold mt-8 mb-4">
-                {block.content}
-              </h2>
-            ) : (
-              <h3 key={index} className="text-xl font-bold mt-6 mb-3">
-                {block.content}
-              </h3>
-            )
-          case "paragraph":
-            return (
-              <p key={index} className="my-4">
-                {block.content}
-              </p>
-            )
-          case "list":
-            return (
-              <ul key={index} className="my-4 space-y-2 list-disc pl-5">
-                {block.items?.map((item: any, itemIndex: number) => {
-                  if (typeof item === "string") {
-                    return (
-                      <li key={itemIndex} className="text-muted-foreground">
-                        {item}
-                      </li>
-                    )
-                  } else if (item.type === "listItem") {
-                    return (
-                      <li key={itemIndex} className="text-muted-foreground">
-                        {item.title && <strong>{item.title}</strong>}
-                        {item.title && item.content && " - "}
-                        {item.content}
-                      </li>
-                    )
-                  }
-                  return null
-                })}
-              </ul>
-            )
-          default:
-            return null
-        }
-      })}
-    </>
   )
 }

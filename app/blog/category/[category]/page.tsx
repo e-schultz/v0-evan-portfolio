@@ -4,15 +4,30 @@ import { ContentContainer } from "@/components/ui/content-container"
 import { BlogPostGrid } from "@/components/blog/blog-post-grid"
 import { NoResults } from "@/components/ui/no-results"
 import { getPostsByCategory, getAllCategories } from "@/lib/content-api"
+import type { Metadata } from "next"
 
-// Generate static params for all categories
+// Define proper types for the params
+type PageParams = {
+  params: {
+    category: string
+  }
+}
+
 export async function generateStaticParams() {
   const categories = await getAllCategories()
   return categories.map((category) => ({ category: category.toLowerCase() }))
 }
 
-// The page component
-export default async function Page({ params }: any) {
+export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
+  const category = decodeURIComponent(params.category)
+
+  return {
+    title: `${category} | Blog Categories | Evan Schultz`,
+    description: `Browse all articles in the ${category} category`,
+  }
+}
+
+export default async function Page({ params }: PageParams) {
   const category = decodeURIComponent(params.category)
   const posts = await getPostsByCategory(category)
 

@@ -4,15 +4,30 @@ import { ContentContainer } from "@/components/ui/content-container"
 import { BlogPostGrid } from "@/components/blog/blog-post-grid"
 import { NoResults } from "@/components/ui/no-results"
 import { getPostsByTag, getAllTags } from "@/lib/content-api"
+import type { Metadata } from "next"
 
-// Generate static params for all tags
+// Define proper types for the params
+type PageParams = {
+  params: {
+    tag: string
+  }
+}
+
 export async function generateStaticParams() {
   const tags = await getAllTags()
   return tags.map((tag) => ({ tag: tag.toLowerCase() }))
 }
 
-// The page component
-export default async function Page({ params }: any) {
+export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
+  const tag = decodeURIComponent(params.tag)
+
+  return {
+    title: `${tag} | Blog Tags | Evan Schultz`,
+    description: `Browse all articles tagged with ${tag}`,
+  }
+}
+
+export default async function Page({ params }: PageParams) {
   const tag = decodeURIComponent(params.tag)
   const posts = await getPostsByTag(tag)
 

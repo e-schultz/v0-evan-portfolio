@@ -13,7 +13,6 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Palette, Moon, Sun, Laptop } from "lucide-react"
-import { useThemePersistence } from "@/lib/theme-persistence"
 
 const themeVariants = [
   { value: "", label: "Default Blue" },
@@ -27,9 +26,6 @@ export function ThemeSelector({ variant = "default" }: { variant?: "default" | "
   const { theme, setTheme } = useTheme()
   const [themeVariant, setThemeVariant] = useState("")
   const [mounted, setMounted] = useState(false)
-
-  // Use theme persistence
-  useThemePersistence()
 
   // Avoid hydration mismatch
   useEffect(() => {
@@ -45,8 +41,10 @@ export function ThemeSelector({ variant = "default" }: { variant?: "default" | "
     if (mounted) {
       if (themeVariant) {
         document.documentElement.setAttribute("data-theme", themeVariant)
+        localStorage.setItem("theme-variant", themeVariant)
       } else {
         document.documentElement.removeAttribute("data-theme")
+        localStorage.removeItem("theme-variant")
       }
     }
   }, [themeVariant, mounted])

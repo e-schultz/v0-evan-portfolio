@@ -1,9 +1,15 @@
 import { getBlogPost, getAllBlogSlugs } from "@/lib/content-api"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
-import { EnhancedErrorBoundary } from "@/components/enhanced-error-boundary"
-import { ContentErrorFallback } from "@/components/error-fallbacks/content-error-fallback"
-import type { BlogPost } from "@/lib/content-types"
+import { BlogContent } from "@/components/blog/blog-content"
+import type { Metadata } from "next"
+
+// Define proper types for the params
+type PageParams = {
+  params: {
+    slug: string
+  }
+}
 
 // Generate static params for all blog posts
 export async function generateStaticParams() {
@@ -12,7 +18,7 @@ export async function generateStaticParams() {
 }
 
 // Generate metadata for the page
-export async function generateMetadata({ params }: any) {
+export async function generateMetadata({ params }: PageParams): Promise<Metadata> {
   const post = await getBlogPost(params.slug)
 
   if (!post) {
@@ -45,9 +51,8 @@ export async function generateMetadata({ params }: any) {
 }
 
 // The page component
-export default async function Page({ params }: any) {
-  const slug = params.slug
-  const post = await getBlogPost(slug)
+export default async function Page({ params }: PageParams) {
+  const post = await getBlogPost(params.slug)
 
   if (!post) {
     return (
@@ -58,13 +63,18 @@ export default async function Page({ params }: any) {
               <ArrowLeft className="mr-2 h-4 w-4" /> Back to Blog
             </Link>
           </div>
-
-          <ContentErrorFallback
-            title="Blog Post Not Found"
-            message="The requested blog post could not be found."
-            backLink="/blog"
-            backText="Back to Blog"
-          />
+          <div className="text-center py-12">
+            <h1 className="text-2xl font-bold mb-4">Blog Post Not Found</h1>
+            <p className="text-muted-foreground mb-6">
+              Sorry, the blog post you're looking for doesn't exist or has been moved.
+            </p>
+            <Link
+              href="/blog"
+              className="inline-flex items-center justify-center px-4 py-2 rounded-md bg-primary text-primary-foreground hover:bg-primary/90"
+            >
+              Browse All Blog Posts
+            </Link>
+          </div>
         </article>
       </div>
     )
@@ -93,86 +103,8 @@ export default async function Page({ params }: any) {
           )}
         </div>
 
-        <EnhancedErrorBoundary
-          fallback={
-            <ContentErrorFallback
-              title="Blog Post Error"
-              message="We encountered an error loading this blog post. Please try again later."
-              backLink="/blog"
-              backText="Back to Blog"
-            />
-          }
-        >
-          <BlogContent post={post} />
-        </EnhancedErrorBoundary>
+        <BlogContent blogPost={post} />
       </article>
-    </div>
-  )
-}
-
-// Simple server component to render the blog content
-function BlogContent({ post }: { post: BlogPost }) {
-  // Check if the post has interactive elements that require client rendering
-  const hasInteractiveElements = post.content.some((block) => block.type === "interactive" || block.type === "embed")
-
-  if (hasInteractiveElements) {
-    // For interactive content, we'll use a client component
-    // This is a simplified approach - in a real app, you might want to use a dynamic import
-    return (
-      <div className="prose prose-lg dark:prose-invert max-w-none">
-        <p>This post contains interactive elements that can't be rendered on the server.</p>
-      </div>
-    )
-  }
-
-  // For static content, render directly on the server
-  return (
-    <div className="prose prose-lg dark:prose-invert max-w-none">
-      {post.content.map((block, index) => {
-        switch (block.type) {
-          case "heading":
-            return block.level === 2 ? (
-              <h2 key={index} className="text-2xl font-bold mt-8 mb-4">
-                {block.content}
-              </h2>
-            ) : (
-              <h3 key={index} className="text-xl font-bold mt-6 mb-3">
-                {block.content}
-              </h3>
-            )
-          case "paragraph":
-            return (
-              <p key={index} className="my-4">
-                {block.content}
-              </p>
-            )
-          case "list":
-            return (
-              <ul key={index} className="my-4 space-y-2 list-disc pl-5">
-                {block.items?.map((item: any, itemIndex: number) => {
-                  if (typeof item === "string") {
-                    return (
-                      <li key={itemIndex} className="text-muted-foreground">
-                        {item}
-                      </li>
-                    )
-                  } else if (item.type === "listItem") {
-                    return (
-                      <li key={itemIndex} className="text-muted-foreground">
-                        {item.title && <strong>{item.title}</strong>}
-                        {item.title && item.content && " - "}
-                        {item.content}
-                      </li>
-                    )
-                  }
-                  return null
-                })}
-              </ul>
-            )
-          default:
-            return null
-        }
-      })}
     </div>
   )
 }

@@ -1,6 +1,5 @@
 import type React from "react"
 import type { ContentBlock } from "./content-types"
-import { CodeBlock } from "@/components/ui/code-block"
 
 // Function to parse and render formatted text (basic markdown-like syntax)
 export function formatText(text: string): React.ReactNode {
@@ -18,41 +17,14 @@ export function formatText(text: string): React.ReactNode {
     '<a href="$2" class="text-primary hover:underline" target="_blank" rel="noopener noreferrer">$1</a>',
   )
 
-  // Split by line breaks and wrap each in a span
-  const lines = formattedText.split("\n")
-
-  if (lines.length === 1) {
-    return <span dangerouslySetInnerHTML={{ __html: formattedText }} />
-  }
-
-  return (
-    <>
-      {lines.map((line, index) => (
-        <span key={index} dangerouslySetInnerHTML={{ __html: line }} />
-      ))}
-    </>
-  )
-}
-
-// Parse content blocks into a standardized format
-export function parseContentBlocks(blocks: ContentBlock[]): ContentBlock[] {
-  if (!blocks || !Array.isArray(blocks)) return []
-
-  return blocks.map((block) => {
-    // Perform any necessary transformations here
-    return { ...block }
-  })
+  return <span dangerouslySetInnerHTML={{ __html: formattedText }} />
 }
 
 // Function to render content blocks from JSON
 export function renderContentBlocks(content: ContentBlock[]): React.ReactNode {
   if (!content || !Array.isArray(content)) return null
 
-  // First parse the content blocks
-  const parsedBlocks = parseContentBlocks(content)
-
-  // Then render them
-  return parsedBlocks.map((block, index) => {
+  return content.map((block, index) => {
     switch (block.type) {
       case "heading":
         return block.level === 2 ? (
@@ -92,15 +64,6 @@ export function renderContentBlocks(content: ContentBlock[]): React.ReactNode {
               return null
             })}
           </ul>
-        )
-      case "code":
-        return (
-          <CodeBlock
-            key={index}
-            code={block.content || ""}
-            language={block.language || "typescript"}
-            filename={block.filename}
-          />
         )
       case "blockquote":
         return (
