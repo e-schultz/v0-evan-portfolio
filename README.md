@@ -13,7 +13,7 @@ This portfolio site uses a content-driven architecture where all content is stor
 
 ## Directory Structure
 
-```
+\`\`\`
 ├── app/                      # Next.js App Router
 │   ├── blog/                 # Blog routes
 │   │   ├── [slug]/           # Dynamic blog post route
@@ -44,7 +44,7 @@ This portfolio site uses a content-driven architecture where all content is stor
 │   ├── server-actions.ts     # Server actions for client components
 │   └── utils.ts              # General utility functions
 └── public/                   # Static assets
-```
+\`\`\`
 
 ## Component Organization
 
@@ -83,7 +83,7 @@ Content validation is handled by `lib/content-validation.ts`, which provides:
 
 Project content files follow this structure:
 
-```json
+\`\`\`json
 {
   "title": "Project Title",
   "slug": "project-slug",
@@ -119,13 +119,13 @@ Project content files follow this structure:
     }
   ]
 }
-```
+\`\`\`
 
 ### Blog Post Files
 
 Blog post content files follow this structure:
 
-```json
+\`\`\`json
 {
   "title": "Blog Post Title",
   "slug": "blog-post-slug",
@@ -160,7 +160,7 @@ Blog post content files follow this structure:
     }
   ]
 }
-```
+\`\`\`
 
 ## Adding New Content
 
@@ -220,7 +220,7 @@ The application includes several error handling mechanisms:
 
 ### Installation
 
-```bash
+\`\`\`bash
 # Clone the repository
 git clone https://github.com/yourusername/portfolio.git
 cd portfolio
@@ -230,22 +230,22 @@ npm install
 
 # Start the development server
 npm run dev
-```
+\`\`\`
 
 ### Building for Production
 
-```bash
+\`\`\`bash
 # Build the application
 npm run build
 
 # Start the production server
 npm start
-```
+\`\`\`
 
 ## License
 
 MIT
-```
+\`\`\`
 
 ## 2. Update the API Architecture Documentation
 
