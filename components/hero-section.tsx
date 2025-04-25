@@ -88,7 +88,7 @@ export function HeroSection({ heroContent }: HeroSectionProps) {
                 src={heroContent.image || "/placeholder.svg"}
                 alt={heroContent.title || "Hero image"}
                 fill
-                sizes="100vw"
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                 className="object-cover transition-transform duration-700 hover:scale-105"
                 priority={true}
               />

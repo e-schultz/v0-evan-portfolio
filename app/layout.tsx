@@ -40,10 +40,11 @@ export default function RootLayout({
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"
-          enableSystem
+          forcedTheme="dark"
+          enableSystem={false}
           enableTransitions={true}
           transitionDuration={200}
-          themes={["light", "dark", "system"]}
+          themes={["dark"]}
           defaultVariant=""
         >
           <ErrorBoundary fallback={<div className="p-4 text-red-500">Something went wrong with the application</div>}>

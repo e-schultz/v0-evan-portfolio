@@ -3,7 +3,6 @@ import { PageHeader } from "@/components/ui/page-header"
 import { ContentContainer } from "@/components/ui/content-container"
 import { SectionHeader } from "@/components/ui/section-header"
 import { ProjectGrid } from "@/components/projects/project-grid"
-import { PulseButton } from "@/components/ui/pulse-button"
 import { ArrowRight, Github } from "lucide-react"
 import { getAllProjects } from "@/lib/content-api"
 import { ErrorBoundary } from "@/components/error-boundary"
@@ -32,12 +31,14 @@ export default function ProjectsPage() {
               I'm passionate about contributing to open source projects and giving back to the developer community.
               Check out my GitHub profile to see more of my work.
             </p>
-            <PulseButton asChild size="lg" pulseColor="blue" className="w-full sm:w-auto group">
-              <Link href="https://github.com/e-schultz" target="_blank" rel="noopener noreferrer">
-                <Github className="mr-2 h-5 w-5" /> View GitHub Profile{" "}
-                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </Link>
-            </PulseButton>
+            <Link
+              href="https://github.com/e-schultz"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hero-button inline-flex items-center justify-center px-8 py-3 rounded-md bg-blue-600 text-white font-medium hover:bg-blue-700 transition-all duration-200 hover:scale-105 active:scale-95 hover:shadow-md w-full sm:w-auto focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 focus:ring-offset-gray-900"
+            >
+              <Github className="mr-2 h-5 w-5" /> View GitHub Profile <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
           </div>
         </ContentContainer>
       </section>

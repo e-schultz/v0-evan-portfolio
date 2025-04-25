@@ -1,22 +1,32 @@
+import { Suspense } from "react"
+
 import { MainLayout } from "@/components/layouts/main-layout"
 import { PageHeader } from "@/components/ui/page-header"
 import { ContentContainer } from "@/components/ui/content-container"
+import { BlogListSkeleton } from "@/components/skeletons/blog-list-skeleton"
 import { BlogPostGrid } from "@/components/blog/blog-post-grid"
 import { NoResults } from "@/components/ui/no-results"
-import { getPostsByTag, getAllTags } from "@/lib/content-api"
-import { Suspense } from "react"
 import { ErrorBoundary } from "@/components/error-boundary"
-import { BlogListSkeleton } from "@/components/skeletons/blog-list-skeleton"
+import { getPostsByTag } from "@/lib/content-api"
 
-export async function generateStaticParams() {
-  try {
-    // Use direct server function instead of API route
-    const tags = await getAllTags()
-    return tags.map((tag) => ({ tag: tag.toLowerCase() }))
-  } catch (error) {
-    console.error("Error generating static params for tags:", error)
-    return []
-  }
+async function TagContent({ params }: { params: { tag: string } }) {
+  // Ensure we're using the latest tag parameter
+  const resolvedParams = await params
+  const decodedTag = decodeURIComponent(resolvedParams.tag)
+
+  // Use direct server function instead of API route
+  const posts = await getPostsByTag(decodedTag)
+
+  return posts.length > 0 ? (
+    <BlogPostGrid posts={posts} columns={3} showCategory={true} />
+  ) : (
+    <NoResults
+      title="No posts found"
+      message={`There are no posts with the tag ${decodedTag} yet.`}
+      actionText="Back to all posts"
+      actionLink="/blog"
+    />
+  )
 }
 
 export default function TagPage({ params }: { params: { tag: string } }) {
@@ -30,31 +40,12 @@ export default function TagPage({ params }: { params: { tag: string } }) {
       <section className="py-12">
         <ContentContainer>
           <ErrorBoundary fallback={<div className="p-4 text-red-500">Failed to load tagged posts</div>}>
-            <Suspense fallback={<BlogListSkeleton count={6} />}>
+            <Suspense key={`tag-${params.tag}`} fallback={<BlogListSkeleton count={6} />}>
               <TagContent params={params} />
             </Suspense>
           </ErrorBoundary>
         </ContentContainer>
       </section>
     </MainLayout>
-  )
-}
-
-// Separate async component for tag content
-async function TagContent({ params }: { params: { tag: string } }) {
-  // Await params before accessing its properties
-  const decodedTag = decodeURIComponent(params.tag)
-  // Use direct server function instead of API route
-  const posts = await getPostsByTag(decodedTag)
-
-  return posts.length > 0 ? (
-    <BlogPostGrid posts={posts} columns={3} showCategory={true} />
-  ) : (
-    <NoResults
-      title="No posts found"
-      message={`There are no posts with the tag ${decodedTag} yet.`}
-      actionText="Back to all posts"
-      actionLink="/blog"
-    />
   )
 }

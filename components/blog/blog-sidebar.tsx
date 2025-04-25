@@ -23,7 +23,9 @@ export function BlogSidebar({ tags, recentPosts }: BlogSidebarProps) {
         <div className="flex flex-wrap gap-2">
           {tags.map((tag, index) => (
             <Badge key={index} variant="outline" className="cursor-pointer hover:bg-muted">
-              <Link href={`/blog/tag/${encodeURIComponent(tag.toLowerCase())}`}>{tag}</Link>
+              <Link href={`/blog/tag/${encodeURIComponent(tag.toLowerCase())}`} prefetch={true}>
+                {tag}
+              </Link>
             </Badge>
           ))}
         </div>
@@ -35,7 +37,7 @@ export function BlogSidebar({ tags, recentPosts }: BlogSidebarProps) {
         <ul className="space-y-2">
           {recentPosts.map((post, index) => (
             <li key={index}>
-              <Link href={`/blog/${post.slug}`} className="text-sm hover:text-primary">
+              <Link href={`/blog/${post.slug}`} className="text-sm hover:text-primary" prefetch={true}>
                 {post.title}
               </Link>
             </li>

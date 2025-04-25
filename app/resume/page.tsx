@@ -4,6 +4,7 @@ import { PageHeader } from "@/components/ui/page-header"
 import { ContentContainer } from "@/components/ui/content-container"
 import { Download, Mail } from "lucide-react"
 import { SocialLinks } from "@/components/ui/social-links"
+import Link from "next/link"
 
 export default function ResumePage() {
   const socialLinks = [
@@ -235,54 +236,44 @@ export default function ResumePage() {
                 <h3 className="text-lg md:text-xl font-bold mb-4">Blog Posts</h3>
                 <ul className="space-y-3 text-muted-foreground">
                   <li>
-                    <a
-                      href="https://rangle.io/blog/refactor-to-react-hooks-not-classes"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href="/blog/refactor-to-react-hooks-not-classes"
                       className="text-primary hover:underline transition-colors duration-200"
                     >
                       Refactor to Hooks, not Classes
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="https://rangle.io/blog/simplifying-controlled-inputs-with-hooks"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href="/blog/simplifying-react-forms-with-hooks"
                       className="text-primary hover:underline transition-colors duration-200"
                     >
                       Simplifying React Forms with Hooks
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="https://rangle.io/blog/improving-your-mental-model-of-useeffect"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href="/blog/improving-your-mental-model-of-useeffect"
                       className="text-primary hover:underline transition-colors duration-200"
                     >
                       Improving Your Mental Model of useEffect
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="https://rangle.io/blog/how-to-create-data-driven-user-interfaces-in-vue"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href="/blog/how-to-create-data-driven-user-interfaces-in-vue"
                       className="text-primary hover:underline transition-colors duration-200"
                     >
                       How to Create Data-Driven User Interfaces with Vue
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="https://rangle.io/blog/are-your-unit-tests-failing-for-the-expected-reasons"
-                      target="_blank"
-                      rel="noopener noreferrer"
+                    <Link
+                      href="/blog/are-your-unit-tests-failing-for-the-expected-reasons"
                       className="text-primary hover:underline transition-colors duration-200"
                     >
                       Are Your Unit Tests Failing for the Expected Reasons?
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>

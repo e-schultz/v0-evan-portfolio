@@ -1,28 +1,21 @@
 "use client"
 
 import { Suspense, use } from "react"
-import type { BlogPost } from "@/lib/content-types"
 import { BlogPostGrid } from "@/components/blog/blog-post-grid"
-import { ContentError } from "@/components/content-error"
 import { BlogListSkeleton } from "@/components/skeletons/blog-list-skeleton"
+import { ContentError } from "@/components/content-error"
+import type { BlogPost } from "@/lib/content-types"
 
-interface AsyncBlogListProps {
-  blogPostsPromise: Promise<BlogPost[]>
+export interface AsyncBlogListProps {
+  postsPromise: Promise<BlogPost[]>
   columns?: 1 | 2 | 3 | 4
   showCategory?: boolean
+  className?: string
 }
 
-export function AsyncBlogListWrapper({ blogPostsPromise, columns = 3, showCategory = false }: AsyncBlogListProps) {
-  return (
-    <Suspense fallback={<BlogListSkeleton count={6} />}>
-      <AsyncBlogList blogPostsPromise={blogPostsPromise} columns={columns} showCategory={showCategory} />
-    </Suspense>
-  )
-}
-
-function AsyncBlogList({ blogPostsPromise, columns, showCategory }: AsyncBlogListProps) {
+function AsyncBlogList({ postsPromise, columns, showCategory, className }: AsyncBlogListProps) {
   // Use the React 'use' hook to handle the promise
-  const blogPosts = use(blogPostsPromise)
+  const blogPosts = use(postsPromise)
 
   if (!blogPosts || blogPosts.length === 0) {
     return (
@@ -38,5 +31,21 @@ function AsyncBlogList({ blogPostsPromise, columns, showCategory }: AsyncBlogLis
   // Filter out duplicate blog posts by slug
   const uniquePosts = Array.from(new Map(blogPosts.map((post) => [post.slug, post])).values())
 
-  return <BlogPostGrid posts={uniquePosts} columns={columns} showCategory={showCategory} />
+  return <BlogPostGrid posts={uniquePosts} columns={columns} showCategory={showCategory} className={className} />
+}
+
+export function AsyncBlogListWrapper({
+  postsPromise,
+  columns = 3,
+  showCategory = false,
+  className = "",
+}: AsyncBlogListProps) {
+  // Create a unique key for the Suspense component based on the current URL
+  const key = typeof window !== "undefined" ? window.location.pathname : "server"
+
+  return (
+    <Suspense key={key} fallback={<BlogListSkeleton count={6} />}>
+      <AsyncBlogList postsPromise={postsPromise} columns={columns} showCategory={showCategory} className={className} />
+    </Suspense>
+  )
 }

@@ -5,7 +5,6 @@ import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { Menu, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { ThemeSelector } from "@/components/theme-selector"
 
 export function SiteHeader() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -21,7 +20,7 @@ export function SiteHeader() {
   ]
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 theme-transition shadow-sm">
+    <header className="sticky top-0 z-50 w-full border-b bg-background/90 backdrop-blur-md supports-[backdrop-filter]:bg-background/60 theme-transition shadow-sm">
       <div className="container flex h-16 items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-2">
           <Link href="/" className="font-mono text-xl font-bold" prefetch={true}>
@@ -43,14 +42,10 @@ export function SiteHeader() {
               {route.label}
             </Link>
           ))}
-          <div className="flex items-center gap-2">
-            <ThemeSelector />
-          </div>
         </nav>
 
         {/* Mobile Navigation Toggle */}
         <div className="flex items-center gap-2 md:hidden">
-          <ThemeSelector />
           <Button variant="ghost" size="icon" aria-label="Toggle Menu" onClick={() => setIsMenuOpen(!isMenuOpen)}>
             {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </Button>

@@ -51,10 +51,10 @@ export default function BlogPage() {
                 }
               >
                 <div className="sm:hidden">
-                  <AsyncBlogListWrapper blogPostsPromise={postsPromise} columns={1} showCategory={true} />
+                  <AsyncBlogListWrapper postsPromise={postsPromise} columns={1} showCategory={true} />
                 </div>
                 <div className="hidden sm:block">
-                  <AsyncBlogListWrapper blogPostsPromise={postsPromise} columns={2} showCategory={true} />
+                  <AsyncBlogListWrapper postsPromise={postsPromise} columns={2} showCategory={true} />
                 </div>
               </EnhancedErrorBoundary>
             </div>
