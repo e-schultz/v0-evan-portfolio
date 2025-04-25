@@ -63,7 +63,7 @@ export function SearchResults({ query }: { query: string }) {
   return (
     <div>
       {results.length > 0 ? (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <div  className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {results.map((post, index) => (
             <BlogCard key={index} post={post} showCategory={true} />
           ))}
