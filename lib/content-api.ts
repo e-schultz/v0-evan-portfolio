@@ -167,16 +167,20 @@ export const getAllTags = cache(async () => {
 
 // Search blog posts
 export const searchPosts = cache(async (query: string) => {
+  const startTime = Date.now()
   try {
     const allPosts = await getAllBlogPosts()
     const lowercaseQuery = query.toLowerCase()
 
-    return allPosts.filter(
+    const results = allPosts.filter(
       (post) =>
         post.title.toLowerCase().includes(lowercaseQuery) ||
         post.excerpt.toLowerCase().includes(lowercaseQuery) ||
         (Array.isArray(post.tags) && post.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery))),
     )
+    const endTime = Date.now()
+    console.log(`searchPosts for "${query}" took ${endTime - startTime}ms and returned ${results.length} results`)
+    return results
   } catch (error) {
     console.error(`Error searching posts for "${query}":`, error)
     return []

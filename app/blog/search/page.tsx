@@ -2,11 +2,11 @@ import { MainLayout } from "@/components/layouts/main-layout"
 import { PageHeader } from "@/components/ui/page-header"
 import { ContentContainer } from "@/components/ui/content-container"
 import { BlogSearchClient } from "@/components/blog/blog-search-client"
-import { searchPosts } from "@/lib/content-api"
 import { Suspense } from "react"
 import { LoadingSpinner } from "@/components/loading-spinner"
 import { EnhancedErrorBoundary } from "@/components/enhanced-error-boundary"
 import { ContentErrorFallback } from "@/components/error-fallbacks/content-error-fallback"
+import { SearchResults } from "@/components/search/search-results"
 
 // This is a Server Component
 export default async function SearchPage({
@@ -15,9 +15,6 @@ export default async function SearchPage({
   searchParams: { q?: string }
 }) {
   const query = searchParams.q || ""
-
-  // Fetch initial results on the server
-  const initialResults = query ? await searchPosts(query) : []
 
   return (
     <MainLayout>
@@ -39,9 +36,15 @@ export default async function SearchPage({
               />
             }
           >
-            <Suspense fallback={<LoadingSpinner size="large" />}>
-              <BlogSearchClient initialQuery={query} initialResults={initialResults} showResults={true} />
-            </Suspense>
+            {query ? (
+              <Suspense fallback={<LoadingSpinner size="large" />}>
+                <SearchResults query={query} />
+              </Suspense>
+            ) : (
+              <div className="text-center py-8">
+                <p className="text-muted-foreground">Enter a search term to find articles.</p>
+              </div>
+            )}
           </EnhancedErrorBoundary>
         </ContentContainer>
       </section>

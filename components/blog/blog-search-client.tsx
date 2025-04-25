@@ -2,25 +2,17 @@
 
 import type React from "react"
 
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Search } from "lucide-react"
-import { SearchResults } from "@/components/search/search-results"
-import { LoadingSpinner } from "@/components/loading-spinner"
 
 interface BlogSearchClientProps {
   initialQuery?: string
-  initialResults?: any[]
-  showResults?: boolean
 }
 
-export function BlogSearchClient({
-  initialQuery = "",
-  initialResults = [],
-  showResults = false,
-}: BlogSearchClientProps) {
+export function BlogSearchClient({ initialQuery = "" }: BlogSearchClientProps) {
   const [searchQuery, setSearchQuery] = useState(initialQuery)
   const [isSearching, setIsSearching] = useState(false)
   const router = useRouter()
@@ -32,10 +24,6 @@ export function BlogSearchClient({
       router.push(`/blog/search?q=${encodeURIComponent(searchQuery)}`)
     }
   }
-
-  useEffect(() => {
-    setSearchQuery(initialQuery)
-  }, [initialQuery])
 
   return (
     <div className="w-full">
@@ -51,10 +39,6 @@ export function BlogSearchClient({
           <Search className="h-4 w-4" />
         </Button>
       </form>
-
-      {isSearching && !showResults && <LoadingSpinner />}
-
-      {showResults && initialQuery && <SearchResults query={initialQuery} />}
     </div>
   )
 }

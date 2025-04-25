@@ -1,14 +1,64 @@
 "use client"
-import { use } from "react"
-import { searchPosts } from "@/lib/server-actions"
+import { useState, useEffect } from "react"
+import { searchPostsAction } from "@/lib/server-actions"
 import { BlogCard } from "@/components/cards/blog-card"
 import { NoResults } from "@/components/ui/no-results"
+import { LoadingSpinner } from "@/components/loading-spinner"
 
-// This component uses a proper suspense-compatible pattern
 export function SearchResults({ query }: { query: string }) {
-  // Use the searchPosts server action which returns a Promise
-  // The 'use' hook is suspense-compatible
-  const results = use(searchPosts(query))
+  const [results, setResults] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<Error | null>(null)
+
+  // Use a ref to track if the query has changed
+  const [currentQuery, setCurrentQuery] = useState(query)
+
+  useEffect(() => {
+    // Only fetch if the query has changed
+    if (currentQuery !== query) {
+      setCurrentQuery(query)
+      setLoading(true)
+
+      searchPostsAction(query)
+        .then((data) => {
+          setResults(data)
+          setLoading(false)
+        })
+        .catch((err) => {
+          console.error("Error searching posts:", err)
+          setError(err)
+          setLoading(false)
+        })
+    }
+  }, [query, currentQuery])
+
+  // Initial fetch
+  useEffect(() => {
+    setLoading(true)
+
+    searchPostsAction(query)
+      .then((data) => {
+        setResults(data)
+        setLoading(false)
+      })
+      .catch((err) => {
+        console.error("Error searching posts:", err)
+        setError(err)
+        setLoading(false)
+      })
+  }, []) // Empty dependency array means this runs once on mount
+
+  if (loading) {
+    return <LoadingSpinner />
+  }
+
+  if (error) {
+    return (
+      <div className="text-red-500">
+        Error searching for "{query}": {error.message}
+      </div>
+    )
+  }
 
   return (
     <div>
